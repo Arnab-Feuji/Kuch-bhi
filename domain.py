@@ -1,4 +1,4 @@
-"""Domain logic for MarketLens — Marketing Mix and Attribution Analytics Platform — driven by build_spec (BRD ACs + backlog + architecture)."""
+"""Domain logic for InsureGuard Fraud Scoring — driven by build_spec (BRD ACs + backlog + architecture)."""
 from __future__ import annotations
 
 import json
@@ -8,13 +8,13 @@ from typing import Any
 
 BUILD_SPEC: dict[str, Any] = {
   "version": 1,
-  "project_key": "MMMAAA",
-  "project_name": "MarketLens — Marketing Mix and Attribution Analytics Platform",
-  "app_type": "Marketing Mix Modeling with Multi-Touch Attribution",
+  "project_key": "IFS",
+  "project_name": "InsureGuard Fraud Scoring",
+  "app_type": "Fraud Modelling Application",
   "app_kind": "classification",
-  "summary": "MarketLens — Marketing Mix and Attribution Analytics Platform — patient-centric conversational assistant.",
-  "requirement_text": "Organisation: Hindustan Consumer Products\nSegment: Consumer Packaged Goods — Marketing Analytics\n\nAI SUGGESTED & EDITED PARAMETERS:\nAPP TYPE: Marketing Mix Modeling with Multi-Touch Attribution\nSEGMENT: Consumer Packaged Goods — Marketing Analytics\nPROBLEM DESCRIPTION: Hindustan Consumer Products allocates $240 million annually for marketing across 47 brands. The current effectiveness measurement through quarterly Nielsen studies, in-house models, and platform-reported ROAS lacks alignment. Insights are slow, and crucial questions regarding budget shifts cannot be confidently answered. A misallocation of 15-25% of spend is suspected but not provable without a robust analytics platform.\nTOOLS AND TECH STACKS: Python, R, TensorFlow, PyMC3, Apache Kafka, Snowflake\nINDEPENDENT VARIABLES: Weekly sales data by brand and geography; media spend and impression data by channel and campaign; promotional calendar and pricing data; competitor spend; weather; macroeconomic indicators; category-level trends\nDEPENDENT VARIABLE: Sales, market share, Return on Investment (ROI)\nML ALGORITHM: Bayesian regression, Markov Chain Monte Carlo (MCMC)\nEVALUATION METRICS: Improvement in Marketing ROI, accurac",
-  "requestor": "cmo.office@hcp-india.com",
+  "summary": "InsureGuard Fraud Scoring — patient-centric conversational assistant.",
+  "requirement_text": "Organisation: Feuji Software Solution Pvt. Ltd.\nSegment: Insurance\n\nAI SUGGESTED & EDITED PARAMETERS:\nAPPLICATION TYPE: Fraud Modelling Application\nINDUSTRY SEGMENT: Insurance\nPROBLEM STATEMENT: Develop an advanced fraud modelling application for insurance claims that generates a Fraud Score ranging from 0 to 100, subdivided into LOW, MEDIUM, and HIGH risk categories. The application will empower claims analysts by providing a clear and intuitive interface.\nINDEPENDENT VARIABLES: Customer Age, Policy Duration, Claim Amount, Payment History, Geographical Region, Claim Type, Prior Claims Count, Communication Channel\nDEPENDENT VARIABLE: Fraud Flag (Binary Indicator of Fraudulent Activity)\nMACHINE LEARNING ALGORITHMS: Random Forest, XGBoost, Logistic Regression\nEVALUATION METRICS: Precision, Recall, F1 Score, AUC-ROC Curve\nOPTIMIZATION GOAL: Achieve high recall to maximize detection of fraudulent claims while minimizing False negatives.\nUI ELEMENTS DESCRIPTION: The UI should feature a streamlined interface with a clearly labeled Fraud Score button and a visually intuitive score meter to provide instant risk assessment feedback.\nDESIRED OUTCOME: The creation of an easily interpretable F",
+  "requestor": "ad_isi03@hotmail.com",
   "deploy_port": 8095,
   "api": {
     "health": "/health",
@@ -72,7 +72,7 @@ BUILD_SPEC: dict[str, Any] = {
     }
   ],
   "backlog": {
-    "project": "MMMAAA",
+    "project": "IFS",
     "total_points": 18,
     "epic_count": 3,
     "story_count": 3
@@ -114,8 +114,8 @@ BUILD_SPEC: dict[str, Any] = {
       "context"
     ],
     "services": [],
-    "render_url": "https://mermaid.ink/img/pako:eNptklFPwjAQx7_KpU-aiBF448FkgQ0xzJFtoon4ULtDmpSOtB2EEL67vTKjWXi8f3-_a3vtiYm6QjZia1UfxIYbB_N8pQGicflw87FikebqaN2Kfd62cZ_idA7Zzv6m0zciFzOYcocHfvQ5xVk-JjRNoyiCzIgNWme4q027TntAr_fo_UuXUHiLqqTwboLcNQah8BL-dQ1cUlBV5tHsxZOl4VJL_Q0LuUMldZcOHAVpNonndCx_bwUFmr0UCEJxa-VaCu5krTtuUCiIlxGp8Z4r6EGKzkhhw6U7BoFUF3G-jL2xMFhJ4cDPqEMGIvR-L_uefJaG_0fuqZtfapGBR6bSPTVfV6BBCw1pHqhtbRL_qlfAYZj-62RW0rs1lXRA81OdswWC3bEtmi2XFRudmNvglr5LhWveKMfO5x82d6xh",
-    "excerpt": "%% Forge Solution Architecture — MMMAAA / MarketLens — Marketing Mix and Attribution Analytics Platform\n%% Derived from SOW + BRD + Backlog + Brief (classification)\n%% Domains: Mental Illness\n%% Stories: S1, S2, S3\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Analyst\"])\n  ACT1([\"ML Ops\"])\n  GW[\"API Gateway\"]\n  ORC[\"MMMAAA Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  FS[\"Feature Store\"]\n  ORC --> FS\n  TRAIN[\"Training Pipeline\"]\n  ORC --> TRAIN\n  MODEL[\"Model Service classification\"]\n  ORC --> MODEL\n  EVAL[\"Eval - Metrics Gate\"]\n  ORC --> EVAL\n  SERVE[\"Predict API\"]\n  ORC --> SERVE\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"GitHub\"]\n  ORC -.-> EXT2\n  EXT3[\"TensorFlow\"]\n  ORC -.-> EXT3\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant User\n  participant API as \"Predict API\"\n  participant FS as \"Feature Store\"\n  participant MODEL as \"Model Service\"\n  participant EVAL as \"Metrics\"\n  User->>API: features\n  API->>FS: load feature vector\n  FS-->>API: X\n  API->>MODEL: predict y\n  MODEL-->>API: y_hat + score\n  API->>EVAL: record metric\n  API-->>User: prediction result\n\n%% ER\nerDiagram\n  FEATURE_A ||--o| DECISION_REASONS_RESPONSE : yields\n  FEATURE_A ||--o{ DECISION_API_AUDIT : logs\n  FEATURE_A ||--o{ FEATURE_B : includes\n  FEATURE_A ||--o{ IMPLEMENT_TESTABLE_RULES : includes\n  FEATURE_A ||--o{ AUDIT_EVENT : includes\n  FEATURE_A ||--o{ BACKLOG_STORY : traces\n  BACKLOG_STORY ||--o{ ACCEPTANCE_CRITERION : satisfies"
+    "render_url": "https://mermaid.ink/img/pako:eNptklFLwzAQx7_KkScFJ26PexDK1s7KZkdbp2B9iOnVHmTtSNONMfbdzcWJUny8f36_S3LJSai2RDEVlW4PqpbGwjItGoBglt9dvRUiaKQ-drYQ79eXeMzxagnJrvtJFy9MrmNYSIsHeXQ5x0k6c3kcZZAYVWNnjbStuSzyBjAa3Tv5u4UvnMJVlDkxQml7g5A5CX9bei7KuMrTIH5yZG4kNdR8wpp2qKkZ0p7jYJXMwyUf311aQ4ZmTwpBadl1VJGSltpm4HqFg3ATsBrupYYRrNAaUp2_8cBgkOssTDehM9YGS1IW3IAGpCd879d87MhHMvIvcsvd3NIFmThkQfah__gHmvihPs_jnN-iL8kCj0UPtvSEuBFbNFtJpZiehK1xy1-gxEr22orz-QsCfp-M",
+    "excerpt": "%% Forge Solution Architecture — IFS / InsureGuard Fraud Scoring\n%% Derived from SOW + BRD + Backlog + Brief (classification)\n%% Domains: Claims\n%% Stories: S1, S2, S3\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Analyst\"])\n  ACT1([\"ML Ops\"])\n  GW[\"API Gateway\"]\n  ORC[\"IFS Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  FS[\"Feature Store\"]\n  ORC --> FS\n  TRAIN[\"Training Pipeline\"]\n  ORC --> TRAIN\n  MODEL[\"Model Service classification\"]\n  ORC --> MODEL\n  EVAL[\"Eval - Metrics Gate\"]\n  ORC --> EVAL\n  SERVE[\"Predict API\"]\n  ORC --> SERVE\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"GitHub\"]\n  ORC -.-> EXT2\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant User\n  participant API as \"Predict API\"\n  participant FS as \"Feature Store\"\n  participant MODEL as \"Model Service\"\n  participant EVAL as \"Metrics\"\n  User->>API: features\n  API->>FS: load feature vector\n  FS-->>API: X\n  API->>MODEL: predict y\n  MODEL-->>API: y_hat + score\n  API->>EVAL: record metric\n  API-->>User: prediction result\n\n%% ER\nerDiagram\n  FEATURE_A ||--o| DECISION_REASONS_RESPONSE : yields\n  FEATURE_A ||--o{ DECISION_API_AUDIT : logs\n  FEATURE_A ||--o{ FEATURE_B : includes\n  FEATURE_A ||--o{ IMPLEMENT_TESTABLE_RULES : includes\n  FEATURE_A ||--o{ AUDIT_EVENT : includes\n  FEATURE_A ||--o{ BACKLOG_STORY : traces\n  BACKLOG_STORY ||--o{ ACCEPTANCE_CRITERION : satisfies"
   },
   "modules": [
     "api",
@@ -127,49 +127,55 @@ BUILD_SPEC: dict[str, Any] = {
   ],
   "input_fields": [
     {
-      "name": "Weekly_sales_data_by_brand_and_geography",
+      "name": "Customer_Age",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "media_spend_and_impression_data_by_channel_and_campaign",
+      "name": "Policy_Duration",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "promotional_calendar_and_pricing_data",
+      "name": "Claim_Amount",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "competitor_spend",
+      "name": "Payment_History",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "weather",
+      "name": "Geographical_Region",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "macroeconomic_indicators",
+      "name": "Claim_Type",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "category_level_trends",
+      "name": "Prior_Claims_Count",
+      "dtype": "float",
+      "description": ""
+    },
+    {
+      "name": "Communication_Channel",
       "dtype": "float",
       "description": ""
     }
   ],
   "sample_input": {
-    "Weekly_sales_data_by_brand_and_geography": 1.0,
-    "media_spend_and_impression_data_by_channel_and_campaign": 1.0,
-    "promotional_calendar_and_pricing_data": 1.0,
-    "competitor_spend": 1.0,
-    "weather": 1.0,
-    "macroeconomic_indicators": 1.0,
-    "category_level_trends": 1.0
+    "Customer_Age": 1.0,
+    "Policy_Duration": 1.0,
+    "Claim_Amount": 1.0,
+    "Payment_History": 1.0,
+    "Geographical_Region": 1.0,
+    "Claim_Type": 1.0,
+    "Prior_Claims_Count": 1.0,
+    "Communication_Channel": 1.0
   },
   "output_fields": [],
   "rag_sources": [
@@ -177,46 +183,46 @@ BUILD_SPEC: dict[str, Any] = {
     "PubMed"
   ],
   "domains": [
-    "Mental Illness"
+    "General Care"
   ],
   "agents": [
     {
       "id": "A1",
-      "name": "Mental Illness Agent",
-      "domain": "Mental Illness",
-      "persona": "caring, knowledgeable, patient-centric"
-    },
-    {
-      "id": "A2",
-      "name": "General Care Agent",
+      "name": "General Care",
       "domain": "General Care",
       "persona": "caring, knowledgeable, patient-centric"
     }
   ],
   "languages": [
-    "en"
+    "en",
+    "hi",
+    "es"
   ],
   "features": {
     "chat_download": True,
     "prescription_download": False,
-    "voice_input": True,
+    "voice_input": False,
     "multimodal": False,
     "multilingual": False
   },
   "constraints": [],
   "nonfunctional": [],
-  "escalation_phrases": [],
+  "escalation_phrases": [
+    "fraud"
+  ],
   "model": {
     "family": "sklearn",
     "task": "classification",
-    "dependent_variable": "Weekly_sales_data_by_brand_and_geography",
+    "dependent_variable": "Fraud_flag",
     "independent_variables": [
-      "media_spend_and_impression_data_by_channel_and_campaign",
-      "promotional_calendar_and_pricing_data",
-      "competitor_spend",
-      "weather",
-      "macroeconomic_indicators",
-      "category_level_trends"
+      "Customer_Age",
+      "Policy_Duration",
+      "Claim_Amount",
+      "Payment_History",
+      "Geographical_Region",
+      "Claim_Type",
+      "Prior_Claims_Count",
+      "Communication_Channel"
     ],
     "metric": "roc_auc",
     "metric_threshold": 0.75
