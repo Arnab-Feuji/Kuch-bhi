@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head><meta charset="utf-8">
-<title>MoleculeInsight — Target-to-Lead Compound Screening Platform</title>
+<title>MarketLens — Marketing Mix and Attribution Analytics Platform</title>
 <style>
 :root {
   --bg: #0A1F3D;
@@ -50,18 +50,43 @@ pre { white-space:pre-wrap; font-size:12px; color:var(--txt); }
 </style>
 </head><body>
 <div class="card">
-  <h2>MoleculeInsight — Target-to-Lead Compound Screening Platform</h2>
-  <div class="meta">MTTLCS · AI-Assisted Molecular Screening and Property Prediction · stories S1: Implement BR-1..n as testable rules · S2: Decision + reasons response · S3: Decision API + audit log · ACs AC-1, AC-2, AC-3, AC-4</div>
-  <p>MoleculeInsight — Target-to-Lead Compound Screening Platform — patient-centric conversational assistant.</p>
+  <h2>MarketLens — Marketing Mix and Attribution Analytics Platform</h2>
+  <div class="meta">MMMAAA · Marketing Mix Modeling with Multi-Touch Attribution · stories S1: Implement BR-1..n as testable rules · S2: Decision + reasons response · S3: Decision API + audit log · ACs AC-1, AC-2, AC-3, AC-4</div>
+  <p>MarketLens — Marketing Mix and Attribution Analytics Platform — patient-centric conversational assistant.</p>
   <div class="form-grid">
     <div class="form-group">
-      <label for="field_feature_a">Feature A</label>
-      <input id="field_feature_a" type="number" value="1.0" placeholder="Enter Feature A">
+      <label for="field_Weekly_sales_data_by_brand_and_geography">Weekly Sales Data By Brand And Geography</label>
+      <input id="field_Weekly_sales_data_by_brand_and_geography" type="number" value="1.0" placeholder="Enter Weekly Sales Data By Brand And Geography">
     </div>
 
     <div class="form-group">
-      <label for="field_feature_b">Feature B</label>
-      <input id="field_feature_b" type="number" value="1.0" placeholder="Enter Feature B">
+      <label for="field_media_spend_and_impression_data_by_channel_and_campaign">Media Spend And Impression Data By Channel And Campaign</label>
+      <input id="field_media_spend_and_impression_data_by_channel_and_campaign" type="number" value="1.0" placeholder="Enter Media Spend And Impression Data By Channel And Campaign">
+    </div>
+
+    <div class="form-group">
+      <label for="field_promotional_calendar_and_pricing_data">Promotional Calendar And Pricing Data</label>
+      <input id="field_promotional_calendar_and_pricing_data" type="number" value="1.0" placeholder="Enter Promotional Calendar And Pricing Data">
+    </div>
+
+    <div class="form-group">
+      <label for="field_competitor_spend">Competitor Spend</label>
+      <input id="field_competitor_spend" type="number" value="1.0" placeholder="Enter Competitor Spend">
+    </div>
+
+    <div class="form-group">
+      <label for="field_weather">Weather</label>
+      <input id="field_weather" type="number" value="1.0" placeholder="Enter Weather">
+    </div>
+
+    <div class="form-group">
+      <label for="field_macroeconomic_indicators">Macroeconomic Indicators</label>
+      <input id="field_macroeconomic_indicators" type="number" value="1.0" placeholder="Enter Macroeconomic Indicators">
+    </div>
+
+    <div class="form-group">
+      <label for="field_category_level_trends">Category Level Trends</label>
+      <input id="field_category_level_trends" type="number" value="1.0" placeholder="Enter Category Level Trends">
     </div>
     </div><button onclick="go()" style="width:100%; margin-top:10px;">Get Score</button>
 
@@ -82,7 +107,7 @@ function fraudBand(score01) {
   return {label:'LOW RISK', cls:'low'};
 }
 async function go() {
-  const payload = {feature_a: parseFloat(document.getElementById('field_feature_a').value || 0), feature_b: parseFloat(document.getElementById('field_feature_b').value || 0)};
+  const payload = {Weekly_sales_data_by_brand_and_geography: parseFloat(document.getElementById('field_Weekly_sales_data_by_brand_and_geography').value || 0), media_spend_and_impression_data_by_channel_and_campaign: parseFloat(document.getElementById('field_media_spend_and_impression_data_by_channel_and_campaign').value || 0), promotional_calendar_and_pricing_data: parseFloat(document.getElementById('field_promotional_calendar_and_pricing_data').value || 0), competitor_spend: parseFloat(document.getElementById('field_competitor_spend').value || 0), weather: parseFloat(document.getElementById('field_weather').value || 0), macroeconomic_indicators: parseFloat(document.getElementById('field_macroeconomic_indicators').value || 0), category_level_trends: parseFloat(document.getElementById('field_category_level_trends').value || 0)};
   const resPanel = document.getElementById('resultPanel');
   const scoreValue = document.getElementById('scoreValue');
   const scoreBand = document.getElementById('scoreBand');
@@ -114,7 +139,7 @@ async function go() {
     scoreBand.className = 'score-band ' + band.cls;
     scoreFill.style.width = pct + '%';
     scoreFill.className = 'score-fill ' + band.cls;
-    scoreHint.textContent = 'Model Score for MTTLCS: probability the claim is fraudulent (demo model).';
+    scoreHint.textContent = 'Model Score for MMMAAA: probability the claim is fraudulent (demo model).';
   } catch(e) {
     resPanel.style.display = 'block';
     scoreValue.textContent = '—';
