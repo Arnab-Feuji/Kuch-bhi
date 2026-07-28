@@ -1,4 +1,4 @@
-"""Generated Forge lite application for FraudSentry — Real-Time Claims Fraud Detection (FRTCFD).
+"""Generated Forge lite application for QuickCredit — Personal Loan Automated Underwriting (QPLAU).
 Built from build_spec.json (BRD ACs + backlog + architecture).
 """
 from __future__ import annotations
@@ -12,15 +12,7 @@ from pydantic import BaseModel
 
 from domain import chat_answer, evaluate_rules, list_criteria, list_stories, meta, predict_payload
 
-app = FastAPI(title="FraudSentry — Real-Time Claims Fraud Detection", version="1.0.0")
-MODEL_PATH = os.path.join(os.path.dirname(__file__), "model.joblib")
-_model = None
-try:
-    import joblib
-    if os.path.exists(MODEL_PATH):
-        _model = joblib.load(MODEL_PATH)
-except Exception:
-    _model = None
+app = FastAPI(title="QuickCredit — Personal Loan Automated Underwriting", version="1.0.0")
 
 
 @app.get("/health")
@@ -50,9 +42,9 @@ def get_criteria():
     return {"acceptance_criteria": list_criteria()}
 
 
-@app.post("/predict")
-def predict(payload: dict[str, Any]):
-    return predict_payload(payload, _model)
+@app.post("/decide")
+def decide(payload: dict[str, Any]):
+    return evaluate_rules(payload)
 
 
 @app.get("/", response_class=HTMLResponse)
