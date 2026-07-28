@@ -1,4 +1,4 @@
-"""Generated Forge lite application for MarketLens — Marketing Mix and Attribution Analytics Platform (MMMAAA).
+"""Generated Forge lite application for InsureGuard Fraud Scoring (IFS).
 Built from build_spec.json (BRD ACs + backlog + architecture).
 """
 from __future__ import annotations
@@ -12,7 +12,7 @@ from pydantic import BaseModel
 
 from domain import chat_answer, evaluate_rules, list_criteria, list_stories, meta, predict_payload
 
-app = FastAPI(title="MarketLens — Marketing Mix and Attribution Analytics Platform", version="1.0.0")
+app = FastAPI(title="InsureGuard Fraud Scoring", version="1.0.0")
 MODEL_PATH = os.path.join(os.path.dirname(__file__), "model.joblib")
 _model = None
 try:
