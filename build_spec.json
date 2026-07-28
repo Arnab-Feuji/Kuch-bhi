@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "project_key": "MC",
-  "project_name": "Medical Chatbot",
-  "app_type": "Conversational AI Chatbot ",
+  "project_key": "MPSTC",
+  "project_name": "MediAssist \u2014 Patient Symptom Triage Chatbot",
+  "app_type": "Conversational AI Chatbot with Clinical Decision Support",
   "app_kind": "chatbot",
-  "summary": "Medical Chatbot \u2014 patient-centric conversational assistant.",
-  "requirement_text": "Organisation: Feuji Software Solution Pvt. Ltd.\nSegment: Healthcare\n\nAI SUGGESTED & EDITED PARAMETERS:\nTOOLS AND TECH STACKS: Python, FastAPI, React for frontend development, TensorFlow for machine learning, MongoDB for database management\nKNOWLEDGE BASE SOURCES: CDC guidelines, PubMed articles, reputable medical journals\nLLM FOUNDATION MODEL: GPT-4 Health, optimized for healthcare applications\nPERSONA AND TONE: Empathetic and informative, with a culturally sensitive approach to cater to diverse patient needs\nFALLBACK MECHANISMS: Escalation to a human agent for complex queries, re-routing to a comprehensive FAQ section\nSUPPORTED LANGUAGES: Primarily Hindi, English, and Spanish to accommodate a wide user base\nMULTI MODAL CAPABILITIES: Supports text, voice interactions, and image recognition to enhance user engagement\nUSER INTERFACE FEATURES: Includes chat message download, prescription download, and microphone input functionalities\nEXPECTED OUTCOME: Delivery of reliable medical information, enhancement of patient engagement, and achievement of swift response times\nTARGET USER SPECIFICATION: Designed for patients, healthcare providers, and caregivers requiring medical support and inf",
-  "requestor": "ad_isi03@hotmail.com",
+  "summary": "Apollo Hospitals handles around 40,000 patient inquiries monthly through call centers, front-desk visits, and website contact forms. Approximately 60% of these inquiries relate to non-emergency symptoms suitable for a self-service channel. These inquiries currently require 22 ful",
+  "requirement_text": "Organisation: Apollo Hospitals\nSegment: Healthcare \u2014 Patient Engagement\n\nAI SUGGESTED & EDITED PARAMETERS:\nAPP TYPE: Conversational AI Chatbot with Clinical Decision Support\nSEGMENT: Healthcare \u2014 Patient Engagement\nPROBLEM: Apollo Hospitals handles around 40,000 patient inquiries monthly through call centers, front-desk visits, and website contact forms. Approximately 60% of these inquiries relate to non-emergency symptoms suitable for a self-service channel. These inquiries currently require 22 full-time call center staff, costing $780K annually, leading to a 14-minute wait time before speaking to a person. This situation decreases patient satisfaction scores and sometimes results in patients switching to competitors.\nTOOLS AND TECH STACKS: Python, FastAPI, React Native, MongoDB, AWS\nKNOWLEDGE BASE SOURCES: Internal medical guidelines, Apollo's clinical protocols, healthcare department advisories\nSUPPORTED LANGUAGES: English, Hindi, Tamil, Telugu\nPERSONA AND TONE: Professional, empathetic, user-friendly, informative\nFALLBACK MECHANISMS: Immediate escalation to a human for emergency symptoms, established escalation protocols\nLLM FOUNDATION MODEL: GPT-4o, customized for healthcare a",
+  "requestor": "cto@apollohospitals.com",
   "deploy_port": 8095,
   "api": {
     "health": "/health",
@@ -64,23 +64,15 @@
     }
   ],
   "backlog": {
-    "project": "MC",
-    "total_points": 30,
+    "project": "MPSTC",
+    "total_points": 18,
     "epic_count": 4,
-    "story_count": 6
+    "story_count": 3
   },
   "stories": [
     {
       "id": "S1",
-      "title": "Cancer Care specialty agent + RAG citations",
-      "points": 5,
-      "epic": "Conversational UX",
-      "acceptance_criteria_ids": [],
-      "acceptance_criteria": []
-    },
-    {
-      "id": "S2",
-      "title": "Diabetes specialty agent + RAG citations",
+      "title": "General Care specialty agent + RAG citations",
       "points": 5,
       "epic": "Conversational UX",
       "acceptance_criteria_ids": [],
@@ -88,24 +80,8 @@
     },
     {
       "id": "S3",
-      "title": "Mental Illness specialty agent + RAG citations",
-      "points": 5,
-      "epic": "RAG & Specialty Agents",
-      "acceptance_criteria_ids": [],
-      "acceptance_criteria": []
-    },
-    {
-      "id": "S4",
-      "title": "Cardiology specialty agent + RAG citations",
-      "points": 5,
-      "epic": "RAG & Specialty Agents",
-      "acceptance_criteria_ids": [],
-      "acceptance_criteria": []
-    },
-    {
-      "id": "S5",
-      "title": "Respiratory specialty agent + RAG citations",
-      "points": 5,
+      "title": "Retriever over CDC/PubMed",
+      "points": 8,
       "epic": "RAG & Specialty Agents",
       "acceptance_criteria_ids": [],
       "acceptance_criteria": []
@@ -130,8 +106,8 @@
       "context"
     ],
     "services": [],
-    "render_url": "https://mermaid.ink/img/pako:eNp1k0Fv4jAQhf_KyKdWC6u20AuHSmnKZlmIGqXQIpU9mGQAS46NHFOKqv73zsSsWmXLJdKb-d7Mc5y8icKWKAZipe2-2EjnYZIvDEAUTy_Onhcik16h8Qvx9_xYvuRyrJVRhZLmXyN5omqUjSCRHvfyQHUu3-cx1dMY7l2xwdo76a079ngFdLs35A0TGkEOVg_RryE5H-QK_QGSnXSlk0rXn3MbmrFmVnLJqaQp0EEsHUK0DrG_0kQF-IrgOyWX6LE-QV4FssfxqS81jLQ2WJ_ie4HvNzFcqay268MJth_Ya2JzrLeqeSun4GuWeZQwHCWQo3cKX9C1QOqxHN8SNzZ2r7Fc4wDiu7gD2W6ZYtmBP7SpZRvfsppMUrLREziPNTVCbKutrf9bQwzL2ZzPuZEeMuv45cxGLXA2D1w4BV01y-E8I9_wdUsmysb-H5C_tqxEsUw5U7rTXlW2pBVdeLSqQBiZNX1JLU-ahvlTvrD2OX82Q6e9I8J3lCj_e7f8BuqLjqjQVVKVYvAm_AYr_j9KXEmKIt7fPwBD0vML",
-    "excerpt": "%% Forge Solution Architecture \u2014 MC / Medical Chatbot\n%% Derived from SOW + BRD + Backlog + Brief (chatbot)\n%% Domains: Cancer Care, Diabetes, Mental Illness, Cardiology, Respiratory\n%% Stories: S1, S2, S3, S4, S5, S5\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Patient\"])\n  ACT1([\"Clinician\"])\n  GW[\"API Gateway\"]\n  ORC[\"MC Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  SAFE[\"Safety Guardrails\"]\n  ORC --> SAFE\n  AG1[\"Cancer Care Agent\"]\n  ORC --> AG1\n  AG2[\"Diabetes Agent\"]\n  ORC --> AG2\n  AG3[\"Mental Illness Agent\"]\n  ORC --> AG3\n  AG4[\"Cardiology Agent\"]\n  ORC --> AG4\n  AG5[\"Respiratory Agent\"]\n  ORC --> AG5\n  RAG[\"RAG Retriever\"]\n  ORC --> RAG\n  KB[\"Knowledge: CDC, PubMed, Jira\"]\n  ORC --> KB\n  LLM[\"LLM Response Composer\"]\n  ORC --> LLM\n  UX[\"Chat Portal UI\"]\n  ORC --> UX\n  UX --> ACT0\n  EXP[\"Export: Chat + Rx\"]\n  ORC --> EXP\n  MM[\"Multimodal - Voice Ingest\"]\n  ORC --> MM\n  EXT3[\"Jira\"]\n  ORC -.-> EXT3\n  EXT4[\"GitHub\"]\n  ORC -.-> EXT4\n\n%% Sequence\nsequenceDiagram\n  participant User\n  participant Portal as \"Chat Portal\"\n  participant ORC as \"Orchestrator\"\n  participant SAFE as \"Guardrails\"\n  participant AG as \"Cancer Care Agent\"\n  participant RAG as \"RAG Retriever\"\n  participant KB as \"Knowledge Base\"\n  participant LLM as \"LLM Composer\"\n  User->>Portal: Cancer Care specialty agent + RAG citations\n  Portal->>ORC: chat message + language\n  ORC->>SAFE: safety / escalation check\n  ORC->>AG: route by specialty/domain\n  AG->>RAG: retrieve context\n  RAG->>KB: query CDC, PubMed\n  KB-->>RAG: p"
+    "render_url": "https://mermaid.ink/img/pako:eNp1klFPgzAUhf_KTZ80bsZtbzyYMJyI2zLCIC5xPlToRhOgpBS3ZfG_ey9gXFBfmpzT79y29_bMYpUIZrFdpg5xyrWBRbAtAGwnvLt63TKfGykKs2Vv1509ItvJZCFjyYvvDfcFXdv3wOVGHPgJfbJXgYP-0l-HDqx0nIrKaG6U7rbpFBgO7zHeFmkEhkit7ccZhtd8J8wJ3JrrRHOZVT-lG5qwppY7ai7GZV6BvW8vfQkiQDKwXeRwhUAYLcWH0D0Q90jOp8jNC3XIRLIXFjxLzQfgSvNUvw9gVYrC9mAIi8Wyl59PSaGPeVzxnKpURSXAUXmpql_nUQWU0Ybun3IDvtKGZxB5PTDatFz7HOwdydnGx9zsWGLIgiZ_A8GxF0WqhUPqEj3lErhtiHDUIWNE2nf-AY07aILQf03o0Ekzl-jBC-lz1Ik0ENII-4Mhgg1YLnTOZcKsMzOpyOlbJmLH68ywz88vZZbH8Q==",
+    "excerpt": "%% Forge Solution Architecture \u2014 MPSTC / MediAssist \u2014 Patient Symptom Triage Chatbot\n%% Derived from SOW + BRD + Backlog + Brief (chatbot)\n%% Domains: Claims\n%% Stories: S1, S3, S5\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Patient\"])\n  ACT1([\"Clinician\"])\n  GW[\"API Gateway\"]\n  ORC[\"MPSTC Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  SAFE[\"Safety Guardrails\"]\n  ORC --> SAFE\n  AG1[\"Claims Agent\"]\n  ORC --> AG1\n  RAG[\"RAG Retriever\"]\n  ORC --> RAG\n  KB[\"Knowledge: Jira, GitHub, OpenAI - LLM\"]\n  ORC --> KB\n  LLM[\"LLM Response Composer\"]\n  ORC --> LLM\n  UX[\"Chat Portal UI\"]\n  ORC --> UX\n  UX --> ACT0\n  EXP[\"Export: Chat + Rx\"]\n  ORC --> EXP\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"GitHub\"]\n  ORC -.-> EXT2\n  EXT3[\"OpenAI - LLM\"]\n  ORC -.-> EXT3\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant Patient\n  participant Portal as \"Chat Portal\"\n  participant ORC as \"Orchestrator\"\n  participant SAFE as \"Guardrails\"\n  participant AG as \"Claims Agent\"\n  participant RAG as \"RAG Retriever\"\n  participant KB as \"Knowledge Base\"\n  participant LLM as \"LLM Composer\"\n  Patient->>Portal: General Care specialty agent + RAG citatio\u2026\n  Portal->>ORC: chat message + language\n  ORC->>SAFE: safety / escalation check\n  ORC->>AG: route by specialty/domain\n  AG->>RAG: retrieve context\n  RAG->>KB: query Jira, GitHub\n  KB-->>RAG: passages + citations\n  RAG-->>AG: grounded snippets\n  AG->>LLM: compose answer\n  LLM-->>Portal: answer + citations\n  Portal-->>Patient: response\n\n%% ER\nerDiagram"
   },
   "modules": [
     "api",
@@ -154,8 +130,8 @@
     }
   ],
   "sample_input": {
-    "feature_a": 42.5,
-    "feature_b": 88.2
+    "feature_a": 1.0,
+    "feature_b": 1.0
   },
   "output_fields": [],
   "rag_sources": [
@@ -163,45 +139,24 @@
     "PubMed"
   ],
   "domains": [
-    "Cancer Care",
-    "Diabetes",
     "Mental Illness",
-    "Cardiology",
-    "Respiratory"
+    "Cardiology"
   ],
   "agents": [
     {
       "id": "A1",
-      "name": "Cancer Care",
-      "domain": "Cancer Care",
-      "persona": "caring, knowledgeable, patient-centric"
-    },
-    {
-      "id": "A2",
-      "name": "Diabetes Agent",
-      "domain": "Diabetes",
-      "persona": "caring, knowledgeable, patient-centric"
-    },
-    {
-      "id": "A3",
       "name": "Mental Illness Agent",
       "domain": "Mental Illness",
       "persona": "caring, knowledgeable, patient-centric"
     },
     {
-      "id": "A4",
+      "id": "A2",
       "name": "Cardiology Agent",
       "domain": "Cardiology",
       "persona": "caring, knowledgeable, patient-centric"
     },
     {
-      "id": "A5",
-      "name": "Respiratory Agent",
-      "domain": "Respiratory",
-      "persona": "caring, knowledgeable, patient-centric"
-    },
-    {
-      "id": "A6",
+      "id": "A3",
       "name": "General Care Agent",
       "domain": "General Care",
       "persona": "caring, knowledgeable, patient-centric"
@@ -209,29 +164,42 @@
   ],
   "languages": [
     "en",
-    "hi",
-    "es"
+    "hi"
   ],
   "features": {
     "chat_download": true,
-    "prescription_download": true,
-    "voice_input": true,
-    "multimodal": true,
+    "prescription_download": false,
+    "voice_input": false,
+    "multimodal": false,
     "multilingual": true
   },
   "constraints": [],
   "nonfunctional": [],
   "escalation_phrases": [
-    "can't breathe"
+    "emergency",
+    "chest pain",
+    "suicid",
+    "fraud"
   ],
-  "model": {},
+  "model": {
+    "family": "sklearn",
+    "task": "classification",
+    "dependent_variable": "Fraud_flag",
+    "independent_variables": [
+      "Customer_age",
+      "Policy_duration",
+      "Claim_amount",
+      "Payment_history",
+      "Geographical_region"
+    ],
+    "metric": "roc_auc",
+    "metric_threshold": 0.75
+  },
   "demo_scope": {
     "strategy": "sprint1_stories",
     "story_ids": [
       "S1",
-      "S2",
       "S3",
-      "S4",
       "S5"
     ],
     "ac_ids": [
