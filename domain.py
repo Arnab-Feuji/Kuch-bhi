@@ -1,4 +1,4 @@
-"""Domain logic for FraudSentry — Real-Time Claims Fraud Detection — driven by build_spec (BRD ACs + backlog + architecture)."""
+"""Domain logic for QuickCredit — Personal Loan Automated Underwriting — driven by build_spec (BRD ACs + backlog + architecture)."""
 from __future__ import annotations
 
 import json
@@ -8,18 +8,18 @@ from typing import Any
 
 BUILD_SPEC: dict[str, Any] = {
   "version": 1,
-  "project_key": "FRTCFD",
-  "project_name": "FraudSentry — Real-Time Claims Fraud Detection",
-  "app_type": "ML-Powered Fraud Detection with Investigator Workbench",
-  "app_kind": "classification",
-  "summary": "FraudSentry — Real-Time Claims Fraud Detection — patient-centric conversational assistant.",
-  "requirement_text": "Organisation: Bharat General Insurance\nSegment: General Insurance — Claims Processing\n\nAI SUGGESTED & EDITED PARAMETERS:\nAPP TYPE: ML-Powered Fraud Detection with Investigator Workbench\nSEGMENT: General Insurance — Claims Processing\nPROBLEM DESCRIPTION: Bharat General Insurance processes 180,000 motor and health claims monthly, with annual payouts of $340 million. Estimated fraud in the industry is 8-12%, but our manual process detects only 2.1%. This leads to delayed legitimate payouts and a potential $27-40 million in undetected fraud. We need to enhance our fraud detection capabilities.\nSOLUTION REQUIREMENTS: Implement a real-time scoring system for incoming claims, leveraging historical fraud patterns, network analysis, document image analysis, and rule-based checks. Integrate with Guidewire ClaimCenter, a document management system, and the Insurance Information Bureau fraud database. Ensure compliance with IRDAI guidelines, and require human approval for claim denials.\nSUCCESS CRITERIA: Detection of fraudulent claims increases from 2.1% to 6% within a year, investigation time reduced from 11 days to under 4 days, and achieving a 5x ROI on the investment within the first year.",
-  "requestor": "head.claims@bharatgi.com",
+  "project_key": "QPLAU",
+  "project_name": "QuickCredit — Personal Loan Automated Underwriting",
+  "app_type": "Automated Credit Decisioning with Human Override",
+  "app_kind": "rules_service",
+  "summary": "QuickCredit — Personal Loan Automated Underwriting — patient-centric conversational assistant.",
+  "requirement_text": "Organisation: Apex Retail Bank\nSegment: Consumer Lending — Personal Loans\n\nAI SUGGESTED & EDITED PARAMETERS:\nAPP TYPE: Automated Credit Decisioning with Human Override\nSEGMENT: Consumer Lending — Personal Loans\nPROBLEM STATEMENT: Apex Retail Bank faces a competitive disadvantage due to manual underwriting that results in a 3-5 day decision turnaround, leading to high abandonment rates and unprofitability for small loans. Competitors offer faster decision-making processes. The bank processes 600,000 applications annually, approving 340,000 but experiencing 260,000 rejections or abandonments.\nSOLUTION REQUIREMENTS: Implement an automated underwriting system that processes loan applications via mobile, web, and branch channels in under 90 seconds for 80% of cases. Integrates with various data and core banking systems to automate credit assessments while categorically requiring human intervention for higher-risk scenarios.\nTOOLS AND TECH STACKS: Python, Django, TensorFlow, optical character recognition (OCR) technology, Finacle API\nINDEPENDENT VARIABLES: credit_score, annual_income, employment_status, existing_debt, bank_statement_patterns, employment_tenure, industry_type, credit_quer",
+  "requestor": "head.retail.credit@apexbank.com",
   "deploy_port": 8095,
   "api": {
     "health": "/health",
     "meta": "/meta",
-    "primary": "/predict",
+    "primary": "/decide",
     "stories": "/stories",
     "criteria": "/criteria"
   },
@@ -72,7 +72,7 @@ BUILD_SPEC: dict[str, Any] = {
     }
   ],
   "backlog": {
-    "project": "FRTCFD",
+    "project": "QPLAU",
     "total_points": 18,
     "epic_count": 3,
     "story_count": 3
@@ -114,8 +114,8 @@ BUILD_SPEC: dict[str, Any] = {
       "context"
     ],
     "services": [],
-    "render_url": "https://mermaid.ink/img/pako:eNptkk9vwjAMxb-KldMmjWn8OXGYVEHLmMrK2o5NGjtkqYFIoUVJCkKI7744dNpUcfTL79l6dk5MVAWyIVup6iA2XFuI02UJEIzyh5vPJQtKro7GLtnXbSN3SZ7FkOzMrzp5J3I-hQm3eOBHp5OcpCOnR2k-isaQaLFBYzW3lW7eaQZ0Oo_Of-niC-eiKsrIi9zWGiFzJvzr6rkooypPg-mLI3PNZSnLNczlDpUs27TnSJgl4zCmBC63ggz1XgoEobgxciUFt7IqW15vISFcBGQN91xBB2ZotRTGh245CKQ6C9NF6BxzjYUUFtyOWqQnfO-PvOvIZ6n5f-SeurmnBuk5ZCLtU_19Beo1UJ8mVsauNWav8RWw34ADWhyWptKRO_8VcODP9Dae5nTgupAWaNGqFcIT7I5tUW-5LNjwxOwGt_SvClzxWll2Pv8ApcK4QA==",
-    "excerpt": "%% Forge Solution Architecture — FRTCFD / FraudSentry — Real-Time Claims Fraud Detection\n%% Derived from SOW + BRD + Backlog + Brief (classification)\n%% Domains: Claims\n%% Stories: S1, S2, S3\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Analyst\"])\n  ACT1([\"ML Ops\"])\n  GW[\"API Gateway\"]\n  ORC[\"FRTCFD Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  FS[\"Feature Store\"]\n  ORC --> FS\n  TRAIN[\"Training Pipeline\"]\n  ORC --> TRAIN\n  MODEL[\"Model Service classification\"]\n  ORC --> MODEL\n  EVAL[\"Eval - Metrics Gate\"]\n  ORC --> EVAL\n  SERVE[\"Predict API\"]\n  ORC --> SERVE\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"GitHub\"]\n  ORC -.-> EXT2\n  EXT3[\"PostgreSQL\"]\n  ORC -.-> EXT3\n  EXT4[\"TensorFlow\"]\n  ORC -.-> EXT4\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant User\n  participant API as \"Predict API\"\n  participant FS as \"Feature Store\"\n  participant MODEL as \"Model Service\"\n  participant EVAL as \"Metrics\"\n  User->>API: features\n  API->>FS: load feature vector\n  FS-->>API: X\n  API->>MODEL: predict y\n  MODEL-->>API: y_hat + score\n  API->>EVAL: record metric\n  API-->>User: prediction result\n\n%% ER\nerDiagram\n  FEATURE_A ||--o| DECISION_REASONS_RESPONSE : yields\n  FEATURE_A ||--o{ DECISION_API_AUDIT : logs\n  FEATURE_A ||--o{ FEATURE_B : includes\n  FEATURE_A ||--o{ IMPLEMENT_TESTABLE_RULES : includes\n  FEATURE_A ||--o{ AUDIT_EVENT : includes\n  FEATURE_A ||--o{ BACKLOG_STORY : traces\n  BACKLOG_STORY ||--o{ ACCEPTANCE_CRITERION : satisfies"
+    "render_url": "https://mermaid.ink/img/pako:eNptk99r2zAQgP-VQw9jZXNYfjz5oeA2aZphSOY67WDZg2ZdGoEsG0leCKX_e-9sF4Lx4919n3y6k99EUSkUsTia6lycpAuQZgcLkNznP77-OYikro0upA0H8femL0y5sLcK3dnpgO6ztH5hYbeBtQx4lhfKc3qb3VP-1y5N9rB1xQl9cDJUri_zlyCKbknvDmkDkjh6TlJyN7ZuAjxLo9WVSEiLEsNhtk9XTwRnjUEPK_uqLQ7IFuHEXTYl8i6LpvHnsQhfwEurg_YI0hjQtp5MJoMTSOz8WefPYkirV8D_6C6gsNBeVzZy6OvKehzzZ50_7_x5DDtXqaZAKEzjaZiRtFUpzQWk92P-vPMXnb8gH53XPkA4IRx1CKigpJ0a-AZj_oLD5YpXsuz7JTJD6aljoO0NDEI5TLfra4MuPeAI4HD1O-fRvjxur-sTArjSEzy8n9rJEWTWIzyftQ6Pzb8RaN5DPIQcra_cAz3fEbC9bLJfbnJ-mY3SAXIntRn03hLiuyjRlVIrEb8JmmbJ_4XCo2xMEO_vHyMG8FE=",
+    "excerpt": "%% Forge Solution Architecture — QPLAU / QuickCredit — Personal Loan Automated Underwriting\n%% Derived from SOW + BRD + Backlog + Brief (rules_service)\n%% Domains: Lending / Credit, Claims\n%% Stories: S1, S2, S3\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Applicant\"])\n  ACT1([\"Underwriter\"])\n  GW[\"API Gateway\"]\n  ORC[\"QPLAU Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  VAL[\"Input Validator\"]\n  ORC --> VAL\n  RULES[\"Rules Engine\"]\n  ORC --> RULES\n  BR1[\"BR-1: Validate & sanitise all inp...\"]\n  ORC --> BR1\n  BR2[\"BR-2: Log every decision-response...\"]\n  ORC --> BR2\n  BR3[\"BR-3: Produce cluster-anomaly ass...\"]\n  ORC --> BR3\n  BR4[\"BR-4: Persist the fitted model + ...\"]\n  ORC --> BR4\n  DEC[\"Decision + Reasons API\"]\n  ORC --> DEC\n  LOG[\"Decision Log\"]\n  ORC --> LOG\n  EXT1[\"WHO\"]\n  ORC -.-> EXT1\n  EXT2[\"Jira\"]\n  ORC -.-> EXT2\n  EXT3[\"GitHub\"]\n  ORC -.-> EXT3\n  EXT4[\"TensorFlow\"]\n  ORC -.-> EXT4\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant Applicant\n  participant API as \"Decision API\"\n  participant VAL as \"Validator\"\n  participant RULES as \"Rules Engine\"\n  participant LOG as \"Decision Log\"\n  Applicant->>API: Implement BR-1..n as testable rules\n  API->>VAL: schema validate\n  VAL->>RULES: evaluate BR-1, BR-2, BR-3, BR-4\n  RULES-->>API: APPROVED/DECLINED + reasons\n  API->>LOG: immutable audit write\n  API-->>Applicant: decision payload\n\n%% ER\nerDiagram\n  FEATURE_A ||--o| DECISION_REASONS_RESPONSE : yields\n  FEATURE_A ||--o{ DECISION_API_AUDIT : logs\n  FEATURE"
   },
   "modules": [
     "api",
@@ -127,60 +127,65 @@ BUILD_SPEC: dict[str, Any] = {
   ],
   "input_fields": [
     {
-      "name": "claim_amount",
+      "name": "credit_score",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "claimant_history",
+      "name": "annual_income",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "repair_cost",
+      "name": "employment_status",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "accident_location",
+      "name": "existing_debt",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "provider_reliability_score",
+      "name": "bank_statement_patterns",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "passenger_count",
+      "name": "employment_tenure",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "submission_date",
+      "name": "industry_type",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "claimant_age",
+      "name": "credit_queries",
+      "dtype": "float",
+      "description": ""
+    },
+    {
+      "name": "loan_amount",
       "dtype": "float",
       "description": ""
     }
   ],
   "sample_input": {
-    "claim_amount": 1.0,
-    "claimant_history": 1.0,
-    "repair_cost": 1.0,
-    "accident_location": 1.0,
-    "provider_reliability_score": 1.0,
-    "passenger_count": 1.0,
-    "submission_date": 1.0,
-    "claimant_age": 1.0
+    "credit_score": 1.0,
+    "annual_income": 1.0,
+    "employment_status": 1.0,
+    "existing_debt": 1.0,
+    "bank_statement_patterns": 1.0,
+    "employment_tenure": 1.0,
+    "industry_type": 1.0,
+    "credit_queries": 1.0,
+    "loan_amount": 1.0
   },
   "output_fields": [],
   "rag_sources": [
-    "CDC",
-    "PubMed"
+    "WHO"
   ],
   "domains": [
     "General Care"
@@ -194,13 +199,15 @@ BUILD_SPEC: dict[str, Any] = {
     }
   ],
   "languages": [
-    "en"
+    "en",
+    "hi",
+    "es"
   ],
   "features": {
     "chat_download": True,
     "prescription_download": False,
-    "voice_input": True,
-    "multimodal": True,
+    "voice_input": False,
+    "multimodal": False,
     "multilingual": False
   },
   "constraints": [],
@@ -211,16 +218,16 @@ BUILD_SPEC: dict[str, Any] = {
   "model": {
     "family": "sklearn",
     "task": "classification",
-    "dependent_variable": "Fraud_flag",
+    "dependent_variable": "credit_score",
     "independent_variables": [
-      "claim_amount",
-      "claimant_history",
-      "repair_cost",
-      "accident_location",
-      "provider_reliability_score",
-      "passenger_count",
-      "submission_date",
-      "claimant_age"
+      "annual_income",
+      "employment_status",
+      "existing_debt",
+      "bank_statement_patterns",
+      "employment_tenure",
+      "industry_type",
+      "credit_queries",
+      "loan_amount"
     ],
     "metric": "roc_auc",
     "metric_threshold": 0.75
