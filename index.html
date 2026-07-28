@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Medical Chatbot</title>
+<title>MediAssist — Patient Symptom Triage Chatbot</title>
 <style>
 :root {
   --bg:#0b1220; --panel:#121a2b; --panel2:#182238; --line:#2a3b5c;
@@ -69,14 +69,14 @@ select { background:#0f1930; color:var(--txt); border:1px solid var(--line); bor
 <body>
 <div class="portal">
   <aside class="sidebar">
-    <div class="brand">Medical Chatbot</div>
-    <div class="blurb">Medical Chatbot — patient-centric conversational assistant.</div>
+    <div class="brand">MediAssist — Patient Symptom Triage Chatbot</div>
+    <div class="blurb">Apollo Hospitals handles around 40,000 patient inquiries monthly through call centers, front-desk visits, and website contact forms. Approximately 60% of these inquiries relate to </div>
     <div class="section-label">Specialty agents</div>
-    <div id="agentList"><button type="button" class="agent-btn" data-agent="A1" onclick="selectAgent('A1')">Cancer Care</button><button type="button" class="agent-btn" data-agent="A2" onclick="selectAgent('A2')">Diabetes Agent</button><button type="button" class="agent-btn" data-agent="A3" onclick="selectAgent('A3')">Mental Illness Agent</button><button type="button" class="agent-btn" data-agent="A4" onclick="selectAgent('A4')">Cardiology Agent</button><button type="button" class="agent-btn" data-agent="A5" onclick="selectAgent('A5')">Respiratory Agent</button><button type="button" class="agent-btn" data-agent="A6" onclick="selectAgent('A6')">General Care Agent</button></div>
+    <div id="agentList"><button type="button" class="agent-btn" data-agent="A1" onclick="selectAgent('A1')">Mental Illness Agent</button><button type="button" class="agent-btn" data-agent="A2" onclick="selectAgent('A2')">Cardiology Agent</button><button type="button" class="agent-btn" data-agent="A3" onclick="selectAgent('A3')">General Care Agent</button></div>
     <div class="section-label" style="margin-top:10px;">RAG sources</div>
     <div class="blurb">CDC, PubMed</div>
     <div class="section-label" style="margin-top:10px;">Language</div>
-    <select id="langSelect"><option value="en">English</option><option value="hi">Hindi</option><option value="es">Spanish</option></select>
+    <select id="langSelect"><option value="en">English</option><option value="hi">Hindi</option></select>
   </aside>
   <section class="main">
     <div class="topbar">
@@ -90,7 +90,7 @@ select { background:#0f1930; color:var(--txt); border:1px solid var(--line); bor
       </div>
     </div>
     <div class="messages" id="chatMsgs">
-      <div class="msg system">Welcome. Choose a specialty agent or just ask — answers vary by topic using CDC, PubMed-style guidance.</div>
+      <div class="msg system">Welcome. Each specialty agent has its own private chat room — switch agents to change rooms.</div>
     </div>
     <div class="composer-wrap">
       <div class="composer">
@@ -106,40 +106,77 @@ select { background:#0f1930; color:var(--txt); border:1px solid var(--line); bor
   </section>
 </div>
 <script>
-const AGENTS = [{"id": "A1", "name": "Cancer Care", "domain": "Cancer Care", "persona": "caring, knowledgeable, patient-centric"}, {"id": "A2", "name": "Diabetes Agent", "domain": "Diabetes", "persona": "caring, knowledgeable, patient-centric"}, {"id": "A3", "name": "Mental Illness Agent", "domain": "Mental Illness", "persona": "caring, knowledgeable, patient-centric"}, {"id": "A4", "name": "Cardiology Agent", "domain": "Cardiology", "persona": "caring, knowledgeable, patient-centric"}, {"id": "A5", "name": "Respiratory Agent", "domain": "Respiratory", "persona": "caring, knowledgeable, patient-centric"}, {"id": "A6", "name": "General Care Agent", "domain": "General Care", "persona": "caring, knowledgeable, patient-centric"}];
+const AGENTS = [{"id": "A1", "name": "Mental Illness Agent", "domain": "Mental Illness", "persona": "caring, knowledgeable, patient-centric"}, {"id": "A2", "name": "Cardiology Agent", "domain": "Cardiology", "persona": "caring, knowledgeable, patient-centric"}, {"id": "A3", "name": "General Care Agent", "domain": "General Care", "persona": "caring, knowledgeable, patient-centric"}];
+const ROOM_WELCOME = 'Welcome to this specialty room. Messages stay here when you switch agents — each disease has its own chat.';
+const rooms = {};
 let activeAgent = (AGENTS[0] && AGENTS[0].id) || null;
-let lastPrescription = null;
-let transcript = [];
 let attachmentNote = null;
 let recognizing = false;
 let recognition = null;
 
+function ensureRoom(id) {
+  if (!id) return null;
+  if (!rooms[id]) {
+    rooms[id] = {
+      transcript: [],
+      lastPrescription: null,
+      html: '<div class="msg system">' + ROOM_WELCOME + '</div>'
+    };
+  }
+  return rooms[id];
+}
+
+function currentRoom() {
+  return ensureRoom(activeAgent);
+}
+
 function selectAgent(id) {
+  if (!id) return;
+  // Persist current room DOM before switching
+  if (activeAgent && rooms[activeAgent]) {
+    rooms[activeAgent].html = document.getElementById('chatMsgs').innerHTML;
+  }
   activeAgent = id;
+  ensureRoom(id);
   document.querySelectorAll('.agent-btn').forEach(b => b.classList.toggle('active', b.dataset.agent === id));
   const a = AGENTS.find(x => x.id === id);
   if (a) {
-    document.getElementById('activeAgentTitle').textContent = a.name;
-    document.getElementById('activeAgentSub').textContent = (a.domain || '') + ' · ' + (a.persona || 'patient-centric');
+    document.getElementById('activeAgentTitle').textContent = a.name + ' room';
+    document.getElementById('activeAgentSub').textContent = (a.domain || '') + ' · private thread · ' + (a.persona || 'patient-centric');
   }
+  const msgs = document.getElementById('chatMsgs');
+  msgs.innerHTML = rooms[id].html;
+  msgs.scrollTop = msgs.scrollHeight;
+  document.getElementById('inp').placeholder = 'Ask ' + ((a && a.name) || 'this agent') + '…';
 }
+
+// Separate empty room per specialty on load
+AGENTS.forEach(a => ensureRoom(a.id));
 if (activeAgent) selectAgent(activeAgent);
 
 function pushMsg(role, html, meta) {
+  const room = currentRoom();
   const msgs = document.getElementById('chatMsgs');
   const div = document.createElement('div');
   div.className = 'msg ' + role;
   div.innerHTML = html + (meta ? '<div class="meta-line">' + meta + '</div>' : '');
   msgs.appendChild(div);
   msgs.scrollTop = msgs.scrollHeight;
+  if (room) room.html = msgs.innerHTML;
 }
 
 async function go() {
   const input = document.getElementById('inp');
   const text = input.value.trim();
   if (!text) return;
+  if (!activeAgent) {
+    pushMsg('system', 'Select a specialty agent room first.');
+    return;
+  }
+  const roomId = activeAgent;
+  const room = ensureRoom(roomId);
   pushMsg('user', text.replace(/</g,'&lt;'));
-  transcript.push({role:'user', text});
+  room.transcript.push({role:'user', text});
   input.value = '';
   try {
     const r = await fetch('/chat', {
@@ -148,17 +185,19 @@ async function go() {
       body: JSON.stringify({
         message: text,
         language: document.getElementById('langSelect').value || 'en',
-        agent_id: activeAgent,
+        agent_id: roomId,
+        lock_agent: true,
         attachment_note: attachmentNote
       })
     });
     const data = await r.json();
-    if (data.agent && data.agent.id) selectAgent(data.agent.id);
-    lastPrescription = data.prescription || null;
+    // Stay in the selected specialty room — do not jump to another agent UI
+    if (activeAgent !== roomId) selectAgent(roomId);
+    room.lastPrescription = data.prescription || null;
     const cites = (data.citations || []).map(c => '<span class="cite">' + (c.source||'') + ': ' + (c.title||c.id||'') + '</span>').join('');
-    const meta = 'Agent: ' + ((data.agent && data.agent.name) || 'Care') + ' · Source: ' + (data.source || '') + '<br>' + cites;
+    const meta = 'Room: ' + ((data.agent && data.agent.name) || 'Care') + ' · Source: ' + (data.source || '') + '<br>' + cites;
     pushMsg('bot', (data.answer || '').replace(/</g,'&lt;'), meta);
-    transcript.push({role:'assistant', text: data.answer || '', meta});
+    room.transcript.push({role:'assistant', text: data.answer || '', meta});
     attachmentNote = null;
     document.getElementById('attachNote').textContent = '';
   } catch (e) {
@@ -167,15 +206,49 @@ async function go() {
 }
 
 function downloadChat() {
-  const lines = transcript.map(t => (t.role.toUpperCase() + ': ' + t.text));
-  const blob = new Blob([lines.join('\n\n')], {type:'text/plain'});
+  const room = currentRoom();
+  const lines = (room && room.transcript || []).map(t => (t.role.toUpperCase() + ': ' + t.text));
+  const aMeta = AGENTS.find(x => x.id === activeAgent);
+  const blob = new Blob([('Room: ' + ((aMeta && aMeta.name) || activeAgent) + '\n\n') + lines.join('\n\n')], {type:'text/plain'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'mc_chat.txt';
+  a.download = 'mpstc_' + (activeAgent || 'chat') + '_chat.txt';
   a.click();
 }
 
 function downloadRx() {
-  const rx = lastPrescription || {title:'Care tip sheet', recommendations:['Ask a question first to generate a tip sheet.'], di
+  const room = currentRoom();
+  const rx = (room && room.lastPrescription) || {title:'Care tip sheet', recommendations:['Ask a question first to generate a tip sheet.'], disclaimer:'Educational demo only.'};
+  const body = [rx.title || 'Tip sheet', 'Agent: ' + (rx.agent||''), 'Domain: ' + (rx.domain||''), '', ...(rx.recommendations||[]), '', rx.disclaimer||''].join('\n');
+  const blob = new Blob([body], {type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'mpstc_' + (activeAgent || 'rx') + '_prescription.txt';
+  a.click();
+}
 
-...[Preview truncated, download full file to view]...
+function onFile(el) {
+  const f = el.files && el.files[0];
+  if (!f) return;
+  attachmentNote = f.name + ' (' + f.type + ')';
+  document.getElementById('attachNote').textContent = 'Attached: ' + attachmentNote;
+}
+
+function toggleMic() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) { pushMsg('system', 'Voice input is not supported in this browser.'); return; }
+  if (!recognition) {
+    recognition = new SR();
+    recognition.lang = (document.getElementById('langSelect').value === 'hi') ? 'hi-IN' : (document.getElementById('langSelect').value === 'es' ? 'es-ES' : 'en-US');
+    recognition.onresult = (ev) => {
+      const said = ev.results[0][0].transcript;
+      document.getElementById('inp').value = (document.getElementById('inp').value + ' ' + said).trim();
+    };
+    recognition.onend = () => { recognizing = false; };
+  }
+  if (recognizing) { recognition.stop(); recognizing = false; return; }
+  recognizing = true;
+  recognition.start();
+}
+</script>
+</body></html>
