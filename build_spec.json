@@ -1,17 +1,17 @@
 {
   "version": 1,
-  "project_key": "MPSTC",
-  "project_name": "MediAssist \u2014 Patient Symptom Triage Chatbot",
-  "app_type": "Conversational AI Chatbot with Clinical Decision Support",
-  "app_kind": "chatbot",
-  "summary": "Apollo Hospitals handles around 40,000 patient inquiries monthly through call centers, front-desk visits, and website contact forms. Approximately 60% of these inquiries relate to non-emergency symptoms suitable for a self-service channel. These inquiries currently require 22 ful",
-  "requirement_text": "Organisation: Apollo Hospitals\nSegment: Healthcare \u2014 Patient Engagement\n\nAI SUGGESTED & EDITED PARAMETERS:\nAPP TYPE: Conversational AI Chatbot with Clinical Decision Support\nSEGMENT: Healthcare \u2014 Patient Engagement\nPROBLEM: Apollo Hospitals handles around 40,000 patient inquiries monthly through call centers, front-desk visits, and website contact forms. Approximately 60% of these inquiries relate to non-emergency symptoms suitable for a self-service channel. These inquiries currently require 22 full-time call center staff, costing $780K annually, leading to a 14-minute wait time before speaking to a person. This situation decreases patient satisfaction scores and sometimes results in patients switching to competitors.\nTOOLS AND TECH STACKS: Python, FastAPI, React Native, MongoDB, AWS\nKNOWLEDGE BASE SOURCES: Internal medical guidelines, Apollo's clinical protocols, healthcare department advisories\nSUPPORTED LANGUAGES: English, Hindi, Tamil, Telugu\nPERSONA AND TONE: Professional, empathetic, user-friendly, informative\nFALLBACK MECHANISMS: Immediate escalation to a human for emergency symptoms, established escalation protocols\nLLM FOUNDATION MODEL: GPT-4o, customized for healthcare a",
-  "requestor": "cto@apollohospitals.com",
+  "project_key": "FRTCFD",
+  "project_name": "FraudSentry \u2014 Real-Time Claims Fraud Detection",
+  "app_type": "ML-Powered Fraud Detection with Investigator Workbench",
+  "app_kind": "classification",
+  "summary": "FraudSentry \u2014 Real-Time Claims Fraud Detection \u2014 patient-centric conversational assistant.",
+  "requirement_text": "Organisation: Bharat General Insurance\nSegment: General Insurance \u2014 Claims Processing\n\nAI SUGGESTED & EDITED PARAMETERS:\nAPP TYPE: ML-Powered Fraud Detection with Investigator Workbench\nSEGMENT: General Insurance \u2014 Claims Processing\nPROBLEM DESCRIPTION: Bharat General Insurance processes 180,000 motor and health claims monthly, with annual payouts of $340 million. Estimated fraud in the industry is 8-12%, but our manual process detects only 2.1%. This leads to delayed legitimate payouts and a potential $27-40 million in undetected fraud. We need to enhance our fraud detection capabilities.\nSOLUTION REQUIREMENTS: Implement a real-time scoring system for incoming claims, leveraging historical fraud patterns, network analysis, document image analysis, and rule-based checks. Integrate with Guidewire ClaimCenter, a document management system, and the Insurance Information Bureau fraud database. Ensure compliance with IRDAI guidelines, and require human approval for claim denials.\nSUCCESS CRITERIA: Detection of fraudulent claims increases from 2.1% to 6% within a year, investigation time reduced from 11 days to under 4 days, and achieving a 5x ROI on the investment within the first year.",
+  "requestor": "head.claims@bharatgi.com",
   "deploy_port": 8095,
   "api": {
     "health": "/health",
     "meta": "/meta",
-    "primary": "/chat",
+    "primary": "/predict",
     "stories": "/stories",
     "criteria": "/criteria"
   },
@@ -64,33 +64,33 @@
     }
   ],
   "backlog": {
-    "project": "MPSTC",
+    "project": "FRTCFD",
     "total_points": 18,
-    "epic_count": 4,
+    "epic_count": 3,
     "story_count": 3
   },
   "stories": [
     {
       "id": "S1",
-      "title": "General Care specialty agent + RAG citations",
+      "title": "Implement BR-1..n as testable rules",
+      "points": 8,
+      "epic": "Rules Engine",
+      "acceptance_criteria_ids": [],
+      "acceptance_criteria": []
+    },
+    {
+      "id": "S2",
+      "title": "Decision + reasons response",
       "points": 5,
-      "epic": "Conversational UX",
+      "epic": "Rules Engine",
       "acceptance_criteria_ids": [],
       "acceptance_criteria": []
     },
     {
       "id": "S3",
-      "title": "Retriever over CDC/PubMed",
-      "points": 8,
-      "epic": "RAG & Specialty Agents",
-      "acceptance_criteria_ids": [],
-      "acceptance_criteria": []
-    },
-    {
-      "id": "S5",
-      "title": "Voice, multilingual, prescription export",
+      "title": "Decision API + audit log",
       "points": 5,
-      "epic": "Safety & Multimodal",
+      "epic": "Service & Compliance",
       "acceptance_criteria_ids": [],
       "acceptance_criteria": []
     }
@@ -106,8 +106,8 @@
       "context"
     ],
     "services": [],
-    "render_url": "https://mermaid.ink/img/pako:eNp1klFPgzAUhf_KTZ80bsZtbzyYMJyI2zLCIC5xPlToRhOgpBS3ZfG_ey9gXFBfmpzT79y29_bMYpUIZrFdpg5xyrWBRbAtAGwnvLt63TKfGykKs2Vv1509ItvJZCFjyYvvDfcFXdv3wOVGHPgJfbJXgYP-0l-HDqx0nIrKaG6U7rbpFBgO7zHeFmkEhkit7ccZhtd8J8wJ3JrrRHOZVT-lG5qwppY7ai7GZV6BvW8vfQkiQDKwXeRwhUAYLcWH0D0Q90jOp8jNC3XIRLIXFjxLzQfgSvNUvw9gVYrC9mAIi8Wyl59PSaGPeVzxnKpURSXAUXmpql_nUQWU0Ybun3IDvtKGZxB5PTDatFz7HOwdydnGx9zsWGLIgiZ_A8GxF0WqhUPqEj3lErhtiHDUIWNE2nf-AY07aILQf03o0Ekzl-jBC-lz1Ik0ENII-4Mhgg1YLnTOZcKsMzOpyOlbJmLH68ywz88vZZbH8Q==",
-    "excerpt": "%% Forge Solution Architecture \u2014 MPSTC / MediAssist \u2014 Patient Symptom Triage Chatbot\n%% Derived from SOW + BRD + Backlog + Brief (chatbot)\n%% Domains: Claims\n%% Stories: S1, S3, S5\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Patient\"])\n  ACT1([\"Clinician\"])\n  GW[\"API Gateway\"]\n  ORC[\"MPSTC Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  SAFE[\"Safety Guardrails\"]\n  ORC --> SAFE\n  AG1[\"Claims Agent\"]\n  ORC --> AG1\n  RAG[\"RAG Retriever\"]\n  ORC --> RAG\n  KB[\"Knowledge: Jira, GitHub, OpenAI - LLM\"]\n  ORC --> KB\n  LLM[\"LLM Response Composer\"]\n  ORC --> LLM\n  UX[\"Chat Portal UI\"]\n  ORC --> UX\n  UX --> ACT0\n  EXP[\"Export: Chat + Rx\"]\n  ORC --> EXP\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"GitHub\"]\n  ORC -.-> EXT2\n  EXT3[\"OpenAI - LLM\"]\n  ORC -.-> EXT3\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant Patient\n  participant Portal as \"Chat Portal\"\n  participant ORC as \"Orchestrator\"\n  participant SAFE as \"Guardrails\"\n  participant AG as \"Claims Agent\"\n  participant RAG as \"RAG Retriever\"\n  participant KB as \"Knowledge Base\"\n  participant LLM as \"LLM Composer\"\n  Patient->>Portal: General Care specialty agent + RAG citatio\u2026\n  Portal->>ORC: chat message + language\n  ORC->>SAFE: safety / escalation check\n  ORC->>AG: route by specialty/domain\n  AG->>RAG: retrieve context\n  RAG->>KB: query Jira, GitHub\n  KB-->>RAG: passages + citations\n  RAG-->>AG: grounded snippets\n  AG->>LLM: compose answer\n  LLM-->>Portal: answer + citations\n  Portal-->>Patient: response\n\n%% ER\nerDiagram"
+    "render_url": "https://mermaid.ink/img/pako:eNptkk9vwjAMxb-KldMmjWn8OXGYVEHLmMrK2o5NGjtkqYFIoUVJCkKI7744dNpUcfTL79l6dk5MVAWyIVup6iA2XFuI02UJEIzyh5vPJQtKro7GLtnXbSN3SZ7FkOzMrzp5J3I-hQm3eOBHp5OcpCOnR2k-isaQaLFBYzW3lW7eaQZ0Oo_Of-niC-eiKsrIi9zWGiFzJvzr6rkooypPg-mLI3PNZSnLNczlDpUs27TnSJgl4zCmBC63ggz1XgoEobgxciUFt7IqW15vISFcBGQN91xBB2ZotRTGh245CKQ6C9NF6BxzjYUUFtyOWqQnfO-PvOvIZ6n5f-SeurmnBuk5ZCLtU_19Beo1UJ8mVsauNWav8RWw34ADWhyWptKRO_8VcODP9Dae5nTgupAWaNGqFcIT7I5tUW-5LNjwxOwGt_SvClzxWll2Pv8ApcK4QA==",
+    "excerpt": "%% Forge Solution Architecture \u2014 FRTCFD / FraudSentry \u2014 Real-Time Claims Fraud Detection\n%% Derived from SOW + BRD + Backlog + Brief (classification)\n%% Domains: Claims\n%% Stories: S1, S2, S3\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Analyst\"])\n  ACT1([\"ML Ops\"])\n  GW[\"API Gateway\"]\n  ORC[\"FRTCFD Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  FS[\"Feature Store\"]\n  ORC --> FS\n  TRAIN[\"Training Pipeline\"]\n  ORC --> TRAIN\n  MODEL[\"Model Service classification\"]\n  ORC --> MODEL\n  EVAL[\"Eval - Metrics Gate\"]\n  ORC --> EVAL\n  SERVE[\"Predict API\"]\n  ORC --> SERVE\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"GitHub\"]\n  ORC -.-> EXT2\n  EXT3[\"PostgreSQL\"]\n  ORC -.-> EXT3\n  EXT4[\"TensorFlow\"]\n  ORC -.-> EXT4\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant User\n  participant API as \"Predict API\"\n  participant FS as \"Feature Store\"\n  participant MODEL as \"Model Service\"\n  participant EVAL as \"Metrics\"\n  User->>API: features\n  API->>FS: load feature vector\n  FS-->>API: X\n  API->>MODEL: predict y\n  MODEL-->>API: y_hat + score\n  API->>EVAL: record metric\n  API-->>User: prediction result\n\n%% ER\nerDiagram\n  FEATURE_A ||--o| DECISION_REASONS_RESPONSE : yields\n  FEATURE_A ||--o{ DECISION_API_AUDIT : logs\n  FEATURE_A ||--o{ FEATURE_B : includes\n  FEATURE_A ||--o{ IMPLEMENT_TESTABLE_RULES : includes\n  FEATURE_A ||--o{ AUDIT_EVENT : includes\n  FEATURE_A ||--o{ BACKLOG_STORY : traces\n  BACKLOG_STORY ||--o{ ACCEPTANCE_CRITERION : satisfies"
   },
   "modules": [
     "api",
@@ -119,19 +119,55 @@
   ],
   "input_fields": [
     {
-      "name": "feature_a",
+      "name": "claim_amount",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "feature_b",
+      "name": "claimant_history",
+      "dtype": "float",
+      "description": ""
+    },
+    {
+      "name": "repair_cost",
+      "dtype": "float",
+      "description": ""
+    },
+    {
+      "name": "accident_location",
+      "dtype": "float",
+      "description": ""
+    },
+    {
+      "name": "provider_reliability_score",
+      "dtype": "float",
+      "description": ""
+    },
+    {
+      "name": "passenger_count",
+      "dtype": "float",
+      "description": ""
+    },
+    {
+      "name": "submission_date",
+      "dtype": "float",
+      "description": ""
+    },
+    {
+      "name": "claimant_age",
       "dtype": "float",
       "description": ""
     }
   ],
   "sample_input": {
-    "feature_a": 1.0,
-    "feature_b": 1.0
+    "claim_amount": 1.0,
+    "claimant_history": 1.0,
+    "repair_cost": 1.0,
+    "accident_location": 1.0,
+    "provider_reliability_score": 1.0,
+    "passenger_count": 1.0,
+    "submission_date": 1.0,
+    "claimant_age": 1.0
   },
   "output_fields": [],
   "rag_sources": [
@@ -139,46 +175,29 @@
     "PubMed"
   ],
   "domains": [
-    "Mental Illness",
-    "Cardiology"
+    "General Care"
   ],
   "agents": [
     {
       "id": "A1",
-      "name": "Mental Illness Agent",
-      "domain": "Mental Illness",
-      "persona": "caring, knowledgeable, patient-centric"
-    },
-    {
-      "id": "A2",
-      "name": "Cardiology Agent",
-      "domain": "Cardiology",
-      "persona": "caring, knowledgeable, patient-centric"
-    },
-    {
-      "id": "A3",
-      "name": "General Care Agent",
+      "name": "General Care",
       "domain": "General Care",
       "persona": "caring, knowledgeable, patient-centric"
     }
   ],
   "languages": [
-    "en",
-    "hi"
+    "en"
   ],
   "features": {
     "chat_download": true,
     "prescription_download": false,
-    "voice_input": false,
-    "multimodal": false,
-    "multilingual": true
+    "voice_input": true,
+    "multimodal": true,
+    "multilingual": false
   },
   "constraints": [],
   "nonfunctional": [],
   "escalation_phrases": [
-    "emergency",
-    "chest pain",
-    "suicid",
     "fraud"
   ],
   "model": {
@@ -186,11 +205,14 @@
     "task": "classification",
     "dependent_variable": "Fraud_flag",
     "independent_variables": [
-      "Customer_age",
-      "Policy_duration",
-      "Claim_amount",
-      "Payment_history",
-      "Geographical_region"
+      "claim_amount",
+      "claimant_history",
+      "repair_cost",
+      "accident_location",
+      "provider_reliability_score",
+      "passenger_count",
+      "submission_date",
+      "claimant_age"
     ],
     "metric": "roc_auc",
     "metric_threshold": 0.75
@@ -199,8 +221,8 @@
     "strategy": "sprint1_stories",
     "story_ids": [
       "S1",
-      "S3",
-      "S5"
+      "S2",
+      "S3"
     ],
     "ac_ids": [
       "AC-1",
