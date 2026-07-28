@@ -1,7 +1,7 @@
-"""Training script for MarketLens — Marketing Mix and Attribution Analytics Platform (MMMAAA)."""
+"""Training script for InsureGuard Fraud Scoring (IFS)."""
 import joblib, pandas as pd
-FEATURES = ['media_spend_and_impression_data_by_channel_and_campaign', 'promotional_calendar_and_pricing_data', 'competitor_spend', 'weather', 'macroeconomic_indicators', 'category_level_trends']
-TARGET = 'Weekly_sales_data_by_brand_and_geography'
+FEATURES = ['Customer_Age', 'Policy_Duration', 'Claim_Amount', 'Payment_History', 'Geographical_Region', 'Claim_Type', 'Prior_Claims_Count', 'Communication_Channel']
+TARGET = 'Fraud_flag'
 
 def main(path="data.csv"):
     df = pd.read_csv(path)
