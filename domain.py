@@ -1,4 +1,4 @@
-"""Domain logic for MoleculeInsight — Target-to-Lead Compound Screening Platform — driven by build_spec (BRD ACs + backlog + architecture)."""
+"""Domain logic for MarketLens — Marketing Mix and Attribution Analytics Platform — driven by build_spec (BRD ACs + backlog + architecture)."""
 from __future__ import annotations
 
 import json
@@ -8,13 +8,13 @@ from typing import Any
 
 BUILD_SPEC: dict[str, Any] = {
   "version": 1,
-  "project_key": "MTTLCS",
-  "project_name": "MoleculeInsight — Target-to-Lead Compound Screening Platform",
-  "app_type": "AI-Assisted Molecular Screening and Property Prediction",
+  "project_key": "MMMAAA",
+  "project_name": "MarketLens — Marketing Mix and Attribution Analytics Platform",
+  "app_type": "Marketing Mix Modeling with Multi-Touch Attribution",
   "app_kind": "classification",
-  "summary": "MoleculeInsight — Target-to-Lead Compound Screening Platform — patient-centric conversational assistant.",
-  "requirement_text": "Organisation: Dr. Reddy's Laboratories\nSegment: Pharmaceutical Research — Early-Stage Drug Discovery\n\nAI SUGGESTED & EDITED PARAMETERS:\nAPP TYPE: AI-Assisted Molecular Screening and Property Prediction for Drug Discovery\nINDUSTRY SEGMENT: Pharmaceutical Research - Early-Stage Drug Discovery\nPROBLEM STATEMENT: Dr. Reddy's Laboratories experiences significant delays and costs in early-stage drug discovery programs due to inefficiencies in the virtual screening stage. Current methods involve extensive manual setup, high False-positive rates, and lengthy screening times, impacting overall timelines and budget. There is a need for a more efficient, AI-driven platform to streamline screening processes and improve throughput without additional resource allocation.\nTOOLS AND TECH STACKS: Utilizes advanced frameworks and infrastructure such as Python for scripting and data manipulation, TensorFlow and PyTorch for AI model development, AWS SageMaker for scalable model training, and Docker for containerized deployment.\nINPUT DATA SOURCES: Includes diverse and comprehensive data repositories such as Protein Data Bank (PDB), Internal Repository for protein structures, ChEMBL and PubChem for com",
-  "requestor": "head.discovery.research@drreddys.com",
+  "summary": "MarketLens — Marketing Mix and Attribution Analytics Platform — patient-centric conversational assistant.",
+  "requirement_text": "Organisation: Hindustan Consumer Products\nSegment: Consumer Packaged Goods — Marketing Analytics\n\nAI SUGGESTED & EDITED PARAMETERS:\nAPP TYPE: Marketing Mix Modeling with Multi-Touch Attribution\nSEGMENT: Consumer Packaged Goods — Marketing Analytics\nPROBLEM DESCRIPTION: Hindustan Consumer Products allocates $240 million annually for marketing across 47 brands. The current effectiveness measurement through quarterly Nielsen studies, in-house models, and platform-reported ROAS lacks alignment. Insights are slow, and crucial questions regarding budget shifts cannot be confidently answered. A misallocation of 15-25% of spend is suspected but not provable without a robust analytics platform.\nTOOLS AND TECH STACKS: Python, R, TensorFlow, PyMC3, Apache Kafka, Snowflake\nINDEPENDENT VARIABLES: Weekly sales data by brand and geography; media spend and impression data by channel and campaign; promotional calendar and pricing data; competitor spend; weather; macroeconomic indicators; category-level trends\nDEPENDENT VARIABLE: Sales, market share, Return on Investment (ROI)\nML ALGORITHM: Bayesian regression, Markov Chain Monte Carlo (MCMC)\nEVALUATION METRICS: Improvement in Marketing ROI, accurac",
+  "requestor": "cmo.office@hcp-india.com",
   "deploy_port": 8095,
   "api": {
     "health": "/health",
@@ -72,7 +72,7 @@ BUILD_SPEC: dict[str, Any] = {
     }
   ],
   "backlog": {
-    "project": "MTTLCS",
+    "project": "MMMAAA",
     "total_points": 18,
     "epic_count": 3,
     "story_count": 3
@@ -114,8 +114,8 @@ BUILD_SPEC: dict[str, Any] = {
       "context"
     ],
     "services": [],
-    "render_url": "https://mermaid.ink/img/pako:eNptklFPwjAQx7_KpU-aiBF448FkgQ0xw5Gtoon4ULtDmpSOdB2EEL67vTKjWXi8f3-_a3vticmqRDZia10d5EZYB2m-MgDRmD_cfKxYZIQ-1m7FPm_buE_xPIVsV_-m0zciFzOYCocHcfQ5xVk-JpTzdFxAZuUGa2eFq2y7TntAr_fo_UuXUHiLqqTwboLCNRah8BL-dQ1cUlDF82j24kluhTLKfMNC7VAr06UDR8E8m8QpHcvfW0OBdq8kgtSirtVaSeFUZTpuUCiIlxGp8V5o6MEcnVWyDpfuGARSXcT5MvbGwmKppAM_ow4ZiND7nfc9-ays-I_cUze_1CIDj0yVe2q-rkCDFhrSPNDUlU38q14Bh2H6r5MZp3drSuWA5qc7ZwsEu2NbtFuhSjY6MbfBLX2XEtei0Y6dzz-KEqyO",
-    "excerpt": "%% Forge Solution Architecture — MTTLCS / MoleculeInsight — Target-to-Lead Compound Screening Platform\n%% Derived from SOW + BRD + Backlog + Brief (classification)\n%% Domains: Cancer Care, Lending / Credit\n%% Stories: S1, S2, S3\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Analyst\"])\n  ACT1([\"ML Ops\"])\n  GW[\"API Gateway\"]\n  ORC[\"MTTLCS Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  FS[\"Feature Store\"]\n  ORC --> FS\n  TRAIN[\"Training Pipeline\"]\n  ORC --> TRAIN\n  MODEL[\"Model Service classification\"]\n  ORC --> MODEL\n  EVAL[\"Eval - Metrics Gate\"]\n  ORC --> EVAL\n  SERVE[\"Predict API\"]\n  ORC --> SERVE\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"GitHub\"]\n  ORC -.-> EXT2\n  EXT3[\"TensorFlow\"]\n  ORC -.-> EXT3\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant User\n  participant API as \"Predict API\"\n  participant FS as \"Feature Store\"\n  participant MODEL as \"Model Service\"\n  participant EVAL as \"Metrics\"\n  User->>API: features\n  API->>FS: load feature vector\n  FS-->>API: X\n  API->>MODEL: predict y\n  MODEL-->>API: y_hat + score\n  API->>EVAL: record metric\n  API-->>User: prediction result\n\n%% ER\nerDiagram\n  FEATURE_A ||--o| DECISION_REASONS_RESPONSE : yields\n  FEATURE_A ||--o{ DECISION_API_AUDIT : logs\n  FEATURE_A ||--o{ FEATURE_B : includes\n  FEATURE_A ||--o{ IMPLEMENT_TESTABLE_RULES : includes\n  FEATURE_A ||--o{ AUDIT_EVENT : includes\n  FEATURE_A ||--o{ BACKLOG_STORY : traces\n  BACKLOG_STORY ||--o{ ACCEPTANCE_CRITERION : satisfies"
+    "render_url": "https://mermaid.ink/img/pako:eNptklFPwjAQx7_KpU-aiBF448FkgQ0xzJFtoon4ULtDmpSOtB2EEL67vTKjWXi8f3-_a3vtiYm6QjZia1UfxIYbB_N8pQGicflw87FikebqaN2Kfd62cZ_idA7Zzv6m0zciFzOYcocHfvQ5xVk-JjRNoyiCzIgNWme4q027TntAr_fo_UuXUHiLqqTwboLcNQah8BL-dQ1cUlBV5tHsxZOl4VJL_Q0LuUMldZcOHAVpNonndCx_bwUFmr0UCEJxa-VaCu5krTtuUCiIlxGp8Z4r6EGKzkhhw6U7BoFUF3G-jL2xMFhJ4cDPqEMGIvR-L_uefJaG_0fuqZtfapGBR6bSPTVfV6BBCw1pHqhtbRL_qlfAYZj-62RW0rs1lXRA81OdswWC3bEtmi2XFRudmNvglr5LhWveKMfO5x82d6xh",
+    "excerpt": "%% Forge Solution Architecture — MMMAAA / MarketLens — Marketing Mix and Attribution Analytics Platform\n%% Derived from SOW + BRD + Backlog + Brief (classification)\n%% Domains: Mental Illness\n%% Stories: S1, S2, S3\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Analyst\"])\n  ACT1([\"ML Ops\"])\n  GW[\"API Gateway\"]\n  ORC[\"MMMAAA Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  FS[\"Feature Store\"]\n  ORC --> FS\n  TRAIN[\"Training Pipeline\"]\n  ORC --> TRAIN\n  MODEL[\"Model Service classification\"]\n  ORC --> MODEL\n  EVAL[\"Eval - Metrics Gate\"]\n  ORC --> EVAL\n  SERVE[\"Predict API\"]\n  ORC --> SERVE\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"GitHub\"]\n  ORC -.-> EXT2\n  EXT3[\"TensorFlow\"]\n  ORC -.-> EXT3\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant User\n  participant API as \"Predict API\"\n  participant FS as \"Feature Store\"\n  participant MODEL as \"Model Service\"\n  participant EVAL as \"Metrics\"\n  User->>API: features\n  API->>FS: load feature vector\n  FS-->>API: X\n  API->>MODEL: predict y\n  MODEL-->>API: y_hat + score\n  API->>EVAL: record metric\n  API-->>User: prediction result\n\n%% ER\nerDiagram\n  FEATURE_A ||--o| DECISION_REASONS_RESPONSE : yields\n  FEATURE_A ||--o{ DECISION_API_AUDIT : logs\n  FEATURE_A ||--o{ FEATURE_B : includes\n  FEATURE_A ||--o{ IMPLEMENT_TESTABLE_RULES : includes\n  FEATURE_A ||--o{ AUDIT_EVENT : includes\n  FEATURE_A ||--o{ BACKLOG_STORY : traces\n  BACKLOG_STORY ||--o{ ACCEPTANCE_CRITERION : satisfies"
   },
   "modules": [
     "api",
@@ -127,19 +127,49 @@ BUILD_SPEC: dict[str, Any] = {
   ],
   "input_fields": [
     {
-      "name": "feature_a",
+      "name": "Weekly_sales_data_by_brand_and_geography",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "feature_b",
+      "name": "media_spend_and_impression_data_by_channel_and_campaign",
+      "dtype": "float",
+      "description": ""
+    },
+    {
+      "name": "promotional_calendar_and_pricing_data",
+      "dtype": "float",
+      "description": ""
+    },
+    {
+      "name": "competitor_spend",
+      "dtype": "float",
+      "description": ""
+    },
+    {
+      "name": "weather",
+      "dtype": "float",
+      "description": ""
+    },
+    {
+      "name": "macroeconomic_indicators",
+      "dtype": "float",
+      "description": ""
+    },
+    {
+      "name": "category_level_trends",
       "dtype": "float",
       "description": ""
     }
   ],
   "sample_input": {
-    "feature_a": 1.0,
-    "feature_b": 1.0
+    "Weekly_sales_data_by_brand_and_geography": 1.0,
+    "media_spend_and_impression_data_by_channel_and_campaign": 1.0,
+    "promotional_calendar_and_pricing_data": 1.0,
+    "competitor_spend": 1.0,
+    "weather": 1.0,
+    "macroeconomic_indicators": 1.0,
+    "category_level_trends": 1.0
   },
   "output_fields": [],
   "rag_sources": [
@@ -147,13 +177,13 @@ BUILD_SPEC: dict[str, Any] = {
     "PubMed"
   ],
   "domains": [
-    "Cancer Care"
+    "Mental Illness"
   ],
   "agents": [
     {
       "id": "A1",
-      "name": "Cancer Care",
-      "domain": "Cancer Care",
+      "name": "Mental Illness Agent",
+      "domain": "Mental Illness",
       "persona": "caring, knowledgeable, patient-centric"
     },
     {
@@ -175,19 +205,18 @@ BUILD_SPEC: dict[str, Any] = {
   },
   "constraints": [],
   "nonfunctional": [],
-  "escalation_phrases": [
-    "fraud"
-  ],
+  "escalation_phrases": [],
   "model": {
     "family": "sklearn",
     "task": "classification",
-    "dependent_variable": "Fraud_flag",
+    "dependent_variable": "Weekly_sales_data_by_brand_and_geography",
     "independent_variables": [
-      "Customer_age",
-      "Policy_duration",
-      "Claim_amount",
-      "Payment_history",
-      "Geographical_region"
+      "media_spend_and_impression_data_by_channel_and_campaign",
+      "promotional_calendar_and_pricing_data",
+      "competitor_spend",
+      "weather",
+      "macroeconomic_indicators",
+      "category_level_trends"
     ],
     "metric": "roc_auc",
     "metric_threshold": 0.75
