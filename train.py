@@ -1,6 +1,6 @@
-"""Training script for FraudSentry — Real-Time Claims Fraud Detection (FRTCFD)."""
+"""Training script for MoleculeInsight — Target-to-Lead Compound Screening Platform (MTTLCS)."""
 import joblib, pandas as pd
-FEATURES = ['claim_amount', 'claimant_history', 'repair_cost', 'accident_location', 'provider_reliability_score', 'passenger_count', 'submission_date', 'claimant_age']
+FEATURES = ['Customer_age', 'Policy_duration', 'Claim_amount', 'Payment_history', 'Geographical_region']
 TARGET = 'Fraud_flag'
 
 def main(path="data.csv"):
