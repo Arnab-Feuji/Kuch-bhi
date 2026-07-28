@@ -1,7 +1,7 @@
-"""Training script for MoleculeInsight — Target-to-Lead Compound Screening Platform (MTTLCS)."""
+"""Training script for MarketLens — Marketing Mix and Attribution Analytics Platform (MMMAAA)."""
 import joblib, pandas as pd
-FEATURES = ['Customer_age', 'Policy_duration', 'Claim_amount', 'Payment_history', 'Geographical_region']
-TARGET = 'Fraud_flag'
+FEATURES = ['media_spend_and_impression_data_by_channel_and_campaign', 'promotional_calendar_and_pricing_data', 'competitor_spend', 'weather', 'macroeconomic_indicators', 'category_level_trends']
+TARGET = 'Weekly_sales_data_by_brand_and_geography'
 
 def main(path="data.csv"):
     df = pd.read_csv(path)
