@@ -1,12 +1,7 @@
-"""Training script for Medical Chatbot.
-
-Dependent variable (y): None
-Independent variables (X): []
-Reads data.csv, writes model.joblib.
-"""
-import sys, joblib, pandas as pd
-FEATURES = []
-TARGET = None
+"""Training script for FraudSentry — Real-Time Claims Fraud Detection (FRTCFD)."""
+import joblib, pandas as pd
+FEATURES = ['claim_amount', 'claimant_history', 'repair_cost', 'accident_location', 'provider_reliability_score', 'passenger_count', 'submission_date', 'claimant_age']
+TARGET = 'Fraud_flag'
 
 def main(path="data.csv"):
     df = pd.read_csv(path)
@@ -16,7 +11,7 @@ def main(path="data.csv"):
     from sklearn.metrics import roc_auc_score
     y = df[TARGET].values
     Xtr, Xte, ytr, yte = train_test_split(X, y, test_size=0.2, random_state=42)
-    model = RandomForestClassifier(n_estimators=200, random_state=42)
+    model = RandomForestClassifier(n_estimators=120, random_state=42)
     model.fit(Xtr, ytr)
     try:
         score = roc_auc_score(yte, model.predict_proba(Xte)[:, 1])
@@ -27,4 +22,4 @@ def main(path="data.csv"):
     print("saved model.joblib")
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "data.csv")
+    main()
