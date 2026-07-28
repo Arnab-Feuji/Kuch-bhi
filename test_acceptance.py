@@ -5,11 +5,11 @@ spec = importlib.util.spec_from_file_location('genapp', os.path.join(os.path.dir
 m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
 client = TestClient(m.app)
 
-PROJECT_KEY = 'MMMAAA'
+PROJECT_KEY = 'IFS'
 STORY_IDS = ['S1', 'S2', 'S3']
 AC_IDS = ['AC-1', 'AC-2', 'AC-3', 'AC-4']
 RULE_IDS = ['BR-1', 'BR-2', 'BR-3', 'BR-4']
-SAMPLE = {'Weekly_sales_data_by_brand_and_geography': 1.0, 'media_spend_and_impression_data_by_channel_and_campaign': 1.0, 'promotional_calendar_and_pricing_data': 1.0, 'competitor_spend': 1.0, 'weather': 1.0, 'macroeconomic_indicators': 1.0, 'category_level_trends': 1.0}
+SAMPLE = {'Customer_Age': 1.0, 'Policy_Duration': 1.0, 'Claim_Amount': 1.0, 'Payment_History': 1.0, 'Geographical_Region': 1.0, 'Claim_Type': 1.0, 'Prior_Claims_Count': 1.0, 'Communication_Channel': 1.0}
 
 def test_health():
     r = client.get('/health')
