@@ -1,4 +1,4 @@
-"""Domain logic for Medical Chatbot — driven by build_spec (BRD ACs + backlog + architecture)."""
+"""Domain logic for MediAssist — Patient Symptom Triage Chatbot — driven by build_spec (BRD ACs + backlog + architecture)."""
 from __future__ import annotations
 
 import json
@@ -8,13 +8,13 @@ from typing import Any
 
 BUILD_SPEC: dict[str, Any] = {
   "version": 1,
-  "project_key": "MC",
-  "project_name": "Medical Chatbot",
-  "app_type": "Conversational AI Chatbot ",
+  "project_key": "MPSTC",
+  "project_name": "MediAssist — Patient Symptom Triage Chatbot",
+  "app_type": "Conversational AI Chatbot with Clinical Decision Support",
   "app_kind": "chatbot",
-  "summary": "Medical Chatbot — patient-centric conversational assistant.",
-  "requirement_text": "Organisation: Feuji Software Solution Pvt. Ltd.\nSegment: Healthcare\n\nAI SUGGESTED & EDITED PARAMETERS:\nTOOLS AND TECH STACKS: Python, FastAPI, React for frontend development, TensorFlow for machine learning, MongoDB for database management\nKNOWLEDGE BASE SOURCES: CDC guidelines, PubMed articles, reputable medical journals\nLLM FOUNDATION MODEL: GPT-4 Health, optimized for healthcare applications\nPERSONA AND TONE: Empathetic and informative, with a culturally sensitive approach to cater to diverse patient needs\nFALLBACK MECHANISMS: Escalation to a human agent for complex queries, re-routing to a comprehensive FAQ section\nSUPPORTED LANGUAGES: Primarily Hindi, English, and Spanish to accommodate a wide user base\nMULTI MODAL CAPABILITIES: Supports text, voice interactions, and image recognition to enhance user engagement\nUSER INTERFACE FEATURES: Includes chat message download, prescription download, and microphone input functionalities\nEXPECTED OUTCOME: Delivery of reliable medical information, enhancement of patient engagement, and achievement of swift response times\nTARGET USER SPECIFICATION: Designed for patients, healthcare providers, and caregivers requiring medical support and inf",
-  "requestor": "ad_isi03@hotmail.com",
+  "summary": "Apollo Hospitals handles around 40,000 patient inquiries monthly through call centers, front-desk visits, and website contact forms. Approximately 60% of these inquiries relate to non-emergency symptoms suitable for a self-service channel. These inquiries currently require 22 ful",
+  "requirement_text": "Organisation: Apollo Hospitals\nSegment: Healthcare — Patient Engagement\n\nAI SUGGESTED & EDITED PARAMETERS:\nAPP TYPE: Conversational AI Chatbot with Clinical Decision Support\nSEGMENT: Healthcare — Patient Engagement\nPROBLEM: Apollo Hospitals handles around 40,000 patient inquiries monthly through call centers, front-desk visits, and website contact forms. Approximately 60% of these inquiries relate to non-emergency symptoms suitable for a self-service channel. These inquiries currently require 22 full-time call center staff, costing $780K annually, leading to a 14-minute wait time before speaking to a person. This situation decreases patient satisfaction scores and sometimes results in patients switching to competitors.\nTOOLS AND TECH STACKS: Python, FastAPI, React Native, MongoDB, AWS\nKNOWLEDGE BASE SOURCES: Internal medical guidelines, Apollo's clinical protocols, healthcare department advisories\nSUPPORTED LANGUAGES: English, Hindi, Tamil, Telugu\nPERSONA AND TONE: Professional, empathetic, user-friendly, informative\nFALLBACK MECHANISMS: Immediate escalation to a human for emergency symptoms, established escalation protocols\nLLM FOUNDATION MODEL: GPT-4o, customized for healthcare a",
+  "requestor": "cto@apollohospitals.com",
   "deploy_port": 8095,
   "api": {
     "health": "/health",
@@ -72,23 +72,15 @@ BUILD_SPEC: dict[str, Any] = {
     }
   ],
   "backlog": {
-    "project": "MC",
-    "total_points": 30,
+    "project": "MPSTC",
+    "total_points": 18,
     "epic_count": 4,
-    "story_count": 6
+    "story_count": 3
   },
   "stories": [
     {
       "id": "S1",
-      "title": "Cancer Care specialty agent + RAG citations",
-      "points": 5,
-      "epic": "Conversational UX",
-      "acceptance_criteria_ids": [],
-      "acceptance_criteria": []
-    },
-    {
-      "id": "S2",
-      "title": "Diabetes specialty agent + RAG citations",
+      "title": "General Care specialty agent + RAG citations",
       "points": 5,
       "epic": "Conversational UX",
       "acceptance_criteria_ids": [],
@@ -96,24 +88,8 @@ BUILD_SPEC: dict[str, Any] = {
     },
     {
       "id": "S3",
-      "title": "Mental Illness specialty agent + RAG citations",
-      "points": 5,
-      "epic": "RAG & Specialty Agents",
-      "acceptance_criteria_ids": [],
-      "acceptance_criteria": []
-    },
-    {
-      "id": "S4",
-      "title": "Cardiology specialty agent + RAG citations",
-      "points": 5,
-      "epic": "RAG & Specialty Agents",
-      "acceptance_criteria_ids": [],
-      "acceptance_criteria": []
-    },
-    {
-      "id": "S5",
-      "title": "Respiratory specialty agent + RAG citations",
-      "points": 5,
+      "title": "Retriever over CDC/PubMed",
+      "points": 8,
       "epic": "RAG & Specialty Agents",
       "acceptance_criteria_ids": [],
       "acceptance_criteria": []
@@ -138,8 +114,8 @@ BUILD_SPEC: dict[str, Any] = {
       "context"
     ],
     "services": [],
-    "render_url": "https://mermaid.ink/img/pako:eNp1k0Fv4jAQhf_KyKdWC6u20AuHSmnKZlmIGqXQIpU9mGQAS46NHFOKqv73zsSsWmXLJdKb-d7Mc5y8icKWKAZipe2-2EjnYZIvDEAUTy_Onhcik16h8Qvx9_xYvuRyrJVRhZLmXyN5omqUjSCRHvfyQHUu3-cx1dMY7l2xwdo76a079ngFdLs35A0TGkEOVg_RryE5H-QK_QGSnXSlk0rXn3MbmrFmVnLJqaQp0EEsHUK0DrG_0kQF-IrgOyWX6LE-QV4FssfxqS81jLQ2WJ_ie4HvNzFcqay268MJth_Ya2JzrLeqeSun4GuWeZQwHCWQo3cKX9C1QOqxHN8SNzZ2r7Fc4wDiu7gD2W6ZYtmBP7SpZRvfsppMUrLREziPNTVCbKutrf9bQwzL2ZzPuZEeMuv45cxGLXA2D1w4BV01y-E8I9_wdUsmysb-H5C_tqxEsUw5U7rTXlW2pBVdeLSqQBiZNX1JLU-ahvlTvrD2OX82Q6e9I8J3lCj_e7f8BuqLjqjQVVKVYvAm_AYr_j9KXEmKIt7fPwBD0vML",
-    "excerpt": "%% Forge Solution Architecture — MC / Medical Chatbot\n%% Derived from SOW + BRD + Backlog + Brief (chatbot)\n%% Domains: Cancer Care, Diabetes, Mental Illness, Cardiology, Respiratory\n%% Stories: S1, S2, S3, S4, S5, S5\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Patient\"])\n  ACT1([\"Clinician\"])\n  GW[\"API Gateway\"]\n  ORC[\"MC Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  SAFE[\"Safety Guardrails\"]\n  ORC --> SAFE\n  AG1[\"Cancer Care Agent\"]\n  ORC --> AG1\n  AG2[\"Diabetes Agent\"]\n  ORC --> AG2\n  AG3[\"Mental Illness Agent\"]\n  ORC --> AG3\n  AG4[\"Cardiology Agent\"]\n  ORC --> AG4\n  AG5[\"Respiratory Agent\"]\n  ORC --> AG5\n  RAG[\"RAG Retriever\"]\n  ORC --> RAG\n  KB[\"Knowledge: CDC, PubMed, Jira\"]\n  ORC --> KB\n  LLM[\"LLM Response Composer\"]\n  ORC --> LLM\n  UX[\"Chat Portal UI\"]\n  ORC --> UX\n  UX --> ACT0\n  EXP[\"Export: Chat + Rx\"]\n  ORC --> EXP\n  MM[\"Multimodal - Voice Ingest\"]\n  ORC --> MM\n  EXT3[\"Jira\"]\n  ORC -.-> EXT3\n  EXT4[\"GitHub\"]\n  ORC -.-> EXT4\n\n%% Sequence\nsequenceDiagram\n  participant User\n  participant Portal as \"Chat Portal\"\n  participant ORC as \"Orchestrator\"\n  participant SAFE as \"Guardrails\"\n  participant AG as \"Cancer Care Agent\"\n  participant RAG as \"RAG Retriever\"\n  participant KB as \"Knowledge Base\"\n  participant LLM as \"LLM Composer\"\n  User->>Portal: Cancer Care specialty agent + RAG citations\n  Portal->>ORC: chat message + language\n  ORC->>SAFE: safety / escalation check\n  ORC->>AG: route by specialty/domain\n  AG->>RAG: retrieve context\n  RAG->>KB: query CDC, PubMed\n  KB-->>RAG: p"
+    "render_url": "https://mermaid.ink/img/pako:eNp1klFPgzAUhf_KTZ80bsZtbzyYMJyI2zLCIC5xPlToRhOgpBS3ZfG_ey9gXFBfmpzT79y29_bMYpUIZrFdpg5xyrWBRbAtAGwnvLt63TKfGykKs2Vv1509ItvJZCFjyYvvDfcFXdv3wOVGHPgJfbJXgYP-0l-HDqx0nIrKaG6U7rbpFBgO7zHeFmkEhkit7ccZhtd8J8wJ3JrrRHOZVT-lG5qwppY7ai7GZV6BvW8vfQkiQDKwXeRwhUAYLcWH0D0Q90jOp8jNC3XIRLIXFjxLzQfgSvNUvw9gVYrC9mAIi8Wyl59PSaGPeVzxnKpURSXAUXmpql_nUQWU0Ybun3IDvtKGZxB5PTDatFz7HOwdydnGx9zsWGLIgiZ_A8GxF0WqhUPqEj3lErhtiHDUIWNE2nf-AY07aILQf03o0Ekzl-jBC-lz1Ik0ENII-4Mhgg1YLnTOZcKsMzOpyOlbJmLH68ywz88vZZbH8Q==",
+    "excerpt": "%% Forge Solution Architecture — MPSTC / MediAssist — Patient Symptom Triage Chatbot\n%% Derived from SOW + BRD + Backlog + Brief (chatbot)\n%% Domains: Claims\n%% Stories: S1, S3, S5\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Patient\"])\n  ACT1([\"Clinician\"])\n  GW[\"API Gateway\"]\n  ORC[\"MPSTC Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  SAFE[\"Safety Guardrails\"]\n  ORC --> SAFE\n  AG1[\"Claims Agent\"]\n  ORC --> AG1\n  RAG[\"RAG Retriever\"]\n  ORC --> RAG\n  KB[\"Knowledge: Jira, GitHub, OpenAI - LLM\"]\n  ORC --> KB\n  LLM[\"LLM Response Composer\"]\n  ORC --> LLM\n  UX[\"Chat Portal UI\"]\n  ORC --> UX\n  UX --> ACT0\n  EXP[\"Export: Chat + Rx\"]\n  ORC --> EXP\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"GitHub\"]\n  ORC -.-> EXT2\n  EXT3[\"OpenAI - LLM\"]\n  ORC -.-> EXT3\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant Patient\n  participant Portal as \"Chat Portal\"\n  participant ORC as \"Orchestrator\"\n  participant SAFE as \"Guardrails\"\n  participant AG as \"Claims Agent\"\n  participant RAG as \"RAG Retriever\"\n  participant KB as \"Knowledge Base\"\n  participant LLM as \"LLM Composer\"\n  Patient->>Portal: General Care specialty agent + RAG citatio…\n  Portal->>ORC: chat message + language\n  ORC->>SAFE: safety / escalation check\n  ORC->>AG: route by specialty/domain\n  AG->>RAG: retrieve context\n  RAG->>KB: query Jira, GitHub\n  KB-->>RAG: passages + citations\n  RAG-->>AG: grounded snippets\n  AG->>LLM: compose answer\n  LLM-->>Portal: answer + citations\n  Portal-->>Patient: response\n\n%% ER\nerDiagram"
   },
   "modules": [
     "api",
@@ -162,8 +138,8 @@ BUILD_SPEC: dict[str, Any] = {
     }
   ],
   "sample_input": {
-    "feature_a": 42.5,
-    "feature_b": 88.2
+    "feature_a": 1.0,
+    "feature_b": 1.0
   },
   "output_fields": [],
   "rag_sources": [
@@ -171,45 +147,24 @@ BUILD_SPEC: dict[str, Any] = {
     "PubMed"
   ],
   "domains": [
-    "Cancer Care",
-    "Diabetes",
     "Mental Illness",
-    "Cardiology",
-    "Respiratory"
+    "Cardiology"
   ],
   "agents": [
     {
       "id": "A1",
-      "name": "Cancer Care",
-      "domain": "Cancer Care",
-      "persona": "caring, knowledgeable, patient-centric"
-    },
-    {
-      "id": "A2",
-      "name": "Diabetes Agent",
-      "domain": "Diabetes",
-      "persona": "caring, knowledgeable, patient-centric"
-    },
-    {
-      "id": "A3",
       "name": "Mental Illness Agent",
       "domain": "Mental Illness",
       "persona": "caring, knowledgeable, patient-centric"
     },
     {
-      "id": "A4",
+      "id": "A2",
       "name": "Cardiology Agent",
       "domain": "Cardiology",
       "persona": "caring, knowledgeable, patient-centric"
     },
     {
-      "id": "A5",
-      "name": "Respiratory Agent",
-      "domain": "Respiratory",
-      "persona": "caring, knowledgeable, patient-centric"
-    },
-    {
-      "id": "A6",
+      "id": "A3",
       "name": "General Care Agent",
       "domain": "General Care",
       "persona": "caring, knowledgeable, patient-centric"
@@ -217,29 +172,42 @@ BUILD_SPEC: dict[str, Any] = {
   ],
   "languages": [
     "en",
-    "hi",
-    "es"
+    "hi"
   ],
   "features": {
     "chat_download": True,
-    "prescription_download": True,
-    "voice_input": True,
-    "multimodal": True,
+    "prescription_download": False,
+    "voice_input": False,
+    "multimodal": False,
     "multilingual": True
   },
   "constraints": [],
   "nonfunctional": [],
   "escalation_phrases": [
-    "can't breathe"
+    "emergency",
+    "chest pain",
+    "suicid",
+    "fraud"
   ],
-  "model": {},
+  "model": {
+    "family": "sklearn",
+    "task": "classification",
+    "dependent_variable": "Fraud_flag",
+    "independent_variables": [
+      "Customer_age",
+      "Policy_duration",
+      "Claim_amount",
+      "Payment_history",
+      "Geographical_region"
+    ],
+    "metric": "roc_auc",
+    "metric_threshold": 0.75
+  },
   "demo_scope": {
     "strategy": "sprint1_stories",
     "story_ids": [
       "S1",
-      "S2",
       "S3",
-      "S4",
       "S5"
     ],
     "ac_ids": [
@@ -428,70 +396,107 @@ def build_knowledge() -> dict[str, str]:
 
 
 def specialty_rag_pack() -> dict[str, list[dict[str, str]]]:
-    """CDC / PubMed-style lite knowledge snippets for specialty agents."""
+    """CDC / PubMed-style lite knowledge snippets tagged by topic for intent retrieval."""
     return {
         "cancer care": [
-            {"id": "CDC-CA-1", "source": "CDC", "title": "Cancer awareness",
+            {"id": "CDC-CA-1", "source": "CDC", "title": "Cancer awareness", "topics": ["overview", "screening", "symptoms"],
               "text": "Early detection improves outcomes. Know family history, attend age-appropriate screenings, and report unexplained weight loss, lumps, or persistent pain to a clinician."},
-            {"id": "PM-CA-1", "source": "PubMed", "title": "Supportive care",
+            {"id": "PM-CA-1", "source": "PubMed", "title": "Supportive care", "topics": ["support", "treatment", "symptoms"],
               "text": "Evidence-based cancer care includes symptom control, nutrition support, and mental-health follow-up alongside oncology treatment plans."},
-            {"id": "CDC-CA-2", "source": "CDC", "title": "Prevention",
+            {"id": "CDC-CA-2", "source": "CDC", "title": "Prevention", "topics": ["prevention", "lifestyle"],
               "text": "Reduce risk with tobacco cessation, limited alcohol, sun protection, physical activity, and vaccination where recommended (e.g., HPV)."},
+            {"id": "PM-CA-2", "source": "PubMed", "title": "Cancer medicines overview", "topics": ["medication", "treatment", "breast"],
+              "text": "Oncology medicines are chosen by cancer type, stage, and biomarkers. Common classes include chemotherapy, hormone therapy (e.g., tamoxifen/aromatase inhibitors for hormone-receptor breast cancer), targeted therapy, and immunotherapy — only an oncologist can prescribe."},
+            {"id": "CDC-CA-3", "source": "CDC", "title": "Breast cancer care", "topics": ["breast", "screening", "treatment"],
+              "text": "Breast cancer pathways often include imaging, biopsy, surgery, radiation, and systemic therapy. Mammography and clinical follow-up remain central for monitoring after diagnosis."},
+            {"id": "WHO-CA-1", "source": "WHO", "title": "Treatment planning", "topics": ["treatment", "medication", "support"],
+              "text": "Treatment plans are individualized. Ask the oncology team about goals (curative vs palliative), expected side effects, drug interactions, and when to seek urgent help."},
         ],
         "diabetes": [
-            {"id": "CDC-DB-1", "source": "CDC", "title": "Blood sugar basics",
+            {"id": "CDC-DB-1", "source": "CDC", "title": "Blood sugar basics", "topics": ["overview", "symptoms", "monitoring"],
               "text": "Track fasting and post-meal glucose. Seek urgent care for very high readings with vomiting, confusion, or rapid breathing."},
-            {"id": "PM-DB-1", "source": "PubMed", "title": "Lifestyle foundation",
+            {"id": "PM-DB-1", "source": "PubMed", "title": "Lifestyle foundation", "topics": ["lifestyle", "prevention", "diet"],
               "text": "Medical nutrition therapy, daily activity, medication adherence, and foot checks reduce diabetes complications."},
-            {"id": "CDC-DB-2", "source": "CDC", "title": "Hypoglycemia",
+            {"id": "CDC-DB-2", "source": "CDC", "title": "Hypoglycemia", "topics": ["symptoms", "medication", "emergency"],
               "text": "Symptoms include shakiness, sweating, and confusion. Use fast-acting carbohydrate and recheck; ask your clinician about an action plan."},
+            {"id": "PM-DB-2", "source": "PubMed", "title": "Glucose-lowering medicines", "topics": ["medication", "treatment"],
+              "text": "Common options include metformin, GLP-1 receptor agonists, SGLT2 inhibitors, DPP-4 inhibitors, sulfonylureas, and insulin. Choice depends on A1C, kidney function, heart risk, and hypoglycemia risk — clinician directed only."},
         ],
         "mental illness": [
-            {"id": "CDC-MH-1", "source": "CDC", "title": "Mental health support",
+            {"id": "CDC-MH-1", "source": "CDC", "title": "Mental health support", "topics": ["overview", "support", "treatment"],
               "text": "Anxiety and depression are treatable. Sleep, social connection, counseling, and clinician-guided medication can help."},
-            {"id": "PM-MH-1", "source": "PubMed", "title": "Crisis awareness",
+            {"id": "PM-MH-1", "source": "PubMed", "title": "Crisis awareness", "topics": ["emergency", "support"],
               "text": "If you feel unsafe or have thoughts of self-harm, contact local emergency services or a crisis line immediately."},
-            {"id": "CDC-MH-2", "source": "CDC", "title": "Daily coping",
+            {"id": "CDC-MH-2", "source": "CDC", "title": "Daily coping", "topics": ["lifestyle", "support"],
               "text": "Breathing exercises, brief walks, journaling, and limiting late caffeine can reduce symptom intensity between care visits."},
+            {"id": "PM-MH-2", "source": "PubMed", "title": "Psychotropic medicines", "topics": ["medication", "treatment"],
+              "text": "SSRIs/SNRIs, mood stabilizers, and other agents may be used under psychiatric supervision. Never start, stop, or combine psychiatric medicines without a licensed clinician."},
         ],
         "cardiology": [
-            {"id": "CDC-CD-1", "source": "CDC", "title": "Heart risk factors",
+            {"id": "CDC-CD-1", "source": "CDC", "title": "Heart risk factors", "topics": ["overview", "prevention", "symptoms"],
               "text": "Control blood pressure, cholesterol, blood sugar, and tobacco use. Report chest pain, sudden weakness, or severe shortness of breath urgently."},
-            {"id": "PM-CD-1", "source": "PubMed", "title": "Heart-healthy habits",
+            {"id": "PM-CD-1", "source": "PubMed", "title": "Heart-healthy habits", "topics": ["lifestyle", "diet", "prevention"],
               "text": "Mediterranean-style eating, moderate aerobic activity, sodium awareness, and medication adherence improve cardiac outcomes."},
-            {"id": "CDC-CD-2", "source": "CDC", "title": "Blood pressure",
+            {"id": "CDC-CD-2", "source": "CDC", "title": "Blood pressure", "topics": ["monitoring", "symptoms"],
               "text": "Home monitoring helps detect trends. Sit quietly, use a validated cuff, and share readings with your clinician."},
+            {"id": "PM-CD-2", "source": "PubMed", "title": "Cardiac medicines", "topics": ["medication", "treatment"],
+              "text": "Clinicians may use antiplatelets, statins, ACE inhibitors/ARBs, beta-blockers, diuretics, or anticoagulants based on diagnosis. Dosing and combinations require medical supervision."},
         ],
         "respiratory": [
-            {"id": "CDC-RS-1", "source": "CDC", "title": "Breathing symptoms",
-              "text": "Seek urgent care for severe breathlessnes, blue lips, high fever with cough, or oxygen saturation that your clinician flags as unsafe."},
-            {"id": "PM-RS-1", "source": "PubMed", "title": "Asthma / COPD basics",
+            {"id": "CDC-RS-1", "source": "CDC", "title": "Breathing symptoms", "topics": ["symptoms", "emergency"],
+              "text": "Seek urgent care for severe breathlessness, blue lips, high fever with cough, or oxygen saturation that your clinician flags as unsafe."},
+            {"id": "PM-RS-1", "source": "PubMed", "title": "Asthma / COPD basics", "topics": ["treatment", "medication", "overview"],
               "text": "Use controller and rescue inhalers as prescribed, avoid smoke/triggers, and keep an updated action plan."},
-            {"id": "CDC-RS-2", "source": "CDC", "title": "Infection prevention",
+            {"id": "CDC-RS-2", "source": "CDC", "title": "Infection prevention", "topics": ["prevention", "lifestyle"],
               "text": "Hand hygiene, vaccination when recommended, and staying home while contagious reduce respiratory infection spread."},
+            {"id": "PM-RS-2", "source": "PubMed", "title": "Respiratory medicines", "topics": ["medication", "treatment"],
+              "text": "Inhaled corticosteroids, long-acting bronchodilators, short-acting rescue inhalers, and sometimes oral steroids or biologics are used. Technique and adherence matter as much as the drug choice."},
         ],
         "general care": [
-            {"id": "CDC-GN-1", "source": "CDC", "title": "General wellness",
+            {"id": "CDC-GN-1", "source": "CDC", "title": "General wellness", "topics": ["overview", "lifestyle"],
               "text": "Hydration, sleep, movement, and primary-care checkups support recovery. This assistant shares education, not a diagnosis."},
-            {"id": "PM-GN-1", "source": "PubMed", "title": "When to escalate",
+            {"id": "PM-GN-1", "source": "PubMed", "title": "When to escalate", "topics": ["emergency", "symptoms"],
               "text": "Worsening pain, neurological changes, chest pain, severe distress, or inability to keep fluids down needs clinician review."},
+            {"id": "WHO-GN-1", "source": "WHO", "title": "Medicine safety", "topics": ["medication", "treatment"],
+              "text": "Do not self-prescribe. Share allergies, current medicines, and pregnancy status with a clinician or pharmacist before taking new drugs."},
         ],
     }
 
 
 def _normalize_domain(name: str) -> str:
     n = (name or "").lower()
-    if any(k in n for k in ("cancer", "oncolog")):
+    if any(k in n for k in ("cancer", "oncolog", "tumor", "tumour", "breast", "chemo")):
         return "cancer care"
-    if "diabetes" in n or "glucose" in n:
+    if "diabetes" in n or "glucose" in n or "insulin" in n or "sugar" in n:
         return "diabetes"
-    if any(k in n for k in ("mental", "depress", "anxiety", "psych")):
+    if any(k in n for k in ("mental", "depress", "anxiety", "psych", "stress")):
         return "mental illness"
-    if any(k in n for k in ("cardio", "heart", "cardiac")):
+    if any(k in n for k in ("cardio", "heart", "cardiac", "blood pressure")):
         return "cardiology"
-    if any(k in n for k in ("respir", "lung", "asthma", "breath", "copd")):
+    if any(k in n for k in ("respir", "lung", "asthma", "breath", "copd", "cough")):
         return "respiratory"
     return "general care"
+
+
+def detect_intent(message: str) -> str:
+    """Map free-text questions to a retrieval/composition intent."""
+    low = (message or "").lower()
+    checks = [
+        ("medication", ("medic", "drug", "pill", "dose", "tablet", "prescription", "chemo", "therapy drug", "insulin", "inhaler")),
+        ("treatment", ("treat", "therapy", "surgery", "radiation", "protocol", "plan of care", "option")),
+        ("screening", ("screen", "mammogram", "detect", "test", "biopsy", "scan", "diagnos")),
+        ("prevention", ("prevent", "avoid", "risk", "lifestyle", "vaccine", "awareness", "educat")),
+        ("diet", ("diet", "food", "eat", "nutrition", "meal")),
+        ("support", ("support", "cope", "family", "caregiver", "help her", "help him", "sister", "brother", "mother", "father", "suffering")),
+        ("symptoms", ("symptom", "pain", "fever", "feel", "unwell", "sick", "suffer", "side effect")),
+        ("emergency", ("emergency", "urgent", "severe", "can't breathe", "suicid")),
+    ]
+    for intent, keys in checks:
+        if any(k in low for k in keys):
+            return intent
+    if "?" in low or low.startswith(("what", "how", "when", "why", "which", "can ", "could ", "should ")):
+        return "overview"
+    return "overview"
 
 
 def detect_agent(message: str, preferred: str | None = None) -> dict[str, Any]:
@@ -499,21 +504,23 @@ def detect_agent(message: str, preferred: str | None = None) -> dict[str, Any]:
     agents = s.get("agents") or []
     text = (message or "").lower()
     if preferred:
+        pref = preferred.lower().strip()
         for a in agents:
-            if preferred.lower() in str(a.get("id", "")).lower() or preferred.lower() in str(a.get("name", "")).lower():
+            aid = str(a.get("id", "")).lower()
+            aname = str(a.get("name", "")).lower()
+            if pref == aid or pref == aname or pref in aid or pref in aname:
                 return a
     scored = []
     for a in agents:
         dom = _normalize_domain(str(a.get("domain") or a.get("name") or ""))
         keys = dom.split()
         score = sum(1 for k in keys if k in text)
-        # synonym boosts
         boosts = {
-            "cancer care": ["cancer", "tumor", "oncology", "chemo"],
-            "diabetes": ["diabetes", "sugar", "insulin"],
-            "mental illness": ["mental", "anxiety", "depression", "stress"],
-            "cardiology": ["heart", "cardio", "pressure", "chest"],
-            "respiratory": ["breath", "asthma", "lung", "cough", "respir"],
+            "cancer care": ["cancer", "tumor", "tumour", "oncology", "chemo", "breast", "lump"],
+            "diabetes": ["diabetes", "sugar", "insulin", "glucose", "a1c"],
+            "mental illness": ["mental", "anxiety", "depression", "stress", "panic"],
+            "cardiology": ["heart", "cardio", "pressure", "chest", "bp"],
+            "respiratory": ["breath", "asthma", "lung", "cough", "respir", "wheeze"],
         }
         score += sum(2 for k in boosts.get(dom, []) if k in text)
         scored.append((score, a))
@@ -526,19 +533,41 @@ def detect_agent(message: str, preferred: str | None = None) -> dict[str, Any]:
     return agents[-1] if agents else {"id": "A1", "name": "General Care Agent", "domain": "General Care"}
 
 
-def retrieve_snippets(domain: str, message: str, limit: int = 2) -> list[dict[str, str]]:
+def retrieve_snippets(domain: str, message: str, limit: int = 2, intent: str | None = None) -> list[dict[str, str]]:
     pack = specialty_rag_pack()
     key = _normalize_domain(domain)
     docs = list(pack.get(key) or pack["general care"])
     text = (message or "").lower()
+    intent = intent or detect_intent(text)
+    words = set(re.findall(r"[a-z]{4,}", text))
     ranked = []
     for d in docs:
-        blob = (d.get("title", "") + " " + d.get("text", "")).lower()
-        score = sum(1 for w in re.findall(r"[a-z]{4,}", text) if w in blob)
+        blob = (d.get("title", "") + " " + d.get("text", "") + " " + " ".join(d.get("topics") or [])).lower()
+        score = sum(1 for w in words if w in blob)
+        topics = [t.lower() for t in (d.get("topics") or [])]
+        if intent in topics:
+            score += 5
+        # soft synonym boosts by intent
+        intent_words = {
+            "medication": ["medic", "drug", "therapy", "insulin", "inhaler", "chemo", "dose"],
+            "treatment": ["treat", "surgery", "therapy", "radiation", "plan"],
+            "screening": ["screen", "detect", "mammogram", "biopsy", "imaging"],
+            "prevention": ["prevent", "risk", "cessation", "vaccine"],
+            "diet": ["nutrition", "diet", "food", "eat"],
+            "symptoms": ["symptom", "pain", "fever", "side"],
+            "support": ["support", "mental", "caregiver", "follow-up"],
+            "emergency": ["urgent", "emergency", "crisis"],
+        }.get(intent, [])
+        score += sum(2 for w in intent_words if w in blob)
         ranked.append((score, d))
     ranked.sort(key=lambda x: x[0], reverse=True)
-    top = [d for _, d in ranked[:limit]]
-    return top or docs[:limit]
+    # Prefer intent-matched docs; if scores tie at zero, still diversify by intent order in pack
+    positive = [d for sc, d in ranked if sc > 0]
+    if positive:
+        return positive[:limit]
+    # fallback: first doc whose topics include intent, else pack head
+    tagged = [d for d in docs if intent in [t.lower() for t in (d.get("topics") or [])]]
+    return (tagged or docs)[:limit]
 
 
 def _localize(text: str, language: str) -> str:
@@ -557,7 +586,7 @@ def _localize(text: str, language: str) -> str:
 
 
 def compose_prescription(agent: dict[str, Any], snippets: list[dict[str, str]]) -> dict[str, Any]:
-    tips = [s.get("text", "")[:120] for s in snippets[:2]]
+    tips = [s.get("text", "")[:160] for s in snippets[:3]]
     return {
         "title": f"Care tip sheet — {agent.get('name') or 'Care Agent'}",
         "agent": agent.get("name"),
@@ -567,17 +596,36 @@ def compose_prescription(agent: dict[str, Any], snippets: list[dict[str, str]]) 
     }
 
 
+def _intent_lead(intent: str, agent: dict[str, Any], message: str) -> str:
+    name = agent.get("name") or "Care Agent"
+    domain = agent.get("domain") or "your concern"
+    q = (message or "").strip()
+    q_short = (q[:140] + "...") if len(q) > 140 else q
+    leads = {
+        "medication": f"{name} - about medicines for {domain}. You asked: '{q_short}'. I can share educational classes of medicines clinicians often discuss; I cannot prescribe or name a personal regimen.",
+        "treatment": f"{name} - treatment options for {domain}. Regarding '{q_short}', care is individualized by stage, biomarkers, and overall health.",
+        "screening": f"{name} - screening and detection for {domain}. For '{q_short}', early evaluation and guideline-based tests matter.",
+        "prevention": f"{name} - prevention and risk reduction for {domain}, answering '{q_short}'.",
+        "diet": f"{name} - nutrition guidance related to {domain} for '{q_short}'.",
+        "symptoms": f"{name} - symptom guidance for {domain}. You shared: '{q_short}'.",
+        "support": f"{name} - caregiver/support guidance for {domain}. About '{q_short}':",
+        "emergency": f"{name} - safety first for {domain}.",
+        "overview": f"{name} - {domain} guidance for '{q_short}'.",
+    }
+    return leads.get(intent, leads["overview"])
+
+
 def chat_answer(
     message: str,
     language: str = "en",
     agent_id: str | None = None,
     attachment_note: str | None = None,
+    lock_agent: bool = False,
 ) -> dict[str, Any]:
     s = load_spec()
     text = (message or "").strip()
     low = text.lower()
     escalations = [p.lower() for p in (s.get("escalation_phrases") or [])]
-    # Always escalate clear self-harm / emergency language
     hard = ["suicid", "want to die", "kill myself", "chest pain", "can't breathe", "cannot breathe"]
     if any(p and p in low for p in (escalations + hard)):
         return {
@@ -593,35 +641,51 @@ def chat_answer(
             "ac_ids": [a.get("id") for a in (s.get("acceptance_criteria") or [])],
         }
 
+    # Specialty rooms lock to the selected agent; otherwise allow topic auto-routing.
     agent = detect_agent(text, preferred=agent_id)
-    snippets = retrieve_snippets(str(agent.get("domain") or ""), text, limit=2)
+    if lock_agent and agent_id:
+        locked = detect_agent("", preferred=agent_id)
+        if locked:
+            agent = locked
+    intent = detect_intent(text)
+    snippets = retrieve_snippets(str(agent.get("domain") or ""), text, limit=3, intent=intent)
     sources = s.get("rag_sources") or ["CDC", "PubMed"]
     cite_bits = []
     answer_parts = []
     if attachment_note:
         answer_parts.append(f"I noted your attachment/context: {attachment_note[:120]}.")
-    answer_parts.append(
-        f"{agent.get('name') or 'Care Agent'} here - focusing on {agent.get('domain') or 'your concern'}."
-    )
+    answer_parts.append(_intent_lead(intent, agent, text))
+    if intent == "medication":
+        answer_parts.append(
+            "Important: medication choice depends on exact diagnosis, labs, allergies, and other drugs. "
+            "Use this as orientation for a conversation with the treating clinician or pharmacist — not as a shopping list."
+        )
     for sn in snippets:
-        answer_parts.append(sn.get("text") or "")
+        answer_parts.append(f"[{sn.get('source')} | {sn.get('title')}] {sn.get('text') or ''}")
         cite_bits.append({"id": sn.get("id"), "source": sn.get("source"), "title": sn.get("title")})
+    if intent == "support" or any(k in low for k in ("sister", "brother", "mother", "father", "family", "caregiver")):
+        answer_parts.append(
+            "For a family member: help them track appointments, side effects, medicines taken, and questions for the next oncology/clinic visit. "
+            "Encourage clinician contact for any sudden worsening."
+        )
     if "not feeling" in low or "unwell" in low or "sick" in low:
         answer_parts.append(
             "Since you feel unwell, share main symptoms (fever, pain location, duration). "
             "I can route you to the most relevant specialty agent."
         )
-    if any(k in low for k in ("awareness", "aware", "prevent", "educat")):
+    if intent == "prevention" or any(k in low for k in ("awareness", "aware", "educat")):
         answer_parts.append(
-            "For awareness campaigns: use trusted {0} materials, community screening drives, "
-            "and clear call-to-action for early checkups.".format("/".join(sources[:2]))
+            "For awareness: use trusted {0} materials, community screening drives, "
+            "and a clear call-to-action for early checkups.".format("/".join(sources[:2]))
         )
+    answer_parts.append(f"(Matched intent: {intent} | agent: {agent.get('name')})")
     answer = _localize(" ".join(p for p in answer_parts if p), language)
     rx = compose_prescription(agent, snippets)
     return {
         "answer": answer,
         "source": "AGENT_RAG",
         "agent": agent,
+        "intent": intent,
         "citations": cite_bits,
         "rag_sources": sources,
         "language": language or "en",
