@@ -1,17 +1,17 @@
 {
   "version": 1,
-  "project_key": "QPLAU",
-  "project_name": "QuickCredit \u2014 Personal Loan Automated Underwriting",
-  "app_type": "Automated Credit Decisioning with Human Override",
-  "app_kind": "rules_service",
-  "summary": "QuickCredit \u2014 Personal Loan Automated Underwriting \u2014 patient-centric conversational assistant.",
-  "requirement_text": "Organisation: Apex Retail Bank\nSegment: Consumer Lending \u2014 Personal Loans\n\nAI SUGGESTED & EDITED PARAMETERS:\nAPP TYPE: Automated Credit Decisioning with Human Override\nSEGMENT: Consumer Lending \u2014 Personal Loans\nPROBLEM STATEMENT: Apex Retail Bank faces a competitive disadvantage due to manual underwriting that results in a 3-5 day decision turnaround, leading to high abandonment rates and unprofitability for small loans. Competitors offer faster decision-making processes. The bank processes 600,000 applications annually, approving 340,000 but experiencing 260,000 rejections or abandonments.\nSOLUTION REQUIREMENTS: Implement an automated underwriting system that processes loan applications via mobile, web, and branch channels in under 90 seconds for 80% of cases. Integrates with various data and core banking systems to automate credit assessments while categorically requiring human intervention for higher-risk scenarios.\nTOOLS AND TECH STACKS: Python, Django, TensorFlow, optical character recognition (OCR) technology, Finacle API\nINDEPENDENT VARIABLES: credit_score, annual_income, employment_status, existing_debt, bank_statement_patterns, employment_tenure, industry_type, credit_quer",
-  "requestor": "head.retail.credit@apexbank.com",
+  "project_key": "MTTLCS",
+  "project_name": "MoleculeInsight \u2014 Target-to-Lead Compound Screening Platform",
+  "app_type": "AI-Assisted Molecular Screening and Property Prediction",
+  "app_kind": "classification",
+  "summary": "MoleculeInsight \u2014 Target-to-Lead Compound Screening Platform \u2014 patient-centric conversational assistant.",
+  "requirement_text": "Organisation: Dr. Reddy's Laboratories\nSegment: Pharmaceutical Research \u2014 Early-Stage Drug Discovery\n\nAI SUGGESTED & EDITED PARAMETERS:\nAPP TYPE: AI-Assisted Molecular Screening and Property Prediction for Drug Discovery\nINDUSTRY SEGMENT: Pharmaceutical Research - Early-Stage Drug Discovery\nPROBLEM STATEMENT: Dr. Reddy's Laboratories experiences significant delays and costs in early-stage drug discovery programs due to inefficiencies in the virtual screening stage. Current methods involve extensive manual setup, high false-positive rates, and lengthy screening times, impacting overall timelines and budget. There is a need for a more efficient, AI-driven platform to streamline screening processes and improve throughput without additional resource allocation.\nTOOLS AND TECH STACKS: Utilizes advanced frameworks and infrastructure such as Python for scripting and data manipulation, TensorFlow and PyTorch for AI model development, AWS SageMaker for scalable model training, and Docker for containerized deployment.\nINPUT DATA SOURCES: Includes diverse and comprehensive data repositories such as Protein Data Bank (PDB), Internal Repository for protein structures, ChEMBL and PubChem for com",
+  "requestor": "head.discovery.research@drreddys.com",
   "deploy_port": 8095,
   "api": {
     "health": "/health",
     "meta": "/meta",
-    "primary": "/decide",
+    "primary": "/predict",
     "stories": "/stories",
     "criteria": "/criteria"
   },
@@ -64,7 +64,7 @@
     }
   ],
   "backlog": {
-    "project": "QPLAU",
+    "project": "MTTLCS",
     "total_points": 18,
     "epic_count": 3,
     "story_count": 3
@@ -106,8 +106,8 @@
       "context"
     ],
     "services": [],
-    "render_url": "https://mermaid.ink/img/pako:eNptk99r2zAQgP-VQw9jZXNYfjz5oeA2aZphSOY67WDZg2ZdGoEsG0leCKX_e-9sF4Lx4919n3y6k99EUSkUsTia6lycpAuQZgcLkNznP77-OYikro0upA0H8femL0y5sLcK3dnpgO6ztH5hYbeBtQx4lhfKc3qb3VP-1y5N9rB1xQl9cDJUri_zlyCKbknvDmkDkjh6TlJyN7ZuAjxLo9WVSEiLEsNhtk9XTwRnjUEPK_uqLQ7IFuHEXTYl8i6LpvHnsQhfwEurg_YI0hjQtp5MJoMTSOz8WefPYkirV8D_6C6gsNBeVzZy6OvKehzzZ50_7_x5DDtXqaZAKEzjaZiRtFUpzQWk92P-vPMXnb8gH53XPkA4IRx1CKigpJ0a-AZj_oLD5YpXsuz7JTJD6aljoO0NDEI5TLfra4MuPeAI4HD1O-fRvjxur-sTArjSEzy8n9rJEWTWIzyftQ6Pzb8RaN5DPIQcra_cAz3fEbC9bLJfbnJ-mY3SAXIntRn03hLiuyjRlVIrEb8JmmbJ_4XCo2xMEO_vHyMG8FE=",
-    "excerpt": "%% Forge Solution Architecture \u2014 QPLAU / QuickCredit \u2014 Personal Loan Automated Underwriting\n%% Derived from SOW + BRD + Backlog + Brief (rules_service)\n%% Domains: Lending / Credit, Claims\n%% Stories: S1, S2, S3\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Applicant\"])\n  ACT1([\"Underwriter\"])\n  GW[\"API Gateway\"]\n  ORC[\"QPLAU Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  VAL[\"Input Validator\"]\n  ORC --> VAL\n  RULES[\"Rules Engine\"]\n  ORC --> RULES\n  BR1[\"BR-1: Validate & sanitise all inp...\"]\n  ORC --> BR1\n  BR2[\"BR-2: Log every decision-response...\"]\n  ORC --> BR2\n  BR3[\"BR-3: Produce cluster-anomaly ass...\"]\n  ORC --> BR3\n  BR4[\"BR-4: Persist the fitted model + ...\"]\n  ORC --> BR4\n  DEC[\"Decision + Reasons API\"]\n  ORC --> DEC\n  LOG[\"Decision Log\"]\n  ORC --> LOG\n  EXT1[\"WHO\"]\n  ORC -.-> EXT1\n  EXT2[\"Jira\"]\n  ORC -.-> EXT2\n  EXT3[\"GitHub\"]\n  ORC -.-> EXT3\n  EXT4[\"TensorFlow\"]\n  ORC -.-> EXT4\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant Applicant\n  participant API as \"Decision API\"\n  participant VAL as \"Validator\"\n  participant RULES as \"Rules Engine\"\n  participant LOG as \"Decision Log\"\n  Applicant->>API: Implement BR-1..n as testable rules\n  API->>VAL: schema validate\n  VAL->>RULES: evaluate BR-1, BR-2, BR-3, BR-4\n  RULES-->>API: APPROVED/DECLINED + reasons\n  API->>LOG: immutable audit write\n  API-->>Applicant: decision payload\n\n%% ER\nerDiagram\n  FEATURE_A ||--o| DECISION_REASONS_RESPONSE : yields\n  FEATURE_A ||--o{ DECISION_API_AUDIT : logs\n  FEATURE"
+    "render_url": "https://mermaid.ink/img/pako:eNptklFPwjAQx7_KpU-aiBF448FkgQ0xw5Gtoon4ULtDmpSOdB2EEL67vTKjWXi8f3-_a3vticmqRDZia10d5EZYB2m-MgDRmD_cfKxYZIQ-1m7FPm_buE_xPIVsV_-m0zciFzOYCocHcfQ5xVk-JpTzdFxAZuUGa2eFq2y7TntAr_fo_UuXUHiLqqTwboLCNRah8BL-dQ1cUlDF82j24kluhTLKfMNC7VAr06UDR8E8m8QpHcvfW0OBdq8kgtSirtVaSeFUZTpuUCiIlxGp8V5o6MEcnVWyDpfuGARSXcT5MvbGwmKppAM_ow4ZiND7nfc9-ays-I_cUze_1CIDj0yVe2q-rkCDFhrSPNDUlU38q14Bh2H6r5MZp3drSuWA5qc7ZwsEu2NbtFuhSjY6MbfBLX2XEtei0Y6dzz-KEqyO",
+    "excerpt": "%% Forge Solution Architecture \u2014 MTTLCS / MoleculeInsight \u2014 Target-to-Lead Compound Screening Platform\n%% Derived from SOW + BRD + Backlog + Brief (classification)\n%% Domains: Cancer Care, Lending / Credit\n%% Stories: S1, S2, S3\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Analyst\"])\n  ACT1([\"ML Ops\"])\n  GW[\"API Gateway\"]\n  ORC[\"MTTLCS Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  FS[\"Feature Store\"]\n  ORC --> FS\n  TRAIN[\"Training Pipeline\"]\n  ORC --> TRAIN\n  MODEL[\"Model Service classification\"]\n  ORC --> MODEL\n  EVAL[\"Eval - Metrics Gate\"]\n  ORC --> EVAL\n  SERVE[\"Predict API\"]\n  ORC --> SERVE\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"GitHub\"]\n  ORC -.-> EXT2\n  EXT3[\"TensorFlow\"]\n  ORC -.-> EXT3\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant User\n  participant API as \"Predict API\"\n  participant FS as \"Feature Store\"\n  participant MODEL as \"Model Service\"\n  participant EVAL as \"Metrics\"\n  User->>API: features\n  API->>FS: load feature vector\n  FS-->>API: X\n  API->>MODEL: predict y\n  MODEL-->>API: y_hat + score\n  API->>EVAL: record metric\n  API-->>User: prediction result\n\n%% ER\nerDiagram\n  FEATURE_A ||--o| DECISION_REASONS_RESPONSE : yields\n  FEATURE_A ||--o{ DECISION_API_AUDIT : logs\n  FEATURE_A ||--o{ FEATURE_B : includes\n  FEATURE_A ||--o{ IMPLEMENT_TESTABLE_RULES : includes\n  FEATURE_A ||--o{ AUDIT_EVENT : includes\n  FEATURE_A ||--o{ BACKLOG_STORY : traces\n  BACKLOG_STORY ||--o{ ACCEPTANCE_CRITERION : satisfies"
   },
   "modules": [
     "api",
@@ -119,86 +119,49 @@
   ],
   "input_fields": [
     {
-      "name": "credit_score",
+      "name": "feature_a",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "annual_income",
-      "dtype": "float",
-      "description": ""
-    },
-    {
-      "name": "employment_status",
-      "dtype": "float",
-      "description": ""
-    },
-    {
-      "name": "existing_debt",
-      "dtype": "float",
-      "description": ""
-    },
-    {
-      "name": "bank_statement_patterns",
-      "dtype": "float",
-      "description": ""
-    },
-    {
-      "name": "employment_tenure",
-      "dtype": "float",
-      "description": ""
-    },
-    {
-      "name": "industry_type",
-      "dtype": "float",
-      "description": ""
-    },
-    {
-      "name": "credit_queries",
-      "dtype": "float",
-      "description": ""
-    },
-    {
-      "name": "loan_amount",
+      "name": "feature_b",
       "dtype": "float",
       "description": ""
     }
   ],
   "sample_input": {
-    "credit_score": 1.0,
-    "annual_income": 1.0,
-    "employment_status": 1.0,
-    "existing_debt": 1.0,
-    "bank_statement_patterns": 1.0,
-    "employment_tenure": 1.0,
-    "industry_type": 1.0,
-    "credit_queries": 1.0,
-    "loan_amount": 1.0
+    "feature_a": 1.0,
+    "feature_b": 1.0
   },
   "output_fields": [],
   "rag_sources": [
-    "WHO"
+    "CDC",
+    "PubMed"
   ],
   "domains": [
-    "General Care"
+    "Cancer Care"
   ],
   "agents": [
     {
       "id": "A1",
-      "name": "General Care",
+      "name": "Cancer Care",
+      "domain": "Cancer Care",
+      "persona": "caring, knowledgeable, patient-centric"
+    },
+    {
+      "id": "A2",
+      "name": "General Care Agent",
       "domain": "General Care",
       "persona": "caring, knowledgeable, patient-centric"
     }
   ],
   "languages": [
-    "en",
-    "hi",
-    "es"
+    "en"
   ],
   "features": {
     "chat_download": true,
     "prescription_download": false,
-    "voice_input": false,
+    "voice_input": true,
     "multimodal": false,
     "multilingual": false
   },
@@ -210,16 +173,13 @@
   "model": {
     "family": "sklearn",
     "task": "classification",
-    "dependent_variable": "credit_score",
+    "dependent_variable": "Fraud_flag",
     "independent_variables": [
-      "annual_income",
-      "employment_status",
-      "existing_debt",
-      "bank_statement_patterns",
-      "employment_tenure",
-      "industry_type",
-      "credit_queries",
-      "loan_amount"
+      "Customer_age",
+      "Policy_duration",
+      "Claim_amount",
+      "Payment_history",
+      "Geographical_region"
     ],
     "metric": "roc_auc",
     "metric_threshold": 0.75
