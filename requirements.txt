@@ -3,7 +3,3 @@ uvicorn[standard]
 pydantic
 httpx
 pytest
-scikit-learn
-pandas
-numpy
-joblib
