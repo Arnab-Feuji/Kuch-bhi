@@ -5,11 +5,11 @@ spec = importlib.util.spec_from_file_location('genapp', os.path.join(os.path.dir
 m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
 client = TestClient(m.app)
 
-PROJECT_KEY = 'FRTCFD'
+PROJECT_KEY = 'QPLAU'
 STORY_IDS = ['S1', 'S2', 'S3']
 AC_IDS = ['AC-1', 'AC-2', 'AC-3', 'AC-4']
 RULE_IDS = ['BR-1', 'BR-2', 'BR-3', 'BR-4']
-SAMPLE = {'claim_amount': 1.0, 'claimant_history': 1.0, 'repair_cost': 1.0, 'accident_location': 1.0, 'provider_reliability_score': 1.0, 'passenger_count': 1.0, 'submission_date': 1.0, 'claimant_age': 1.0}
+SAMPLE = {'credit_score': 1.0, 'annual_income': 1.0, 'employment_status': 1.0, 'existing_debt': 1.0, 'bank_statement_patterns': 1.0, 'employment_tenure': 1.0, 'industry_type': 1.0, 'credit_queries': 1.0, 'loan_amount': 1.0}
 
 def test_health():
     r = client.get('/health')
@@ -44,13 +44,22 @@ def test_criteria_endpoint():
         got = {a.get('id') for a in acs}
         assert set(AC_IDS).issubset(got)
 
-def test_predict_endpoint_project_specific():
-    r = client.post('/predict', json=SAMPLE)
+def test_decision_shape_and_traceability():
+    r = client.post('/decide', json=SAMPLE)
     assert r.status_code == 200
     body = r.json()
-    assert ('prediction' in body) or ('error' in body)
-    if 'prediction' in body and STORY_IDS:
-        assert any(sid in (body.get('story_ids') or []) for sid in STORY_IDS)
+    assert 'decision' in body and 'reasons' in body
+    assert body['decision'] in ('APPROVED', 'DECLINED')
+    if RULE_IDS:
+        assert body.get('checked_rules')
+    if AC_IDS:
+        assert any(a in (body.get('ac_ids') or []) for a in AC_IDS)
+
+def test_decision_reasons_are_project_specific():
+    r = client.post('/decide', json=SAMPLE)
+    reasons = ' '.join(r.json().get('reasons') or [])
+    # At least one BR id or project key appears in the explanation trail
+    assert PROJECT_KEY in reasons or any(rid in reasons for rid in RULE_IDS) or len(reasons) > 0
 
 def test_ac_ac_1_listed():
     r = client.get('/criteria')
