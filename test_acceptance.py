@@ -5,11 +5,11 @@ spec = importlib.util.spec_from_file_location('genapp', os.path.join(os.path.dir
 m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
 client = TestClient(m.app)
 
-PROJECT_KEY = 'MTTLCS'
+PROJECT_KEY = 'MMMAAA'
 STORY_IDS = ['S1', 'S2', 'S3']
 AC_IDS = ['AC-1', 'AC-2', 'AC-3', 'AC-4']
 RULE_IDS = ['BR-1', 'BR-2', 'BR-3', 'BR-4']
-SAMPLE = {'feature_a': 1.0, 'feature_b': 1.0}
+SAMPLE = {'Weekly_sales_data_by_brand_and_geography': 1.0, 'media_spend_and_impression_data_by_channel_and_campaign': 1.0, 'promotional_calendar_and_pricing_data': 1.0, 'competitor_spend': 1.0, 'weather': 1.0, 'macroeconomic_indicators': 1.0, 'category_level_trends': 1.0}
 
 def test_health():
     r = client.get('/health')
