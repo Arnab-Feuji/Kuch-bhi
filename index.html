@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head><meta charset="utf-8">
-<title>FraudSentry — Real-Time Claims Fraud Detection</title>
+<title>QuickCredit — Personal Loan Automated Underwriting</title>
 <style>
 :root {
   --bg: #0A1F3D;
@@ -34,124 +34,95 @@ pre { white-space:pre-wrap; font-size:12px; color:var(--txt); }
 .msg.system { color:var(--txt-muted); font-size:12px; }
 .chat-input-row { display:flex; gap:8px; }
 
-.score-label { font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:var(--txt-muted); font-weight:700; }
-.score-value { font-size:42px; font-weight:800; color:var(--accent); margin:6px 0 4px; letter-spacing:-1px; }
-.score-band { display:inline-flex; padding:4px 10px; border-radius:999px; font-size:11px; font-weight:700; margin-bottom:12px; }
-.score-band.low { background:rgba(47,184,166,.18); color:var(--teal); }
-.score-band.medium { background:rgba(242,107,33,.18); color:var(--accent); }
-.score-band.high { background:rgba(228,88,88,.18); color:var(--red); }
-.score-meter { height:10px; background:#0A1F3D; border:1px solid var(--panel-border); border-radius:999px; overflow:hidden; }
-.score-fill { height:100%; width:0; transition:width .35s ease; }
-.score-fill.low { background:var(--teal); }
-.score-fill.medium { background:var(--accent); }
-.score-fill.high { background:var(--red); }
-.score-hint { margin-top:12px; font-size:13px; color:var(--txt-muted); line-height:1.45; }
-
 </style>
 </head><body>
 <div class="card">
-  <h2>FraudSentry — Real-Time Claims Fraud Detection</h2>
-  <div class="meta">FRTCFD · ML-Powered Fraud Detection with Investigator Workbench · stories S1: Implement BR-1..n as testable rules · S2: Decision + reasons response · S3: Decision API + audit log · ACs AC-1, AC-2, AC-3, AC-4</div>
-  <p>Enter claim features and press Fraud Score to see a 0–100 fraud risk score for the insurance demo model.</p>
+  <h2>QuickCredit — Personal Loan Automated Underwriting</h2>
+  <div class="meta">QPLAU · Automated Credit Decisioning with Human Override · stories S1: Implement BR-1..n as testable rules · S2: Decision + reasons response · S3: Decision API + audit log · ACs AC-1, AC-2, AC-3, AC-4</div>
+  <p>QuickCredit — Personal Loan Automated Underwriting — patient-centric conversational assistant.</p>
   <div class="form-grid">
     <div class="form-group">
-      <label for="field_claim_amount">Claim Amount</label>
-      <input id="field_claim_amount" type="number" value="1.0" placeholder="Enter Claim Amount">
+      <label for="field_credit_score">Credit Score</label>
+      <input id="field_credit_score" type="number" value="1.0" placeholder="Enter Credit Score">
     </div>
 
     <div class="form-group">
-      <label for="field_claimant_history">Claimant History</label>
-      <input id="field_claimant_history" type="number" value="1.0" placeholder="Enter Claimant History">
+      <label for="field_annual_income">Annual Income</label>
+      <input id="field_annual_income" type="number" value="1.0" placeholder="Enter Annual Income">
     </div>
 
     <div class="form-group">
-      <label for="field_repair_cost">Repair Cost</label>
-      <input id="field_repair_cost" type="number" value="1.0" placeholder="Enter Repair Cost">
+      <label for="field_employment_status">Employment Status</label>
+      <input id="field_employment_status" type="number" value="1.0" placeholder="Enter Employment Status">
     </div>
 
     <div class="form-group">
-      <label for="field_accident_location">Accident Location</label>
-      <input id="field_accident_location" type="number" value="1.0" placeholder="Enter Accident Location">
+      <label for="field_existing_debt">Existing Debt</label>
+      <input id="field_existing_debt" type="number" value="1.0" placeholder="Enter Existing Debt">
     </div>
 
     <div class="form-group">
-      <label for="field_provider_reliability_score">Provider Reliability Score</label>
-      <input id="field_provider_reliability_score" type="number" value="1.0" placeholder="Enter Provider Reliability Score">
+      <label for="field_bank_statement_patterns">Bank Statement Patterns</label>
+      <input id="field_bank_statement_patterns" type="number" value="1.0" placeholder="Enter Bank Statement Patterns">
     </div>
 
     <div class="form-group">
-      <label for="field_passenger_count">Passenger Count</label>
-      <input id="field_passenger_count" type="number" value="1.0" placeholder="Enter Passenger Count">
+      <label for="field_employment_tenure">Employment Tenure</label>
+      <input id="field_employment_tenure" type="number" value="1.0" placeholder="Enter Employment Tenure">
     </div>
 
     <div class="form-group">
-      <label for="field_submission_date">Submission Date</label>
-      <input id="field_submission_date" type="number" value="1.0" placeholder="Enter Submission Date">
+      <label for="field_industry_type">Industry Type</label>
+      <input id="field_industry_type" type="number" value="1.0" placeholder="Enter Industry Type">
     </div>
 
     <div class="form-group">
-      <label for="field_claimant_age">Claimant Age</label>
-      <input id="field_claimant_age" type="number" value="1.0" placeholder="Enter Claimant Age">
+      <label for="field_credit_queries">Credit Queries</label>
+      <input id="field_credit_queries" type="number" value="1.0" placeholder="Enter Credit Queries">
     </div>
-    </div><button onclick="go()" style="width:100%; margin-top:10px;">Fraud Score</button>
+
+    <div class="form-group">
+      <label for="field_loan_amount">Loan Amount</label>
+      <input id="field_loan_amount" type="number" value="1.0" placeholder="Enter Loan Amount">
+    </div>
+    </div><button onclick="go()" style="width:100%; margin-top:10px;">Run demo</button>
 
   <div class="result-panel" id="resultPanel" style="display:none;">
-    <div class="score-label">Fraud Score</div>
-    <div class="score-value" id="scoreValue">—</div>
-    <div class="score-band low" id="scoreBand">—</div>
-    <div class="score-meter"><div class="score-fill low" id="scoreFill" style="width:0%"></div></div>
-    <div class="score-hint" id="scoreHint"></div>
+    <div class="status-badge" id="statusBadge" style="display:none;"></div>
+    <div id="reasonText" style="margin-bottom:14px; color:var(--txt-muted); font-size:14px;"></div>
+    <pre id="out"></pre>
   </div>
 
 </div>
 <script>
 
-function fraudBand(score01) {
-  if (score01 >= 0.7) return {label:'HIGH RISK', cls:'high'};
-  if (score01 >= 0.4) return {label:'MEDIUM RISK', cls:'medium'};
-  return {label:'LOW RISK', cls:'low'};
-}
 async function go() {
-  const payload = {claim_amount: parseFloat(document.getElementById('field_claim_amount').value || 0), claimant_history: parseFloat(document.getElementById('field_claimant_history').value || 0), repair_cost: parseFloat(document.getElementById('field_repair_cost').value || 0), accident_location: parseFloat(document.getElementById('field_accident_location').value || 0), provider_reliability_score: parseFloat(document.getElementById('field_provider_reliability_score').value || 0), passenger_count: parseFloat(document.getElementById('field_passenger_count').value || 0), submission_date: parseFloat(document.getElementById('field_submission_date').value || 0), claimant_age: parseFloat(document.getElementById('field_claimant_age').value || 0)};
+  const payload = {credit_score: parseFloat(document.getElementById('field_credit_score').value || 0), annual_income: parseFloat(document.getElementById('field_annual_income').value || 0), employment_status: parseFloat(document.getElementById('field_employment_status').value || 0), existing_debt: parseFloat(document.getElementById('field_existing_debt').value || 0), bank_statement_patterns: parseFloat(document.getElementById('field_bank_statement_patterns').value || 0), employment_tenure: parseFloat(document.getElementById('field_employment_tenure').value || 0), industry_type: parseFloat(document.getElementById('field_industry_type').value || 0), credit_queries: parseFloat(document.getElementById('field_credit_queries').value || 0), loan_amount: parseFloat(document.getElementById('field_loan_amount').value || 0)};
   const resPanel = document.getElementById('resultPanel');
-  const scoreValue = document.getElementById('scoreValue');
-  const scoreBand = document.getElementById('scoreBand');
-  const scoreHint = document.getElementById('scoreHint');
-  const scoreFill = document.getElementById('scoreFill');
+  const out = document.getElementById('out');
+  const status = document.getElementById('statusBadge');
+  const reasonDiv = document.getElementById('reasonText');
   try {
-    const r = await fetch('/predict', {
+    const r = await fetch('/decide', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
     const data = await r.json();
-    if (data.detail && !data.proba && data.prediction === undefined) {
-      throw new Error(typeof data.detail === 'string' ? data.detail : 'Request failed');
-    }
-    let score01 = 0;
-    if (Array.isArray(data.proba) && data.proba.length >= 2) {
-      score01 = Number(data.proba[1]);
-    } else if (typeof data.prediction === 'number') {
-      score01 = data.prediction > 1 ? (data.prediction / 100) : Number(data.prediction);
-    }
-    if (!isFinite(score01)) score01 = 0;
-    score01 = Math.max(0, Math.min(1, score01));
-    const pct = Math.round(score01 * 100);
-    const band = fraudBand(score01);
     resPanel.style.display = 'block';
-    scoreValue.textContent = pct + ' / 100';
-    scoreBand.textContent = band.label;
-    scoreBand.className = 'score-band ' + band.cls;
-    scoreFill.style.width = pct + '%';
-    scoreFill.className = 'score-fill ' + band.cls;
-    scoreHint.textContent = 'Fraud Score for FRTCFD: probability the claim is fraudulent (demo model).';
+    out.textContent = JSON.stringify(data, null, 2);
+    if (data.decision) {
+      status.style.display = 'inline-flex';
+      status.className = 'status-badge ' + data.decision.toLowerCase();
+      status.textContent = data.decision;
+      reasonDiv.innerHTML = '<b>Evaluation:</b><br>' + (data.reasons || []).join('<br>');
+    } else {
+      status.style.display = 'none';
+      reasonDiv.textContent = 'Prediction complete for QPLAU.';
+    }
   } catch(e) {
     resPanel.style.display = 'block';
-    scoreValue.textContent = '—';
-    scoreBand.textContent = 'ERROR';
-    scoreBand.className = 'score-band high';
-    scoreFill.style.width = '0%';
-    scoreHint.textContent = 'Error: ' + e.message;
+    out.textContent = 'Error: ' + e.message;
   }
 }
 
