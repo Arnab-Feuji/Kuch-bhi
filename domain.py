@@ -1,4 +1,4 @@
-"""Domain logic for InsureGuard Fraud Scoring — driven by build_spec (BRD ACs + backlog + architecture)."""
+"""Domain logic for Lease Portal — Live Rent Comparison Panel — driven by build_spec (BRD ACs + backlog + architecture)."""
 from __future__ import annotations
 
 import json
@@ -8,18 +8,18 @@ from typing import Any
 
 BUILD_SPEC: dict[str, Any] = {
   "version": 1,
-  "project_key": "IFS",
-  "project_name": "InsureGuard Fraud Scoring",
-  "app_type": "Fraud Modelling Application",
-  "app_kind": "classification",
-  "summary": "InsureGuard Fraud Scoring — patient-centric conversational assistant.",
-  "requirement_text": "Organisation: Feuji Software Solution Pvt. Ltd.\nSegment: Insurance\n\nAI SUGGESTED & EDITED PARAMETERS:\nAPPLICATION TYPE: Fraud Modelling Application\nINDUSTRY SEGMENT: Insurance\nPROBLEM STATEMENT: Develop an advanced fraud modelling application for insurance claims that generates a Fraud Score ranging from 0 to 100, subdivided into LOW, MEDIUM, and HIGH risk categories. The application will empower claims analysts by providing a clear and intuitive interface.\nINDEPENDENT VARIABLES: Customer Age, Policy Duration, Claim Amount, Payment History, Geographical Region, Claim Type, Prior Claims Count, Communication Channel\nDEPENDENT VARIABLE: Fraud Flag (Binary Indicator of Fraudulent Activity)\nMACHINE LEARNING ALGORITHMS: Random Forest, XGBoost, Logistic Regression\nEVALUATION METRICS: Precision, Recall, F1 Score, AUC-ROC Curve\nOPTIMIZATION GOAL: Achieve high recall to maximize detection of fraudulent claims while minimizing False negatives.\nUI ELEMENTS DESCRIPTION: The UI should feature a streamlined interface with a clearly labeled Fraud Score button and a visually intuitive score meter to provide instant risk assessment feedback.\nDESIRED OUTCOME: The creation of an easily interpretable F",
-  "requestor": "ad_isi03@hotmail.com",
+  "project_key": "LPLRCP",
+  "project_name": "Lease Portal — Live Rent Comparison Panel",
+  "app_type": "Interactive Comparison Panel (Web Feature within existing Lease Portal)",
+  "app_kind": "rules_service",
+  "summary": "Lease Portal — Live Rent Comparison Panel — patient-centric conversational assistant.",
+  "requirement_text": "Organisation: CBRE — Advisory & Transaction Services (India)\nSegment: Commercial Real Estate — Office Leasing Advisory\n\nAI SUGGESTED & EDITED PARAMETERS:\nAPP TYPE: Interactive Comparison Panel (Web Feature within existing Lease Portal)\nSEGMENT: Commercial Real Estate — Office Leasing Advisory\nPROBLEM STATEMENT: CBRE brokers currently prepare client-facing lease comparison analyses manually in PowerPoint and Excel, which is slow, inconsistent across brokers, and difficult to update live during client meetings.\nPROPOSED SOLUTION: Develop a live rent comparison panel integrated into the existing CBRE Lease Portal, enabling brokers to select three shortlisted buildings and display a dynamic side-by-side comparison across four key dimensions of lease offers.\nKEY FEATURES: Real-time comparison of buildings across rent per sq ft, landlord concessions, lease terms, and fit-out costs.,Live adjustment of lease terms, escalation, tenant improvement allowance, and fit-out spec level with real-time recalculation.,Ability to save the current comparison state as a shareable PDF and trace recalculated numbers to their sources for audit purposes.\nDATA SOURCES TO INTEGRATE: CBRE's internal Lease Por",
+  "requestor": "broker.lead.mumbai@cbre.com",
   "deploy_port": 8095,
   "api": {
     "health": "/health",
     "meta": "/meta",
-    "primary": "/predict",
+    "primary": "/decide",
     "stories": "/stories",
     "criteria": "/criteria"
   },
@@ -72,7 +72,7 @@ BUILD_SPEC: dict[str, Any] = {
     }
   ],
   "backlog": {
-    "project": "IFS",
+    "project": "LPLRCP",
     "total_points": 18,
     "epic_count": 3,
     "story_count": 3
@@ -114,8 +114,8 @@ BUILD_SPEC: dict[str, Any] = {
       "context"
     ],
     "services": [],
-    "render_url": "https://mermaid.ink/img/pako:eNptklFLwzAQx7_KkScFJ26PexDK1s7KZkdbp2B9iOnVHmTtSNONMfbdzcWJUny8f36_S3LJSai2RDEVlW4PqpbGwjItGoBglt9dvRUiaKQ-drYQ79eXeMzxagnJrvtJFy9MrmNYSIsHeXQ5x0k6c3kcZZAYVWNnjbStuSzyBjAa3Tv5u4UvnMJVlDkxQml7g5A5CX9bei7KuMrTIH5yZG4kNdR8wpp2qKkZ0p7jYJXMwyUf311aQ4ZmTwpBadl1VJGSltpm4HqFg3ATsBrupYYRrNAaUp2_8cBgkOssTDehM9YGS1IW3IAGpCd879d87MhHMvIvcsvd3NIFmThkQfah__gHmvihPs_jnN-iL8kCj0UPtvSEuBFbNFtJpZiehK1xy1-gxEr22orz-QsCfp-M",
-    "excerpt": "%% Forge Solution Architecture — IFS / InsureGuard Fraud Scoring\n%% Derived from SOW + BRD + Backlog + Brief (classification)\n%% Domains: Claims\n%% Stories: S1, S2, S3\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Analyst\"])\n  ACT1([\"ML Ops\"])\n  GW[\"API Gateway\"]\n  ORC[\"IFS Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  FS[\"Feature Store\"]\n  ORC --> FS\n  TRAIN[\"Training Pipeline\"]\n  ORC --> TRAIN\n  MODEL[\"Model Service classification\"]\n  ORC --> MODEL\n  EVAL[\"Eval - Metrics Gate\"]\n  ORC --> EVAL\n  SERVE[\"Predict API\"]\n  ORC --> SERVE\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"GitHub\"]\n  ORC -.-> EXT2\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant User\n  participant API as \"Predict API\"\n  participant FS as \"Feature Store\"\n  participant MODEL as \"Model Service\"\n  participant EVAL as \"Metrics\"\n  User->>API: features\n  API->>FS: load feature vector\n  FS-->>API: X\n  API->>MODEL: predict y\n  MODEL-->>API: y_hat + score\n  API->>EVAL: record metric\n  API-->>User: prediction result\n\n%% ER\nerDiagram\n  FEATURE_A ||--o| DECISION_REASONS_RESPONSE : yields\n  FEATURE_A ||--o{ DECISION_API_AUDIT : logs\n  FEATURE_A ||--o{ FEATURE_B : includes\n  FEATURE_A ||--o{ IMPLEMENT_TESTABLE_RULES : includes\n  FEATURE_A ||--o{ AUDIT_EVENT : includes\n  FEATURE_A ||--o{ BACKLOG_STORY : traces\n  BACKLOG_STORY ||--o{ ACCEPTANCE_CRITERION : satisfies"
+    "render_url": "https://mermaid.ink/img/pako:eNptkstqwzAQRX9l0KK0tA7NY-VFwXmQprjYuE5aaLpQ7UkikGUjyQ0h5N87shMIJsu5OkePGR1ZVubIfLaR5T7bcW0hTNYKIJikz_ffaxYoLg_GrtnPwznuu_g9hKgyl3T-6ch4AXNucc8PlLs4SiaUh3GYTGKIdLZDYzW3pT6vuzPA817Ib3dpCrJctQpCkheqqi2suBT5lUhIgxLjymQZzj4ITmqJBmZqKxR2yAZxwTjpEzlOvL5_2RbhDgxXwgqDwKUEoaper9fZgcTWH7T-wIew3AL-oT5AjpkwolSeRlOVyuAtf9D6w9Yf-hDrMq8zhEzWxqL2uCoL6jZwY275w9Yftf6IfNRGGAt2h7AR1mIOBU1TwiPc8keunM7cTKbn-xKZIDd0Y6DxdQxCXRlG82uDHt3hCHDl7Ct1rX0Tml8DPSLc0hlx3ZsL-1r_3oCaDgXL6SJ1_6nOhYVUcyE7BzYEe2IF6oKLnPlHRi0o3DfOccNradnp9A_XGtg0",
+    "excerpt": "%% Forge Solution Architecture — LPLRCP / Lease Portal — Live Rent Comparison Panel\n%% Derived from SOW + BRD + Backlog + Brief (rules_service)\n%% Domains: Lending / Credit\n%% Stories: S1, S2, S3\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Analyst\"])\n  ACT1([\"ML Ops\"])\n  GW[\"API Gateway\"]\n  ORC[\"LPLRCP Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  VAL[\"Input Validator\"]\n  ORC --> VAL\n  RULES[\"Rules Engine\"]\n  ORC --> RULES\n  BR1[\"BR-1: Validate & sanitise all inp...\"]\n  ORC --> BR1\n  BR2[\"BR-2: Log every decision-response...\"]\n  ORC --> BR2\n  BR3[\"BR-3: Produce cluster-anomaly ass...\"]\n  ORC --> BR3\n  BR4[\"BR-4: Persist the fitted model + ...\"]\n  ORC --> BR4\n  DEC[\"Decision + Reasons API\"]\n  ORC --> DEC\n  LOG[\"Decision Log\"]\n  ORC --> LOG\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"GitHub\"]\n  ORC -.-> EXT2\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant Applicant\n  participant API as \"Decision API\"\n  participant VAL as \"Validator\"\n  participant RULES as \"Rules Engine\"\n  participant LOG as \"Decision Log\"\n  Applicant->>API: Implement BR-1..n as testable rules\n  API->>VAL: schema validate\n  VAL->>RULES: evaluate BR-1, BR-2, BR-3, BR-4\n  RULES-->>API: APPROVED/DECLINED + reasons\n  API->>LOG: immutable audit write\n  API-->>Applicant: decision payload\n\n%% ER\nerDiagram\n  FEATURE_A ||--o| DECISION_REASONS_RESPONSE : yields\n  FEATURE_A ||--o{ DECISION_API_AUDIT : logs\n  FEATURE_A ||--o{ FEATURE_B : includes\n  FEATURE_A ||--o{ IMPLEMENT_TESTABLE_RULES : includes\n  F"
   },
   "modules": [
     "api",
@@ -127,55 +127,19 @@ BUILD_SPEC: dict[str, Any] = {
   ],
   "input_fields": [
     {
-      "name": "Customer_Age",
+      "name": "feature_a",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "Policy_Duration",
-      "dtype": "float",
-      "description": ""
-    },
-    {
-      "name": "Claim_Amount",
-      "dtype": "float",
-      "description": ""
-    },
-    {
-      "name": "Payment_History",
-      "dtype": "float",
-      "description": ""
-    },
-    {
-      "name": "Geographical_Region",
-      "dtype": "float",
-      "description": ""
-    },
-    {
-      "name": "Claim_Type",
-      "dtype": "float",
-      "description": ""
-    },
-    {
-      "name": "Prior_Claims_Count",
-      "dtype": "float",
-      "description": ""
-    },
-    {
-      "name": "Communication_Channel",
+      "name": "feature_b",
       "dtype": "float",
       "description": ""
     }
   ],
   "sample_input": {
-    "Customer_Age": 1.0,
-    "Policy_Duration": 1.0,
-    "Claim_Amount": 1.0,
-    "Payment_History": 1.0,
-    "Geographical_Region": 1.0,
-    "Claim_Type": 1.0,
-    "Prior_Claims_Count": 1.0,
-    "Communication_Channel": 1.0
+    "feature_a": 1.0,
+    "feature_b": 1.0
   },
   "output_fields": [],
   "rag_sources": [
@@ -194,35 +158,28 @@ BUILD_SPEC: dict[str, Any] = {
     }
   ],
   "languages": [
-    "en",
-    "hi",
-    "es"
+    "en"
   ],
   "features": {
     "chat_download": True,
     "prescription_download": False,
-    "voice_input": False,
+    "voice_input": True,
     "multimodal": False,
     "multilingual": False
   },
   "constraints": [],
   "nonfunctional": [],
-  "escalation_phrases": [
-    "fraud"
-  ],
+  "escalation_phrases": [],
   "model": {
     "family": "sklearn",
     "task": "classification",
     "dependent_variable": "Fraud_flag",
     "independent_variables": [
-      "Customer_Age",
-      "Policy_Duration",
-      "Claim_Amount",
-      "Payment_History",
-      "Geographical_Region",
-      "Claim_Type",
-      "Prior_Claims_Count",
-      "Communication_Channel"
+      "Customer_age",
+      "Policy_duration",
+      "Claim_amount",
+      "Payment_history",
+      "Geographical_region"
     ],
     "metric": "roc_auc",
     "metric_threshold": 0.75
