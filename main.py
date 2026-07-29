@@ -1,4 +1,4 @@
-"""Generated Forge lite application for Lease Portal — Live Rent Comparison Panel (LPLRCP).
+"""Generated Forge lite application for MediAssist — Patient Symptom Triage Chatbot (MPSTC).
 Built from build_spec.json (BRD ACs + backlog + architecture).
 """
 from __future__ import annotations
@@ -12,7 +12,13 @@ from pydantic import BaseModel
 
 from domain import chat_answer, evaluate_rules, list_criteria, list_stories, meta, predict_payload
 
-app = FastAPI(title="Lease Portal — Live Rent Comparison Panel", version="1.0.0")
+app = FastAPI(title="MediAssist — Patient Symptom Triage Chatbot", version="1.0.0")
+class ChatIn(BaseModel):
+    message: str
+    language: str | None = "en"
+    agent_id: str | None = None
+    attachment_note: str | None = None
+    lock_agent: bool | None = False
 
 
 @app.get("/health")
@@ -42,9 +48,15 @@ def get_criteria():
     return {"acceptance_criteria": list_criteria()}
 
 
-@app.post("/decide")
-def decide(payload: dict[str, Any]):
-    return evaluate_rules(payload)
+@app.post("/chat")
+def chat(inp: ChatIn):
+    return chat_answer(
+        inp.message,
+        language=inp.language or "en",
+        agent_id=inp.agent_id,
+        attachment_note=inp.attachment_note,
+        lock_agent=bool(getattr(inp, "lock_agent", False)),
+    )
 
 
 @app.get("/", response_class=HTMLResponse)
