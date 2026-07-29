@@ -39,11 +39,31 @@ pre { white-space:pre-wrap; font-size:12px; color:var(--txt); }
 <div class="card">
   <h2>Lease Portal — Live Rent Comparison Panel</h2>
   <div class="meta">LPLRCP · Interactive Comparison Panel (Web Feature within existing Lease Portal) · stories S1: Implement BR-1..n as testable rules · S2: Decision + reasons response · S3: Decision API + audit log · ACs AC-1, AC-2, AC-3, AC-4</div>
-  <p>Manual preparation of lease comparisons in PowerPoint and Excel is time-consuming, inconsistently formatted, and lacks real-time adjustability for major client meetings.</p>
+  <p>Lease Portal — Live Rent Comparison Panel — interactive comparison panel (web feature within existing lease portal).</p>
   <div class="form-grid">
     <div class="form-group">
-      <label for="field_APP_TYPE_Interactive_Comparison_Panel_integrated_into_the_existing_Lease_Portal">App Type Interactive Comparison Panel Integrated Into The Existing Lease Portal</label>
-      <input id="field_APP_TYPE_Interactive_Comparison_Panel_integrated_into_the_existing_Lease_Portal" type="number" value="1.0" placeholder="Enter App Type Interactive Comparison Panel Integrated Into The Existing Lease Portal">
+      <label for="field_TOOLS_AND_TECH_STACKS_Python">Tools And Tech Stacks Python</label>
+      <input id="field_TOOLS_AND_TECH_STACKS_Python" type="number" value="1.0" placeholder="Enter Tools And Tech Stacks Python">
+    </div>
+
+    <div class="form-group">
+      <label for="field_React">React</label>
+      <input id="field_React" type="number" value="1.0" placeholder="Enter React">
+    </div>
+
+    <div class="form-group">
+      <label for="field_Azure">Azure</label>
+      <input id="field_Azure" type="number" value="1.0" placeholder="Enter Azure">
+    </div>
+
+    <div class="form-group">
+      <label for="field_CoStar_API">Costar Api</label>
+      <input id="field_CoStar_API" type="number" value="1.0" placeholder="Enter Costar Api">
+    </div>
+
+    <div class="form-group">
+      <label for="field_SharePoint_API">Sharepoint Api</label>
+      <input id="field_SharePoint_API" type="number" value="1.0" placeholder="Enter Sharepoint Api">
     </div>
     </div><button onclick="go()" style="width:100%; margin-top:10px;">Compare</button>
 
@@ -57,7 +77,7 @@ pre { white-space:pre-wrap; font-size:12px; color:var(--txt); }
 <script>
 
 async function go() {
-  const payload = {APP_TYPE_Interactive_Comparison_Panel_integrated_into_the_existing_Lease_Portal: parseFloat(document.getElementById('field_APP_TYPE_Interactive_Comparison_Panel_integrated_into_the_existing_Lease_Portal').value || 0)};
+  const payload = {TOOLS_AND_TECH_STACKS_Python: parseFloat(document.getElementById('field_TOOLS_AND_TECH_STACKS_Python').value || 0), React: parseFloat(document.getElementById('field_React').value || 0), Azure: parseFloat(document.getElementById('field_Azure').value || 0), CoStar_API: parseFloat(document.getElementById('field_CoStar_API').value || 0), SharePoint_API: parseFloat(document.getElementById('field_SharePoint_API').value || 0)};
   const resPanel = document.getElementById('resultPanel');
   const out = document.getElementById('out');
   const status = document.getElementById('statusBadge');
