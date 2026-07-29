@@ -39,18 +39,13 @@ pre { white-space:pre-wrap; font-size:12px; color:var(--txt); }
 <div class="card">
   <h2>Lease Portal — Live Rent Comparison Panel</h2>
   <div class="meta">LPLRCP · Interactive Comparison Panel (Web Feature within existing Lease Portal) · stories S1: Implement BR-1..n as testable rules · S2: Decision + reasons response · S3: Decision API + audit log · ACs AC-1, AC-2, AC-3, AC-4</div>
-  <p>Lease Portal — Live Rent Comparison Panel — patient-centric conversational assistant.</p>
+  <p>Manual preparation of lease comparisons in PowerPoint and Excel is time-consuming, inconsistently formatted, and lacks real-time adjustability for major client meetings.</p>
   <div class="form-grid">
     <div class="form-group">
-      <label for="field_feature_a">Feature A</label>
-      <input id="field_feature_a" type="number" value="1.0" placeholder="Enter Feature A">
+      <label for="field_APP_TYPE_Interactive_Comparison_Panel_integrated_into_the_existing_Lease_Portal">App Type Interactive Comparison Panel Integrated Into The Existing Lease Portal</label>
+      <input id="field_APP_TYPE_Interactive_Comparison_Panel_integrated_into_the_existing_Lease_Portal" type="number" value="1.0" placeholder="Enter App Type Interactive Comparison Panel Integrated Into The Existing Lease Portal">
     </div>
-
-    <div class="form-group">
-      <label for="field_feature_b">Feature B</label>
-      <input id="field_feature_b" type="number" value="1.0" placeholder="Enter Feature B">
-    </div>
-    </div><button onclick="go()" style="width:100%; margin-top:10px;">Run demo</button>
+    </div><button onclick="go()" style="width:100%; margin-top:10px;">Compare</button>
 
   <div class="result-panel" id="resultPanel" style="display:none;">
     <div class="status-badge" id="statusBadge" style="display:none;"></div>
@@ -62,7 +57,7 @@ pre { white-space:pre-wrap; font-size:12px; color:var(--txt); }
 <script>
 
 async function go() {
-  const payload = {feature_a: parseFloat(document.getElementById('field_feature_a').value || 0), feature_b: parseFloat(document.getElementById('field_feature_b').value || 0)};
+  const payload = {APP_TYPE_Interactive_Comparison_Panel_integrated_into_the_existing_Lease_Portal: parseFloat(document.getElementById('field_APP_TYPE_Interactive_Comparison_Panel_integrated_into_the_existing_Lease_Portal').value || 0)};
   const resPanel = document.getElementById('resultPanel');
   const out = document.getElementById('out');
   const status = document.getElementById('statusBadge');
