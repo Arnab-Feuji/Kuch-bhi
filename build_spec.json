@@ -1,17 +1,17 @@
 {
   "version": 1,
-  "project_key": "LPLRCP",
-  "project_name": "Lease Portal \u2014 Live Rent Comparison Panel",
-  "app_type": "Interactive Comparison Panel (Web Feature within existing Lease Portal)",
-  "app_kind": "rules_service",
-  "summary": "Lease Portal \u2014 Live Rent Comparison Panel \u2014 interactive comparison panel (web feature within existing lease portal).",
-  "requirement_text": "Organisation: CBRE \u2014 Advisory & Transaction Services (India)\nSegment: Commercial Real Estate \u2014 Office Leasing Advisory\n\nAI SUGGESTED & EDITED PARAMETERS:\nTOOLS AND TECH STACKS: Python, React, Azure, CoStar API, SharePoint API\nDATA SOURCES: Existing CBRE Lease Portal building inventory, CoStar market data API for market rents, CBRE internal fit-out cost model (to be converted to API), SharePoint landlord concession database (to be structured)\nCOMPARISON DIMENSIONS: Rent per sq ft, Landlord concessions, Lease terms, Fit-out costs\nLIVE ADJUSTABLE VARIABLES: Lease term, Escalation percentage, TI allowance, Fit-out specification level (basic/mid/premium)\nOUTPUT FORMAT: Shareable PDF document export\nREAL TIME RECALCULATION: Yes, calculations update in real time during presentations\nAUDIT TRAIL: Yes, all changes and states are attributable to a specific broker for audit purposes\nDEVICE SUPPORT: Tablet (iPad) for client meetings, Desktop for preparation and review\nEXPECTED OUTCOME: Reduction of preparation time to under 30 minutes, capability for live reconfiguration during client meetings, and uniform presentation format across all CBRE India brokers within 90 days post-launch\nREGULATORY ",
+  "project_key": "MPSTC",
+  "project_name": "MediAssist \u2014 Patient Symptom Triage Chatbot",
+  "app_type": "Conversational AI Chatbot with Clinical Decision Support",
+  "app_kind": "chatbot",
+  "summary": "MediAssist \u2014 Patient Symptom Triage Chatbot \u2014 conversational ai chatbot with clinical decision support.",
+  "requirement_text": "Organisation: Apollo Hospitals\nSegment: Healthcare \u2014 Patient Engagement\n\nAI SUGGESTED & EDITED PARAMETERS:\nTOOLS AND TECH STACKS: Python, Rasa, TensorFlow, Node.js, AWS Cloud Services for scalable deployment\nKNOWLEDGE BASE SOURCES: Clinical guidelines, Internal medical manuals, Previous patient inquiries, Evidence-based practices\nSUPPORTED LANGUAGES: English, Hindi, Tamil, Telugu\nPERSONA AND TONE: Empathetic, supportive, professional, approachable\nFALLBACK MECHANISMS: Transfer to live agent, emergency service dial-out, alternative self-service resources\nLLM FOUNDATION MODEL: GPT-4o, BERT, with fine-tuning for healthcare applications\nEXPECTED OUTCOME: Achieve a 40% reduction in call center volume, maintain a patient satisfaction score of 4.2 or higher, and report zero clinical safety incidents attributable to chatbot advice\nREGULATORY CONSTRAINTS: HIPAA compliance, prohibition of diagnostic claims, mandatory clinical audit logging, adherence to local healthcare regulations\nUSER AUTHENTICATION: Secure user authentication to protect patient data and personalize user interactions\n",
   "requestor": "ad_isi03@hotmail.com",
   "deploy_port": 8095,
   "api": {
     "health": "/health",
     "meta": "/meta",
-    "primary": "/decide",
+    "primary": "/chat",
     "stories": "/stories",
     "criteria": "/criteria"
   },
@@ -64,33 +64,33 @@
     }
   ],
   "backlog": {
-    "project": "LPLRCP",
+    "project": "MPSTC",
     "total_points": 18,
-    "epic_count": 3,
+    "epic_count": 4,
     "story_count": 3
   },
   "stories": [
     {
       "id": "S1",
-      "title": "Implement BR-1..n as testable rules",
-      "points": 8,
-      "epic": "Rules Engine",
-      "acceptance_criteria_ids": [],
-      "acceptance_criteria": []
-    },
-    {
-      "id": "S2",
-      "title": "Decision + reasons response",
+      "title": "General Care specialty agent + RAG citations",
       "points": 5,
-      "epic": "Rules Engine",
+      "epic": "Conversational UX",
       "acceptance_criteria_ids": [],
       "acceptance_criteria": []
     },
     {
       "id": "S3",
-      "title": "Decision API + audit log",
+      "title": "Retriever over CDC/PubMed",
+      "points": 8,
+      "epic": "RAG & Specialty Agents",
+      "acceptance_criteria_ids": [],
+      "acceptance_criteria": []
+    },
+    {
+      "id": "S5",
+      "title": "Voice, multilingual, prescription export",
       "points": 5,
-      "epic": "Service & Compliance",
+      "epic": "Safety & Multimodal",
       "acceptance_criteria_ids": [],
       "acceptance_criteria": []
     }
@@ -106,8 +106,8 @@
       "context"
     ],
     "services": [],
-    "render_url": "https://mermaid.ink/img/pako:eNptkstqwzAQRX9l0KK0tA7NY-VFwXmQprjYuE5aaLpQ7UkikGUjyQ0h5N87shMIJsu5OkePGR1ZVubIfLaR5T7bcW0hTNYKIJikz_ffaxYoLg_GrtnPwznuu_g9hKgyl3T-6ch4AXNucc8PlLs4SiaUh3GYTGKIdLZDYzW3pT6vuzPA817Ib3dpCrJctQpCkheqqi2suBT5lUhIgxLjymQZzj4ITmqJBmZqKxR2yAZxwTjpEzlOvL5_2RbhDgxXwgqDwKUEoaper9fZgcTWH7T-wIew3AL-oT5AjpkwolSeRlOVyuAtf9D6w9Yf-hDrMq8zhEzWxqL2uCoL6jZwY275w9Yftf6IfNRGGAt2h7AR1mIOBU1TwiPc8keunM7cTKbn-xKZIDd0Y6DxdQxCXRlG82uDHt3hCHDl7Ct1rX0Tml8DPSLc0hlx3ZsL-1r_3oCaDgXL6SJ1_6nOhYVUcyE7BzYEe2IF6oKLnPlHRi0o3DfOccNradnp9A_XGtg0",
-    "excerpt": "%% Forge Solution Architecture \u2014 LPLRCP / Lease Portal \u2014 Live Rent Comparison Panel\n%% Derived from SOW + BRD + Backlog + Brief (rules_service)\n%% Domains: Lending / Credit\n%% Stories: S1, S2, S3\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Analyst\"])\n  ACT1([\"ML Ops\"])\n  GW[\"API Gateway\"]\n  ORC[\"LPLRCP Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  VAL[\"Input Validator\"]\n  ORC --> VAL\n  RULES[\"Rules Engine\"]\n  ORC --> RULES\n  BR1[\"BR-1: Validate & sanitise all inp...\"]\n  ORC --> BR1\n  BR2[\"BR-2: Log every decision-response...\"]\n  ORC --> BR2\n  BR3[\"BR-3: Produce cluster-anomaly ass...\"]\n  ORC --> BR3\n  BR4[\"BR-4: Persist the fitted model + ...\"]\n  ORC --> BR4\n  DEC[\"Decision + Reasons API\"]\n  ORC --> DEC\n  LOG[\"Decision Log\"]\n  ORC --> LOG\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"GitHub\"]\n  ORC -.-> EXT2\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant Applicant\n  participant API as \"Decision API\"\n  participant VAL as \"Validator\"\n  participant RULES as \"Rules Engine\"\n  participant LOG as \"Decision Log\"\n  Applicant->>API: Implement BR-1..n as testable rules\n  API->>VAL: schema validate\n  VAL->>RULES: evaluate BR-1, BR-2, BR-3, BR-4\n  RULES-->>API: APPROVED/DECLINED + reasons\n  API->>LOG: immutable audit write\n  API-->>Applicant: decision payload\n\n%% ER\nerDiagram\n  FEATURE_A ||--o| DECISION_REASONS_RESPONSE : yields\n  FEATURE_A ||--o{ DECISION_API_AUDIT : logs\n  FEATURE_A ||--o{ FEATURE_B : includes\n  FEATURE_A ||--o{ IMPLEMENT_TESTABLE_RULES : includes\n  F"
+    "render_url": "https://mermaid.ink/img/pako:eNp1kl9PwjAUxb_KTZ80gpE_TzyYjAkTgbCMLZKID5UVaLK1S9cJhPDdvXebkUx9aXJOf-e2vbdnttGxYAO2TfRhs-fGwixYKwDHDR9u3tbM51YKZdfs_ba2O2S7iVRyI7n63vBe0XX8CXjcigM_oU_2InDRn_vL0IWF2exFbg232tTbdAq0248Yr4qUAkOkls54hOEl3wp7Aq_gJjZcJvlP6ZImrKzldcqLcZnm4OyqS1-DCJAMHA85XCEQ1kjxKUwDxD2S0yFyU6UPiYh3YgAv0vAWeNI-Fx8tWGRCORNow2w2b-SnQ1LoYx5XPCfPtMoFuDrNdP7rPKqAMlrR_ffcgq-N5QlEkwYYrSqueg72juRo5WNudMwwNIAyfwfBsRFFqoJD6hI95Rq4L4mwUyNdRKp3_gF1a6iH0H9NqNFejfYRDYXKtRnjN_sD7JcDjJ4mIf2iIpYWQpp1c4JEsBZLhUm5jNngzOxepPR_Y7HlRWLZ5fIFQn3UAA==",
+    "excerpt": "%% Forge Solution Architecture \u2014 MPSTC / MediAssist \u2014 Patient Symptom Triage Chatbot\n%% Derived from SOW + BRD + Backlog + Brief (chatbot)\n%% Domains: Claims\n%% Stories: S1, S3, S5\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Patient\"])\n  ACT1([\"Clinician\"])\n  GW[\"API Gateway\"]\n  ORC[\"MPSTC Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  SAFE[\"Safety Guardrails\"]\n  ORC --> SAFE\n  AG1[\"Claims Agent\"]\n  ORC --> AG1\n  RAG[\"RAG Retriever\"]\n  ORC --> RAG\n  KB[\"Knowledge: Jira, GitHub, OpenAI - LLM\"]\n  ORC --> KB\n  LLM[\"LLM Response Composer\"]\n  ORC --> LLM\n  UX[\"Chat Portal UI\"]\n  ORC --> UX\n  UX --> ACT0\n  EXP[\"Export: Chat + Rx\"]\n  ORC --> EXP\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"GitHub\"]\n  ORC -.-> EXT2\n  EXT3[\"OpenAI - LLM\"]\n  ORC -.-> EXT3\n  EXT4[\"TensorFlow\"]\n  ORC -.-> EXT4\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant Patient\n  participant Portal as \"Chat Portal\"\n  participant ORC as \"Orchestrator\"\n  participant SAFE as \"Guardrails\"\n  participant AG as \"Claims Agent\"\n  participant RAG as \"RAG Retriever\"\n  participant KB as \"Knowledge Base\"\n  participant LLM as \"LLM Composer\"\n  Patient->>Portal: General Care specialty agent + RAG citatio\u2026\n  Portal->>ORC: chat message + language\n  ORC->>SAFE: safety / escalation check\n  ORC->>AG: route by specialty/domain\n  AG->>RAG: retrieve context\n  RAG->>KB: query Jira, GitHub\n  KB-->>RAG: passages + citations\n  RAG-->>AG: grounded snippets\n  AG->>LLM: compose answer\n  LLM-->>Portal: answer + citations\n  Portal-"
   },
   "modules": [
     "api",
@@ -124,32 +124,32 @@
       "description": ""
     },
     {
-      "name": "React",
+      "name": "Rasa",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "Azure",
+      "name": "TensorFlow",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "CoStar_API",
+      "name": "Node_js",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "SharePoint_API",
+      "name": "AWS_Cloud_Services_for_scalable_deployment",
       "dtype": "float",
       "description": ""
     }
   ],
   "sample_input": {
     "TOOLS_AND_TECH_STACKS_Python": 1.0,
-    "React": 1.0,
-    "Azure": 1.0,
-    "CoStar_API": 1.0,
-    "SharePoint_API": 1.0
+    "Rasa": 1.0,
+    "TensorFlow": 1.0,
+    "Node_js": 1.0,
+    "AWS_Cloud_Services_for_scalable_deployment": 1.0
   },
   "output_fields": [],
   "rag_sources": [
@@ -157,39 +157,57 @@
     "PubMed"
   ],
   "domains": [
-    "General Care"
+    "Mental Illness",
+    "Cardiology"
   ],
   "agents": [
     {
       "id": "A1",
-      "name": "General Care",
+      "name": "Mental Illness Agent",
+      "domain": "Mental Illness",
+      "persona": "caring, knowledgeable, patient-centric"
+    },
+    {
+      "id": "A2",
+      "name": "Cardiology Agent",
+      "domain": "Cardiology",
+      "persona": "caring, knowledgeable, patient-centric"
+    },
+    {
+      "id": "A3",
+      "name": "General Care Agent",
       "domain": "General Care",
       "persona": "caring, knowledgeable, patient-centric"
     }
   ],
   "languages": [
-    "en"
+    "en",
+    "hi"
   ],
   "features": {
     "chat_download": true,
     "prescription_download": false,
     "voice_input": false,
     "multimodal": false,
-    "multilingual": false
+    "multilingual": true
   },
   "constraints": [],
   "nonfunctional": [],
-  "escalation_phrases": [],
+  "escalation_phrases": [
+    "emergency",
+    "chest pain",
+    "suicid"
+  ],
   "model": {
     "family": "sklearn",
     "task": "classification",
     "dependent_variable": "Fraud_flag",
     "independent_variables": [
       "TOOLS_AND_TECH_STACKS_Python",
-      "React",
-      "Azure",
-      "CoStar_API",
-      "SharePoint_API"
+      "Rasa",
+      "TensorFlow",
+      "Node_js",
+      "AWS_Cloud_Services_for_scalable_deployment"
     ],
     "metric": "roc_auc",
     "metric_threshold": 0.75
@@ -198,8 +216,8 @@
     "strategy": "sprint1_stories",
     "story_ids": [
       "S1",
-      "S2",
-      "S3"
+      "S3",
+      "S5"
     ],
     "ac_ids": [
       "AC-1",
