@@ -9,7 +9,7 @@ PROJECT_KEY = 'LPLRCP'
 STORY_IDS = ['S1', 'S2', 'S3']
 AC_IDS = ['AC-1', 'AC-2', 'AC-3', 'AC-4']
 RULE_IDS = ['BR-1', 'BR-2', 'BR-3', 'BR-4']
-SAMPLE = {'feature_a': 1.0, 'feature_b': 1.0}
+SAMPLE = {'APP_TYPE_Interactive_Comparison_Panel_integrated_into_the_existing_Lease_Portal': 1.0}
 
 def test_health():
     r = client.get('/health')
