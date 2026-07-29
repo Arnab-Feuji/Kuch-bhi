@@ -5,11 +5,11 @@ spec = importlib.util.spec_from_file_location('genapp', os.path.join(os.path.dir
 m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
 client = TestClient(m.app)
 
-PROJECT_KEY = 'LPLRCP'
-STORY_IDS = ['S1', 'S2', 'S3']
+PROJECT_KEY = 'MPSTC'
+STORY_IDS = ['S1', 'S3', 'S5']
 AC_IDS = ['AC-1', 'AC-2', 'AC-3', 'AC-4']
 RULE_IDS = ['BR-1', 'BR-2', 'BR-3', 'BR-4']
-SAMPLE = {'TOOLS_AND_TECH_STACKS_Python': 1.0, 'React': 1.0, 'Azure': 1.0, 'CoStar_API': 1.0, 'SharePoint_API': 1.0}
+SAMPLE = {'TOOLS_AND_TECH_STACKS_Python': 1.0, 'Rasa': 1.0, 'TensorFlow': 1.0, 'Node_js': 1.0, 'AWS_Cloud_Services_for_scalable_deployment': 1.0}
 
 def test_health():
     r = client.get('/health')
@@ -44,22 +44,29 @@ def test_criteria_endpoint():
         got = {a.get('id') for a in acs}
         assert set(AC_IDS).issubset(got)
 
-def test_decision_shape_and_traceability():
-    r = client.post('/decide', json=SAMPLE)
+def test_chat_responds_with_project_context():
+    r = client.post('/chat', json={'message': 'General Care specialty agent + RAG citations'})
     assert r.status_code == 200
     body = r.json()
-    assert 'decision' in body and 'reasons' in body
-    assert body['decision'] in ('APPROVED', 'DECLINED')
-    if RULE_IDS:
-        assert body.get('checked_rules')
-    if AC_IDS:
-        assert any(a in (body.get('ac_ids') or []) for a in AC_IDS)
+    assert 'answer' in body
+    assert body.get('source') in ('AGENT_RAG', 'BUILD_SPEC_KB', 'PROJECT_FALLBACK', 'SAFETY')
+    assert body.get('source') != 'PROJECT_FALLBACK' or 'assistant' in (body.get('answer') or '').lower()
 
-def test_decision_reasons_are_project_specific():
-    r = client.post('/decide', json=SAMPLE)
-    reasons = ' '.join(r.json().get('reasons') or [])
-    # At least one BR id or project key appears in the explanation trail
-    assert PROJECT_KEY in reasons or any(rid in reasons for rid in RULE_IDS) or len(reasons) > 0
+def test_chat_answers_vary_by_topic():
+    a = client.post('/chat', json={'message': 'cancer awareness tips'}).json().get('answer','')
+    b = client.post('/chat', json={'message': 'diabetes blood sugar basics'}).json().get('answer','')
+    assert a and b
+    assert a != b
+
+def test_chat_exposes_story_traceability():
+    r = client.post('/chat', json={'message': 'MPSTC'})
+    body = r.json()
+    if STORY_IDS:
+        assert any(sid in (body.get('story_ids') or []) for sid in STORY_IDS)
+
+def test_safety_escalation_project_specific():
+    r = client.post('/chat', json={'message': 'emergency'})
+    assert r.json().get('source') == 'SAFETY'
 
 def test_ac_ac_1_listed():
     r = client.get('/criteria')
