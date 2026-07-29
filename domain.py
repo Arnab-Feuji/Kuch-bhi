@@ -12,9 +12,9 @@ BUILD_SPEC: dict[str, Any] = {
   "project_name": "Lease Portal — Live Rent Comparison Panel",
   "app_type": "Interactive Comparison Panel (Web Feature within existing Lease Portal)",
   "app_kind": "rules_service",
-  "summary": "Lease Portal — Live Rent Comparison Panel — patient-centric conversational assistant.",
-  "requirement_text": "Organisation: CBRE — Advisory & Transaction Services (India)\nSegment: Commercial Real Estate — Office Leasing Advisory\n\nAI SUGGESTED & EDITED PARAMETERS:\nAPP TYPE: Interactive Comparison Panel (Web Feature within existing Lease Portal)\nSEGMENT: Commercial Real Estate — Office Leasing Advisory\nPROBLEM STATEMENT: CBRE brokers currently prepare client-facing lease comparison analyses manually in PowerPoint and Excel, which is slow, inconsistent across brokers, and difficult to update live during client meetings.\nPROPOSED SOLUTION: Develop a live rent comparison panel integrated into the existing CBRE Lease Portal, enabling brokers to select three shortlisted buildings and display a dynamic side-by-side comparison across four key dimensions of lease offers.\nKEY FEATURES: Real-time comparison of buildings across rent per sq ft, landlord concessions, lease terms, and fit-out costs.,Live adjustment of lease terms, escalation, tenant improvement allowance, and fit-out spec level with real-time recalculation.,Ability to save the current comparison state as a shareable PDF and trace recalculated numbers to their sources for audit purposes.\nDATA SOURCES TO INTEGRATE: CBRE's internal Lease Por",
-  "requestor": "broker.lead.mumbai@cbre.com",
+  "summary": "Manual preparation of lease comparisons in PowerPoint and Excel is time-consuming, inconsistently formatted, and lacks real-time adjustability for major client meetings.",
+  "requirement_text": "Organisation: CBRE — Advisory & Transaction Services (India)\nSegment: Commercial Real Estate — Office Leasing Advisory\n\nAI SUGGESTED & EDITED PARAMETERS:\nAPP TYPE: Interactive Comparison Panel integrated into the existing Lease Portal\nSEGMENT: Commercial Real Estate — Office Leasing Advisory\nPROBLEM: Manual preparation of lease comparisons in PowerPoint and Excel is time-consuming, inconsistently formatted, and lacks real-time adjustability for major client meetings.\nSOLUTION: Integrate a live rent comparison panel within the CBRE Lease Portal to provide side-by-side comparisons of shortlisted buildings, supporting live data adjustments during client meetings and consistent presentation formats.\nTOOLS AND TECH STACKS: React, TypeScript, Azure, REST APIs, D3.js for data visualization, SharePoint Integration for data conversion\nEXPECTED OUTCOME: Reduce broker preparation time from 6-10 hours to 30 minutes per shortlist, enable live adjustments during client meetings, ensure consistent presentation formatting across all brokers.\nTARGET USER SPECIFICATION: CBRE India brokers who are primarily non-technical users but require efficient and consistent client presentation tools.\nREGULATORY",
+  "requestor": "ad_isi03@hotmail.com",
   "deploy_port": 8095,
   "api": {
     "health": "/health",
@@ -114,8 +114,8 @@ BUILD_SPEC: dict[str, Any] = {
       "context"
     ],
     "services": [],
-    "render_url": "https://mermaid.ink/img/pako:eNptkstqwzAQRX9l0KK0tA7NY-VFwXmQprjYuE5aaLpQ7UkikGUjyQ0h5N87shMIJsu5OkePGR1ZVubIfLaR5T7bcW0hTNYKIJikz_ffaxYoLg_GrtnPwznuu_g9hKgyl3T-6ch4AXNucc8PlLs4SiaUh3GYTGKIdLZDYzW3pT6vuzPA817Ib3dpCrJctQpCkheqqi2suBT5lUhIgxLjymQZzj4ITmqJBmZqKxR2yAZxwTjpEzlOvL5_2RbhDgxXwgqDwKUEoaper9fZgcTWH7T-wIew3AL-oT5AjpkwolSeRlOVyuAtf9D6w9Yf-hDrMq8zhEzWxqL2uCoL6jZwY275w9Yftf6IfNRGGAt2h7AR1mIOBU1TwiPc8keunM7cTKbn-xKZIDd0Y6DxdQxCXRlG82uDHt3hCHDl7Ct1rX0Tml8DPSLc0hlx3ZsL-1r_3oCaDgXL6SJ1_6nOhYVUcyE7BzYEe2IF6oKLnPlHRi0o3DfOccNradnp9A_XGtg0",
-    "excerpt": "%% Forge Solution Architecture — LPLRCP / Lease Portal — Live Rent Comparison Panel\n%% Derived from SOW + BRD + Backlog + Brief (rules_service)\n%% Domains: Lending / Credit\n%% Stories: S1, S2, S3\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Analyst\"])\n  ACT1([\"ML Ops\"])\n  GW[\"API Gateway\"]\n  ORC[\"LPLRCP Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  VAL[\"Input Validator\"]\n  ORC --> VAL\n  RULES[\"Rules Engine\"]\n  ORC --> RULES\n  BR1[\"BR-1: Validate & sanitise all inp...\"]\n  ORC --> BR1\n  BR2[\"BR-2: Log every decision-response...\"]\n  ORC --> BR2\n  BR3[\"BR-3: Produce cluster-anomaly ass...\"]\n  ORC --> BR3\n  BR4[\"BR-4: Persist the fitted model + ...\"]\n  ORC --> BR4\n  DEC[\"Decision + Reasons API\"]\n  ORC --> DEC\n  LOG[\"Decision Log\"]\n  ORC --> LOG\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"GitHub\"]\n  ORC -.-> EXT2\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant Applicant\n  participant API as \"Decision API\"\n  participant VAL as \"Validator\"\n  participant RULES as \"Rules Engine\"\n  participant LOG as \"Decision Log\"\n  Applicant->>API: Implement BR-1..n as testable rules\n  API->>VAL: schema validate\n  VAL->>RULES: evaluate BR-1, BR-2, BR-3, BR-4\n  RULES-->>API: APPROVED/DECLINED + reasons\n  API->>LOG: immutable audit write\n  API-->>Applicant: decision payload\n\n%% ER\nerDiagram\n  FEATURE_A ||--o| DECISION_REASONS_RESPONSE : yields\n  FEATURE_A ||--o{ DECISION_API_AUDIT : logs\n  FEATURE_A ||--o{ FEATURE_B : includes\n  FEATURE_A ||--o{ IMPLEMENT_TESTABLE_RULES : includes\n  F"
+    "render_url": "https://mermaid.ink/img/pako:eNptkk1Lw0AQhv_KsAdRNMV-nHIQ-kVbiaTEagXrYU2m7cJmU3Y3ShH_uzNJhBJynHeeZ7KZ3R-RFhmKUOx18Z0epfUQJTsDMJ5u7q_fd2JspD47vxMfN03c5_gpgvjk_tPFlsn1ChbS47c8U85xnEwpj9ZRMl1DbNMjOm-lL2zT529AEDyQX0-pCrK4eh1HJK_MqfTwKrXKLkRCKpQYLpOXaP5McFJqdDA3B2WwRVYIB5OkT-QkCfrh_1iEK3DSKK8cgtQalDn1er3WBBJrf1D7gxCi4gD4hfYMGabKqcIEFt2pMA67_EHtD2t_GMLaFlmZIqS6dB5tIE2R07ZBOtflD2t_VPsj8tE65Tz4I8JeeY8Z5HSbGm6hyx9xOZvzncya8xKZoHR0YqDraxmEchnFi0uDfrrFEcDl_G3Dq90u48t-jwDuNAQv71FZ2YEMGoT3s1B-WX52QNUOxi-z1YZfXJkpDxsrlW4dqSLEncjR5lJlIvwRtKScH3qGe1lqL35__wCWHeEc",
+    "excerpt": "%% Forge Solution Architecture — LPLRCP / Lease Portal — Live Rent Comparison Panel\n%% Derived from SOW + BRD + Backlog + Brief (rules_service)\n%% Domains: Lending / Credit\n%% Stories: S1, S2, S3\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Analyst\"])\n  ACT1([\"ML Ops\"])\n  GW[\"API Gateway\"]\n  ORC[\"LPLRCP Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  VAL[\"Input Validator\"]\n  ORC --> VAL\n  RULES[\"Rules Engine\"]\n  ORC --> RULES\n  BR1[\"BR-1: Validate & sanitise all inp...\"]\n  ORC --> BR1\n  BR2[\"BR-2: Log every decision-response...\"]\n  ORC --> BR2\n  BR3[\"BR-3: Produce cluster-anomaly ass...\"]\n  ORC --> BR3\n  BR4[\"BR-4: Persist the fitted model + ...\"]\n  ORC --> BR4\n  DEC[\"Decision + Reasons API\"]\n  ORC --> DEC\n  LOG[\"Decision Log\"]\n  ORC --> LOG\n  EXT1[\"WHO\"]\n  ORC -.-> EXT1\n  EXT2[\"Jira\"]\n  ORC -.-> EXT2\n  EXT3[\"GitHub\"]\n  ORC -.-> EXT3\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant Applicant\n  participant API as \"Decision API\"\n  participant VAL as \"Validator\"\n  participant RULES as \"Rules Engine\"\n  participant LOG as \"Decision Log\"\n  Applicant->>API: Implement BR-1..n as testable rules\n  API->>VAL: schema validate\n  VAL->>RULES: evaluate BR-1, BR-2, BR-3, BR-4\n  RULES-->>API: APPROVED/DECLINED + reasons\n  API->>LOG: immutable audit write\n  API-->>Applicant: decision payload\n\n%% ER\nerDiagram\n  FEATURE_A ||--o| DECISION_REASONS_RESPONSE : yields\n  FEATURE_A ||--o{ DECISION_API_AUDIT : logs\n  FEATURE_A ||--o{ FEATURE_B : includes\n  FEATURE_A ||--o{ IMPLEMENT"
   },
   "modules": [
     "api",
@@ -127,24 +127,17 @@ BUILD_SPEC: dict[str, Any] = {
   ],
   "input_fields": [
     {
-      "name": "feature_a",
-      "dtype": "float",
-      "description": ""
-    },
-    {
-      "name": "feature_b",
+      "name": "APP_TYPE_Interactive_Comparison_Panel_integrated_into_the_existing_Lease_Portal",
       "dtype": "float",
       "description": ""
     }
   ],
   "sample_input": {
-    "feature_a": 1.0,
-    "feature_b": 1.0
+    "APP_TYPE_Interactive_Comparison_Panel_integrated_into_the_existing_Lease_Portal": 1.0
   },
   "output_fields": [],
   "rag_sources": [
-    "CDC",
-    "PubMed"
+    "WHO"
   ],
   "domains": [
     "General Care"
@@ -175,11 +168,7 @@ BUILD_SPEC: dict[str, Any] = {
     "task": "classification",
     "dependent_variable": "Fraud_flag",
     "independent_variables": [
-      "Customer_age",
-      "Policy_duration",
-      "Claim_amount",
-      "Payment_history",
-      "Geographical_region"
+      "APP_TYPE_Interactive_Comparison_Panel_integrated_into_the_existing_Lease_Portal"
     ],
     "metric": "roc_auc",
     "metric_threshold": 0.75
