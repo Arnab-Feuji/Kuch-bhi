@@ -5,7 +5,7 @@
   "app_type": "Conversational AI Chatbot with Clinical Decision Support",
   "app_kind": "chatbot",
   "summary": "MediAssist \u2014 Patient Symptom Triage Chatbot \u2014 conversational ai chatbot with clinical decision support.",
-  "requirement_text": "Organisation: Apollo Hospitals\nSegment: Healthcare \u2014 Patient Engagement\n\nAI SUGGESTED & EDITED PARAMETERS:\nTOOLS AND TECH STACKS: Python, TensorFlow, React, Node.js, PostgreSQL\nKNOWLEDGE BASE SOURCES: Clinical guidelines, Patient FAQs, Internal Confluence documentation, Historical inquiry data analysis\nSUPPORTED LANGUAGES: English, Hindi, Tamil, Telugu\nPERSONA AND TONE: Empathetic, informative, and reassuring to foster trust and comfort\nFALLBACK MECHANISMS: Escalation to a qualified human clinician, emergency service dial-out for life-threatening scenarios\nEXPECTED OUTCOME: Achieve a 40% reduction in call center volume, maintain a patient satisfaction score above 4.2 out of 5, and ensure zero clinical safety incidents attributable to chatbot advice\nREGULATORY CONSTRAINTS: Compliance with HIPAA regulations, prohibition of diagnostic claims, mandate for clinical audit logging for accountability and transparency\nINTEGRATION REQUIREMENTS: Seamless integration with existing hospital appointment system for real-time booking capabilities\nUSER FEEDBACK: Mechanism for collecting user feedback to continuously improve of the chatbot experience\n",
+  "requirement_text": "Organisation: Apollo Hospitals\nSegment: Healthcare \u2014 Patient Engagement\n\nAI SUGGESTED & EDITED PARAMETERS:\nTOOLS AND TECH STACKS: Python, TensorFlow, React, AWS Lambda, PostgreSQL, Natural Language Processing (NLP) tools\nKNOWLEDGE BASE SOURCES: Clinical guidelines, Internal medical protocols, Symptom checkers, Evidence-based medicine resources\nSUPPORTED LANGUAGES: English, Hindi, Tamil, Telugu\nPERSONA AND TONE: Empathetic, informative, supportive, culturally sensitive\nFALLBACK MECHANISMS: Escalate to a human clinician, Emergency service dial-out, Provide callback options\nLLM FOUNDATION MODEL: GPT-4o, MedGPT\nEXPECTED OUTCOME: 40% reduction in call center volume within six months, patient satisfaction score above 4.2 out of 5, zero clinical safety incidents attributable to chatbot advice\nREGULATORY CONSTRAINTS: HIPAA compliance, No diagnostic claims, Clinical audit logging, Patient consent management\nINTEGRATION REQUIREMENTS: Seamless integration with existing hospital appointment system for real-time slot booking\n",
   "requestor": "ad_isi03@hotmail.com",
   "deploy_port": 8095,
   "api": {
@@ -106,8 +106,8 @@
       "context"
     ],
     "services": [],
-    "render_url": "https://mermaid.ink/img/pako:eNptkltPg0AQhf_KZJ80VmMvT30wQaxY20akNDaxPqwwlE2AbZbFaoz_3RlAbagvm5wz39mZvXyKSMcoxiLJ9D5KpbEwDzYFgOOGlyfPG-FLq7CwG_Fy2tp9tt1MFSpSsvgpeE_kOv4UPGlxLz_IZ_shcMlf-MvQhQcTpVhaI602bZm7wPn5FcWbTWpBIVZL53ZC4aVM0H6AV0kTG6my8m_rmmas3svr14NJlZfgbJuhD0ECWAaORxytEKA1Ct_QdECqsZxdEzcr9D7DeItjuFdG9sDVRZJVWETYA0_Zu-q1k55ds5rPF5SmlbqUO12USMl8p8ujbsSwXK15-lRa8LWxMoPVtAOu1g3XHIZujuVk7VNu8r6j0Bjq_BkE750oUQ0c8h3xQQ6Bi5oI-y0y4EF-T_kPOGjBIYHHV9BCwxYa8SfSpd0aXD7O_wFH9eOtbqYh_6AqVhZCfufu6zEheiJHk0sVi_GnsCnm_HdjTGSVWfH19Q1mf9Tp",
-    "excerpt": "%% Forge Solution Architecture \u2014 MPSTC / MediAssist \u2014 Patient Symptom Triage Chatbot\n%% Derived from SOW + BRD + Backlog + Brief (chatbot)\n%% Domains: Claims\n%% Stories: S1, S3, S5\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Patient\"])\n  ACT1([\"Clinician\"])\n  GW[\"API Gateway\"]\n  ORC[\"MPSTC Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  SAFE[\"Safety Guardrails\"]\n  ORC --> SAFE\n  AG1[\"Claims Agent\"]\n  ORC --> AG1\n  RAG[\"RAG Retriever\"]\n  ORC --> RAG\n  KB[\"Knowledge: Jira, Confluence, GitHub\"]\n  ORC --> KB\n  LLM[\"LLM Response Composer\"]\n  ORC --> LLM\n  UX[\"Chat Portal UI\"]\n  ORC --> UX\n  UX --> ACT0\n  EXP[\"Export: Chat + Rx\"]\n  ORC --> EXP\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"Confluence\"]\n  ORC -.-> EXT2\n  EXT3[\"GitHub\"]\n  ORC -.-> EXT3\n  EXT4[\"PostgreSQL\"]\n  ORC -.-> EXT4\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant Patient\n  participant Portal as \"Chat Portal\"\n  participant ORC as \"Orchestrator\"\n  participant SAFE as \"Guardrails\"\n  participant AG as \"Claims Agent\"\n  participant RAG as \"RAG Retriever\"\n  participant KB as \"Knowledge Base\"\n  participant LLM as \"LLM Composer\"\n  Patient->>Portal: General Care specialty agent + RAG citatio\u2026\n  Portal->>ORC: chat message + language\n  ORC->>SAFE: safety / escalation check\n  ORC->>AG: route by specialty/domain\n  AG->>RAG: retrieve context\n  RAG->>KB: query Jira, Confluence\n  KB-->>RAG: passages + citations\n  RAG-->>AG: grounded snippets\n  AG->>LLM: compose answer\n  LLM-->>Portal: answer + citations\n  Portal-"
+    "render_url": "https://mermaid.ink/img/pako:eNp1kl9PwjAUxb_KTZ80gpE_T3swGRPnZIS5jUgiPlRWoMm2Ll0RCOG7e-82I5n60uSc_s5te29PbKUSwSy2TtV-teXagB8ucwDbie-u3pYs4EaK3CzZ-3Vj98h2UpnLleT594b7iq4deOByI_b8iD7Zs9BBfxpEsQMzvdqK0mhulG626RTodu8xXhepBIZIRfbjGMMRXwtzBHfHdaK5TMuf0hVNWFXL7VUX4zIrwd7Ul74EESAZ2i5yuEIojJbiU-gWiHskJyPkJrnapyLZCAuepeYdcKV52n10YFaI3PagC74_beUnI1LoYx5XPKcsVF4KcFRWqPLXeVQB5XxB999yA4HShqcw91rgfFFz9XOwdyTHiwBz40OBIQuq_A2Eh1YUqRqOqUv0lEvgtiLiXoP0Eanf-QfUb6ABQv81oUEHDTqkj6RKs9EievH_AIfVAOcPXky_aJdIAzHNuj1BIliHZUJnXCbMOjGzFRn930Ss-S417Hz-AisX08E=",
+    "excerpt": "%% Forge Solution Architecture \u2014 MPSTC / MediAssist \u2014 Patient Symptom Triage Chatbot\n%% Derived from SOW + BRD + Backlog + Brief (chatbot)\n%% Domains: Claims\n%% Stories: S1, S3, S5\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Patient\"])\n  ACT1([\"Clinician\"])\n  GW[\"API Gateway\"]\n  ORC[\"MPSTC Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  SAFE[\"Safety Guardrails\"]\n  ORC --> SAFE\n  AG1[\"Claims Agent\"]\n  ORC --> AG1\n  RAG[\"RAG Retriever\"]\n  ORC --> RAG\n  KB[\"Knowledge: Jira, GitHub, OpenAI - LLM\"]\n  ORC --> KB\n  LLM[\"LLM Response Composer\"]\n  ORC --> LLM\n  UX[\"Chat Portal UI\"]\n  ORC --> UX\n  UX --> ACT0\n  EXP[\"Export: Chat + Rx\"]\n  ORC --> EXP\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"GitHub\"]\n  ORC -.-> EXT2\n  EXT3[\"OpenAI - LLM\"]\n  ORC -.-> EXT3\n  EXT4[\"PostgreSQL\"]\n  ORC -.-> EXT4\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant Patient\n  participant Portal as \"Chat Portal\"\n  participant ORC as \"Orchestrator\"\n  participant SAFE as \"Guardrails\"\n  participant AG as \"Claims Agent\"\n  participant RAG as \"RAG Retriever\"\n  participant KB as \"Knowledge Base\"\n  participant LLM as \"LLM Composer\"\n  Patient->>Portal: General Care specialty agent + RAG citatio\u2026\n  Portal->>ORC: chat message + language\n  ORC->>SAFE: safety / escalation check\n  ORC->>AG: route by specialty/domain\n  AG->>RAG: retrieve context\n  RAG->>KB: query Jira, GitHub\n  KB-->>RAG: passages + citations\n  RAG-->>AG: grounded snippets\n  AG->>LLM: compose answer\n  LLM-->>Portal: answer + citations\n  Portal-"
   },
   "modules": [
     "api",
@@ -134,12 +134,17 @@
       "description": ""
     },
     {
-      "name": "Node_js",
+      "name": "AWS_Lambda",
       "dtype": "float",
       "description": ""
     },
     {
       "name": "PostgreSQL",
+      "dtype": "float",
+      "description": ""
+    },
+    {
+      "name": "Natural_Language_Processing_NLP_tools",
       "dtype": "float",
       "description": ""
     }
@@ -148,8 +153,9 @@
     "TOOLS_AND_TECH_STACKS_Python": 1.0,
     "TensorFlow": 1.0,
     "React": 1.0,
-    "Node_js": 1.0,
-    "PostgreSQL": 1.0
+    "AWS_Lambda": 1.0,
+    "PostgreSQL": 1.0,
+    "Natural_Language_Processing_NLP_tools": 1.0
   },
   "output_fields": [],
   "rag_sources": [
@@ -207,8 +213,9 @@
       "TOOLS_AND_TECH_STACKS_Python",
       "TensorFlow",
       "React",
-      "Node_js",
-      "PostgreSQL"
+      "AWS_Lambda",
+      "PostgreSQL",
+      "Natural_Language_Processing_NLP_tools"
     ],
     "metric": "roc_auc",
     "metric_threshold": 0.75
