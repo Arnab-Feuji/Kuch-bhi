@@ -13,7 +13,7 @@ BUILD_SPEC: dict[str, Any] = {
   "app_type": "Conversational AI Chatbot with Clinical Decision Support",
   "app_kind": "chatbot",
   "summary": "MediAssist — Patient Symptom Triage Chatbot — conversational ai chatbot with clinical decision support.",
-  "requirement_text": "Organisation: Apollo Hospitals\nSegment: Healthcare — Patient Engagement\n\nAI SUGGESTED & EDITED PARAMETERS:\nTOOLS AND TECH STACKS: Node.js, TensorFlow, React Native, AWS, MongoDB, API integration for real-time appointment scheduling\nKNOWLEDGE BASE SOURCES: Clinical guidelines, Patient FAQs, Hospital treatment protocols, Evidence-based research articles\nSUPPORTED LANGUAGES: English, Hindi, Tamil, Telugu\nPERSONA AND TONE: Empathetic, professional, reassuring, culturally sensitive\nFALLBACK MECHANISMS: Escalation to human clinician, emergency service dial-out, automated responses for common inquiries\nEXPECTED OUTCOME: 40% reduction in call center volume, patient satisfaction score above 4.2 out of 5, zero clinical safety incidents attributable to chatbot advice\nREGULATORY CONSTRAINTS: HIPAA compliance, No diagnostic claims, Emergency routing for life-threatening symptoms, adherence to local healthcare regulations\nUSER ACCESS CHANNELS: Mobile application, Website interface\n",
+  "requirement_text": "Organisation: Apollo Hospitals\nSegment: Healthcare — Patient Engagement\n\nAI SUGGESTED & EDITED PARAMETERS:\nTOOLS AND TECH STACKS: Python, TensorFlow, FastAPI, React Native, PostgreSQL\nKNOWLEDGE BASE SOURCES: Clinical guidelines, internal Confluence documentation, patient FAQs, appointment system API\nSUPPORTED LANGUAGES: English, Hindi, Tamil, Telugu\nPERSONA AND TONE: Empathetic, informative, and professional, ensuring a comforting experience for patients\nFALLBACK MECHANISMS: Human escalation for complex queries, immediate routing for life-threatening symptoms, emergency service dial-out\nLLM FOUNDATION MODEL: GPT-4 and BERT-based models to facilitate multilingual support and contextual understanding\nEXPECTED OUTCOME: 40% reduction in call center volume, patient satisfaction score exceeding 4.2 out of 5, and maintaining zero clinical safety incidents attributable to chatbot advice\nREGULATORY CONSTRAINTS: Compliance with HIPAA and GDPR, implementation of clinical audit logging practices\nINTEGRATION REQUIREMENTS: Seamless integration with existing hospital appointment systems for real-time slot booking and patient management\n",
   "requestor": "ad_isi03@hotmail.com",
   "deploy_port": 8095,
   "api": {
@@ -114,8 +114,8 @@ BUILD_SPEC: dict[str, Any] = {
       "context"
     ],
     "services": [],
-    "render_url": "https://mermaid.ink/img/pako:eNptklFvgjAUhf_KTZ-2TJepbzwsQabMqZEgZCRzDx1UaQLUlDI1xv--e4FlhvnS5Jx-57a9t2cWq0Qwi20zdYhTrg0s_E0BYDvB093HhnncSFGYDfu8b-0B2U4mCxlLXvxuuO_o2t4MXG7EgZ_QJ3vlO-gvvXXgwErHqSiN5kbpdptOgX7_GeNNkVpgiNTank4wvOZbYU7gVlwnmsus_Ctd04TVtdxBfTEu8xLsXXPpaxABkr7tIocr-MJoKb6F7oC4R3I-Rm5eqEMmkp2w4E1q3gNXmtfqqweBKEqlp9i2Tno-JrVYLDGNK55S7lVRCnBUvlflv9OQIRlGdPuUG_CUNjyDcNYBw6jhmsdg50hOIg9zk-MeQxbU-Qfwj50oUg0cUI_oIdfAY00EgxYZItK88gY0bKERQrdb0IKjeibhyyygj1El0kBA4-sOhQjWY7nQOZcJs87MpCKnL5mILa8ywy6XH3SsyTs=",
-    "excerpt": "%% Forge Solution Architecture — MPSTC / MediAssist — Patient Symptom Triage Chatbot\n%% Derived from SOW + BRD + Backlog + Brief (chatbot)\n%% Domains: Claims\n%% Stories: S1, S3, S5\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Patient\"])\n  ACT1([\"Clinician\"])\n  GW[\"API Gateway\"]\n  ORC[\"MPSTC Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  SAFE[\"Safety Guardrails\"]\n  ORC --> SAFE\n  AG1[\"Claims Agent\"]\n  ORC --> AG1\n  RAG[\"RAG Retriever\"]\n  ORC --> RAG\n  KB[\"Knowledge: Jira, GitHub, TensorFlow\"]\n  ORC --> KB\n  LLM[\"LLM Response Composer\"]\n  ORC --> LLM\n  UX[\"Chat Portal UI\"]\n  ORC --> UX\n  UX --> ACT0\n  EXP[\"Export: Chat + Rx\"]\n  ORC --> EXP\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"GitHub\"]\n  ORC -.-> EXT2\n  EXT3[\"TensorFlow\"]\n  ORC -.-> EXT3\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant Patient\n  participant Portal as \"Chat Portal\"\n  participant ORC as \"Orchestrator\"\n  participant SAFE as \"Guardrails\"\n  participant AG as \"Claims Agent\"\n  participant RAG as \"RAG Retriever\"\n  participant KB as \"Knowledge Base\"\n  participant LLM as \"LLM Composer\"\n  Patient->>Portal: General Care specialty agent + RAG citatio…\n  Portal->>ORC: chat message + language\n  ORC->>SAFE: safety / escalation check\n  ORC->>AG: route by specialty/domain\n  AG->>RAG: retrieve context\n  RAG->>KB: query Jira, GitHub\n  KB-->>RAG: passages + citations\n  RAG-->>AG: grounded snippets\n  AG->>LLM: compose answer\n  LLM-->>Portal: answer + citations\n  Portal-->>Patient: response\n\n%% ER\nerDiagram\n  F"
+    "render_url": "https://mermaid.ink/img/pako:eNptkk1Pg0AQhv_KZE8aW2O1px5MKFbEtimhEJtYDytMZRNYmmWxGuN_dwbwI9TLJu_s887Hzn6IpExRTMQuLw9JJo2FRbjVAI4bXZw8bkUgrUJtt-LptAuPOOzmSqtESf194T1Q1Al88KTFg3ynOIdXoUvxZbCOXFiZJMPKGmlL011zFRgOr8neJmkEmVitndsZmddyh_YdvFqa1EiVV7-pG5qxJpc3ahqTqqjAeWmb_gsSwDJ0POLohBCtUfiKpgfSHcv5lLi5Lg85pi84gXtl5ADcUu_yGnWCA_CUvaufe-75lNVisSQ3nVSl2pe6QnIW-7I6qkYMy3jD3WfSQlAaK3OI_R4Yb1quHYZejuVsE5Bv9rYn0wQa_xmEbz0rUS0c8RvxIH-B84aIRh1yyY38TPkPeNmBVwQeP0EHXXXQmKDVHrXjw7CZ9RgdN-uLb_yI_1CdKgsRb7q_PybEQBRoCqlSMfkQNsOCf2-KO1nnVnx-fgGsk9SD",
+    "excerpt": "%% Forge Solution Architecture — MPSTC / MediAssist — Patient Symptom Triage Chatbot\n%% Derived from SOW + BRD + Backlog + Brief (chatbot)\n%% Domains: Claims\n%% Stories: S1, S3, S5\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Patient\"])\n  ACT1([\"Clinician\"])\n  GW[\"API Gateway\"]\n  ORC[\"MPSTC Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  SAFE[\"Safety Guardrails\"]\n  ORC --> SAFE\n  AG1[\"Claims Agent\"]\n  ORC --> AG1\n  RAG[\"RAG Retriever\"]\n  ORC --> RAG\n  KB[\"Knowledge: Jira, Confluence, GitHub\"]\n  ORC --> KB\n  LLM[\"LLM Response Composer\"]\n  ORC --> LLM\n  UX[\"Chat Portal UI\"]\n  ORC --> UX\n  UX --> ACT0\n  EXP[\"Export: Chat + Rx\"]\n  ORC --> EXP\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"Confluence\"]\n  ORC -.-> EXT2\n  EXT3[\"GitHub\"]\n  ORC -.-> EXT3\n  EXT4[\"OpenAI - LLM\"]\n  ORC -.-> EXT4\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant Patient\n  participant Portal as \"Chat Portal\"\n  participant ORC as \"Orchestrator\"\n  participant SAFE as \"Guardrails\"\n  participant AG as \"Claims Agent\"\n  participant RAG as \"RAG Retriever\"\n  participant KB as \"Knowledge Base\"\n  participant LLM as \"LLM Composer\"\n  Patient->>Portal: General Care specialty agent + RAG citatio…\n  Portal->>ORC: chat message + language\n  ORC->>SAFE: safety / escalation check\n  ORC->>AG: route by specialty/domain\n  AG->>RAG: retrieve context\n  RAG->>KB: query Jira, Confluence\n  KB-->>RAG: passages + citations\n  RAG-->>AG: grounded snippets\n  AG->>LLM: compose answer\n  LLM-->>Portal: answer + citations\n  Porta"
   },
   "modules": [
     "api",
@@ -127,7 +127,7 @@ BUILD_SPEC: dict[str, Any] = {
   ],
   "input_fields": [
     {
-      "name": "TOOLS_AND_TECH_STACKS_Node_js",
+      "name": "TOOLS_AND_TECH_STACKS_Python",
       "dtype": "float",
       "description": ""
     },
@@ -137,33 +137,27 @@ BUILD_SPEC: dict[str, Any] = {
       "description": ""
     },
     {
+      "name": "FastAPI",
+      "dtype": "float",
+      "description": ""
+    },
+    {
       "name": "React_Native",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "AWS",
-      "dtype": "float",
-      "description": ""
-    },
-    {
-      "name": "MongoDB",
-      "dtype": "float",
-      "description": ""
-    },
-    {
-      "name": "API_integration_for_real_time_appointment_scheduling",
+      "name": "PostgreSQL",
       "dtype": "float",
       "description": ""
     }
   ],
   "sample_input": {
-    "TOOLS_AND_TECH_STACKS_Node_js": 1.0,
+    "TOOLS_AND_TECH_STACKS_Python": 1.0,
     "TensorFlow": 1.0,
+    "FastAPI": 1.0,
     "React_Native": 1.0,
-    "AWS": 1.0,
-    "MongoDB": 1.0,
-    "API_integration_for_real_time_appointment_scheduling": 1.0
+    "PostgreSQL": 1.0
   },
   "output_fields": [],
   "rag_sources": [
@@ -210,19 +204,19 @@ BUILD_SPEC: dict[str, Any] = {
   "escalation_phrases": [
     "emergency",
     "chest pain",
-    "suicid"
+    "suicid",
+    "fraud"
   ],
   "model": {
     "family": "sklearn",
     "task": "classification",
     "dependent_variable": "Fraud_flag",
     "independent_variables": [
-      "TOOLS_AND_TECH_STACKS_Node_js",
+      "TOOLS_AND_TECH_STACKS_Python",
       "TensorFlow",
+      "FastAPI",
       "React_Native",
-      "AWS",
-      "MongoDB",
-      "API_integration_for_real_time_appointment_scheduling"
+      "PostgreSQL"
     ],
     "metric": "roc_auc",
     "metric_threshold": 0.75
