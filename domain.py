@@ -13,7 +13,7 @@ BUILD_SPEC: dict[str, Any] = {
   "app_type": "Conversational AI Chatbot with Clinical Decision Support",
   "app_kind": "chatbot",
   "summary": "MediAssist — Patient Symptom Triage Chatbot — conversational ai chatbot with clinical decision support.",
-  "requirement_text": "Organisation: Apollo Hospitals\nSegment: Healthcare — Patient Engagement\n\nAI SUGGESTED & EDITED PARAMETERS:\nTOOLS AND TECH STACKS: Python, TensorFlow, FastAPI, React Native, PostgreSQL\nKNOWLEDGE BASE SOURCES: Clinical guidelines, internal Confluence documentation, patient FAQs, appointment system API\nSUPPORTED LANGUAGES: English, Hindi, Tamil, Telugu\nPERSONA AND TONE: Empathetic, informative, and professional, ensuring a comforting experience for patients\nFALLBACK MECHANISMS: Human escalation for complex queries, immediate routing for life-threatening symptoms, emergency service dial-out\nLLM FOUNDATION MODEL: GPT-4 and BERT-based models to facilitate multilingual support and contextual understanding\nEXPECTED OUTCOME: 40% reduction in call center volume, patient satisfaction score exceeding 4.2 out of 5, and maintaining zero clinical safety incidents attributable to chatbot advice\nREGULATORY CONSTRAINTS: Compliance with HIPAA and GDPR, implementation of clinical audit logging practices\nINTEGRATION REQUIREMENTS: Seamless integration with existing hospital appointment systems for real-time slot booking and patient management\n",
+  "requirement_text": "Organisation: Apollo Hospitals\nSegment: Healthcare — Patient Engagement\n\nAI SUGGESTED & EDITED PARAMETERS:\nTOOLS AND TECH STACKS: Python, FastAPI, TensorFlow, React, PostgreSQL\nKNOWLEDGE BASE SOURCES: Clinical guidelines, Internal Confluence documentation, Medical textbooks, Up-to-date medical research articles\nSUPPORTED LANGUAGES: English, Hindi, Tamil, Telugu\nPERSONA AND TONE: Empathetic, informative, supportive, and culturally sensitive\nFALLBACK MECHANISMS: Escalation to live chat with a qualified clinician, emergency service dialing for critical situations\nEXPECTED OUTCOME: Achieve a 40% reduction in call center volume within six months, maintain a patient satisfaction score exceeding 4.2 out of 5, and ensure zero clinical safety incidents attributable to chatbot advice.\nREGULATORY CONSTRAINTS: Compliance with HIPAA regulations, prohibition on diagnostic claims, mandatory emergency routing for life-threatening symptoms\nINTEGRATION REQUIREMENTS: Seamless integration with the hospital appointment system to facilitate real-time slot booking, as well as potential linkage with electronic health record (EHR) systems\nCONVERSATION LOGGING: All interactions must be logged for clinical a",
   "requestor": "ad_isi03@hotmail.com",
   "deploy_port": 8095,
   "api": {
@@ -114,8 +114,8 @@ BUILD_SPEC: dict[str, Any] = {
       "context"
     ],
     "services": [],
-    "render_url": "https://mermaid.ink/img/pako:eNptkk1Pg0AQhv_KZE8aW2O1px5MKFbEtimhEJtYDytMZRNYmmWxGuN_dwbwI9TLJu_s887Hzn6IpExRTMQuLw9JJo2FRbjVAI4bXZw8bkUgrUJtt-LptAuPOOzmSqtESf194T1Q1Al88KTFg3ynOIdXoUvxZbCOXFiZJMPKGmlL011zFRgOr8neJmkEmVitndsZmddyh_YdvFqa1EiVV7-pG5qxJpc3ahqTqqjAeWmb_gsSwDJ0POLohBCtUfiKpgfSHcv5lLi5Lg85pi84gXtl5ADcUu_yGnWCA_CUvaufe-75lNVisSQ3nVSl2pe6QnIW-7I6qkYMy3jD3WfSQlAaK3OI_R4Yb1quHYZejuVsE5Bv9rYn0wQa_xmEbz0rUS0c8RvxIH-B84aIRh1yyY38TPkPeNmBVwQeP0EHXXXQmKDVHrXjw7CZ9RgdN-uLb_yI_1CdKgsRb7q_PybEQBRoCqlSMfkQNsOCf2-KO1nnVnx-fgGsk9SD",
-    "excerpt": "%% Forge Solution Architecture — MPSTC / MediAssist — Patient Symptom Triage Chatbot\n%% Derived from SOW + BRD + Backlog + Brief (chatbot)\n%% Domains: Claims\n%% Stories: S1, S3, S5\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Patient\"])\n  ACT1([\"Clinician\"])\n  GW[\"API Gateway\"]\n  ORC[\"MPSTC Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  SAFE[\"Safety Guardrails\"]\n  ORC --> SAFE\n  AG1[\"Claims Agent\"]\n  ORC --> AG1\n  RAG[\"RAG Retriever\"]\n  ORC --> RAG\n  KB[\"Knowledge: Jira, Confluence, GitHub\"]\n  ORC --> KB\n  LLM[\"LLM Response Composer\"]\n  ORC --> LLM\n  UX[\"Chat Portal UI\"]\n  ORC --> UX\n  UX --> ACT0\n  EXP[\"Export: Chat + Rx\"]\n  ORC --> EXP\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"Confluence\"]\n  ORC -.-> EXT2\n  EXT3[\"GitHub\"]\n  ORC -.-> EXT3\n  EXT4[\"OpenAI - LLM\"]\n  ORC -.-> EXT4\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant Patient\n  participant Portal as \"Chat Portal\"\n  participant ORC as \"Orchestrator\"\n  participant SAFE as \"Guardrails\"\n  participant AG as \"Claims Agent\"\n  participant RAG as \"RAG Retriever\"\n  participant KB as \"Knowledge Base\"\n  participant LLM as \"LLM Composer\"\n  Patient->>Portal: General Care specialty agent + RAG citatio…\n  Portal->>ORC: chat message + language\n  ORC->>SAFE: safety / escalation check\n  ORC->>AG: route by specialty/domain\n  AG->>RAG: retrieve context\n  RAG->>KB: query Jira, Confluence\n  KB-->>RAG: passages + citations\n  RAG-->>AG: grounded snippets\n  AG->>LLM: compose answer\n  LLM-->>Portal: answer + citations\n  Porta"
+    "render_url": "https://mermaid.ink/img/pako:eNptkltPg0AQhf_KZJ80VmMvT30wQaxY20akNDaxPqwwlE2AbZbFaoz_3RlAbagvm5wz39mZvXyKSMcoxiLJ9D5KpbEwDzYFgOOGlyfPG-FLq7CwG_Fy2tp9tt1MFSpSsvgpeE_kOv4UPGlxLz_IZ_shcMlf-MvQhQcTpVhaI602bZm7wPn5FcWbTWpBIVZL53ZC4aVM0H6AV0kTG6my8m_rmmas3svr14NJlZfgbJuhD0ECWAaORxytEKA1Ct_QdECqsZxdEzcr9D7DeItjuFdG9sDVRZJVWETYA0_Zu-q1k55ds5rPF5SmlbqUO12USMl8p8ujbsSwXK15-lRa8LWxMoPVtAOu1g3XHIZujuVk7VNu8r6j0Bjq_BkE750oUQ0c8h3xQQ6Bi5oI-y0y4EF-T_kPOGjBIYHHV9BCwxYa8SfSpd0aXD7O_wFH9eOtbqYh_6AqVhZCfufu6zEheiJHk0sVi_GnsCnm_HdjTGSVWfH19Q1mf9Tp",
+    "excerpt": "%% Forge Solution Architecture — MPSTC / MediAssist — Patient Symptom Triage Chatbot\n%% Derived from SOW + BRD + Backlog + Brief (chatbot)\n%% Domains: Claims\n%% Stories: S1, S3, S5\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Patient\"])\n  ACT1([\"Clinician\"])\n  GW[\"API Gateway\"]\n  ORC[\"MPSTC Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  SAFE[\"Safety Guardrails\"]\n  ORC --> SAFE\n  AG1[\"Claims Agent\"]\n  ORC --> AG1\n  RAG[\"RAG Retriever\"]\n  ORC --> RAG\n  KB[\"Knowledge: Jira, Confluence, GitHub\"]\n  ORC --> KB\n  LLM[\"LLM Response Composer\"]\n  ORC --> LLM\n  UX[\"Chat Portal UI\"]\n  ORC --> UX\n  UX --> ACT0\n  EXP[\"Export: Chat + Rx\"]\n  ORC --> EXP\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"Confluence\"]\n  ORC -.-> EXT2\n  EXT3[\"GitHub\"]\n  ORC -.-> EXT3\n  EXT4[\"PostgreSQL\"]\n  ORC -.-> EXT4\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant Patient\n  participant Portal as \"Chat Portal\"\n  participant ORC as \"Orchestrator\"\n  participant SAFE as \"Guardrails\"\n  participant AG as \"Claims Agent\"\n  participant RAG as \"RAG Retriever\"\n  participant KB as \"Knowledge Base\"\n  participant LLM as \"LLM Composer\"\n  Patient->>Portal: General Care specialty agent + RAG citatio…\n  Portal->>ORC: chat message + language\n  ORC->>SAFE: safety / escalation check\n  ORC->>AG: route by specialty/domain\n  AG->>RAG: retrieve context\n  RAG->>KB: query Jira, Confluence\n  KB-->>RAG: passages + citations\n  RAG-->>AG: grounded snippets\n  AG->>LLM: compose answer\n  LLM-->>Portal: answer + citations\n  Portal-"
   },
   "modules": [
     "api",
@@ -132,17 +132,17 @@ BUILD_SPEC: dict[str, Any] = {
       "description": ""
     },
     {
-      "name": "TensorFlow",
-      "dtype": "float",
-      "description": ""
-    },
-    {
       "name": "FastAPI",
       "dtype": "float",
       "description": ""
     },
     {
-      "name": "React_Native",
+      "name": "TensorFlow",
+      "dtype": "float",
+      "description": ""
+    },
+    {
+      "name": "React",
       "dtype": "float",
       "description": ""
     },
@@ -154,9 +154,9 @@ BUILD_SPEC: dict[str, Any] = {
   ],
   "sample_input": {
     "TOOLS_AND_TECH_STACKS_Python": 1.0,
-    "TensorFlow": 1.0,
     "FastAPI": 1.0,
-    "React_Native": 1.0,
+    "TensorFlow": 1.0,
+    "React": 1.0,
     "PostgreSQL": 1.0
   },
   "output_fields": [],
@@ -213,9 +213,9 @@ BUILD_SPEC: dict[str, Any] = {
     "dependent_variable": "Fraud_flag",
     "independent_variables": [
       "TOOLS_AND_TECH_STACKS_Python",
-      "TensorFlow",
       "FastAPI",
-      "React_Native",
+      "TensorFlow",
+      "React",
       "PostgreSQL"
     ],
     "metric": "roc_auc",
@@ -441,14 +441,24 @@ def specialty_rag_pack() -> dict[str, list[dict[str, str]]]:
               "text": "Common options include metformin, GLP-1 receptor agonists, SGLT2 inhibitors, DPP-4 inhibitors, sulfonylureas, and insulin. Choice depends on A1C, kidney function, heart risk, and hypoglycemia risk — clinician directed only."},
         ],
         "mental illness": [
-            {"id": "CDC-MH-1", "source": "CDC", "title": "Mental health support", "topics": ["overview", "support", "treatment"],
-              "text": "Anxiety and depression are treatable. Sleep, social connection, counseling, and clinician-guided medication can help."},
+            {"id": "CDC-MH-INSOM", "source": "CDC", "title": "Insomnia overview", "topics": ["overview", "symptoms", "insomnia", "sleep"],
+              "text": "Insomnia is difficulty falling asleep, staying asleep, or waking too early and feeling unrested. Short-term insomnia is common with stress; chronic insomnia lasting weeks may need clinical evaluation for anxiety, depression, pain, apnea, or medicine side effects."},
+            {"id": "PM-MH-INSOM", "source": "PubMed", "title": "Insomnia care approaches", "topics": ["treatment", "lifestyle", "insomnia", "sleep"],
+              "text": "Evidence-based approaches include consistent sleep/wake times, limiting late caffeine/screens, CBT for insomnia (CBT-I), and clinician-guided short-term sleep medicine when appropriate — not self-prescribed sedatives."},
+            {"id": "CDC-MH-ANX", "source": "CDC", "title": "Anxiety disorders", "topics": ["overview", "anxiety", "symptoms", "treatment"],
+              "text": "Anxiety disorders involve excessive worry, restlessness, or panic that interfere with daily life. Breathing skills, counseling (including CBT), and clinician-guided medication can help."},
+            {"id": "CDC-MH-DEP", "source": "CDC", "title": "Depression overview", "topics": ["overview", "depression", "symptoms", "treatment"],
+              "text": "Depression can include persistent low mood, loss of interest, sleep or appetite changes, fatigue, and hopelessness. Screening and timely clinician follow-up matter; crisis services if you feel unsafe."},
+            {"id": "CDC-MH-1", "source": "CDC", "title": "Mental health support", "topics": ["support", "treatment", "general"],
+              "text": "Many mental health conditions are treatable. Sleep, social connection, counseling, and clinician-guided medication can help — ask specifically about your symptoms for tailored education."},
             {"id": "PM-MH-1", "source": "PubMed", "title": "Crisis awareness", "topics": ["emergency", "support"],
               "text": "If you feel unsafe or have thoughts of self-harm, contact local emergency services or a crisis line immediately."},
             {"id": "CDC-MH-2", "source": "CDC", "title": "Daily coping", "topics": ["lifestyle", "support"],
               "text": "Breathing exercises, brief walks, journaling, and limiting late caffeine can reduce symptom intensity between care visits."},
             {"id": "PM-MH-2", "source": "PubMed", "title": "Psychotropic medicines", "topics": ["medication", "treatment"],
               "text": "SSRIs/SNRIs, mood stabilizers, and other agents may be used under psychiatric supervision. Never start, stop, or combine psychiatric medicines without a licensed clinician."},
+            {"id": "PM-MH-PTSD", "source": "PubMed", "title": "Trauma and PTSD basics", "topics": ["overview", "ptsd", "trauma", "treatment"],
+              "text": "PTSD may follow trauma and can involve flashbacks, hypervigilance, avoidance, and sleep disruption. Trauma-focused therapy and specialist care are first-line; this is education only."},
         ],
         "cardiology": [
             {"id": "CDC-CD-1", "source": "CDC", "title": "Heart risk factors", "topics": ["overview", "prevention", "symptoms"],
@@ -487,7 +497,7 @@ def _normalize_domain(name: str) -> str:
         return "cancer care"
     if "diabetes" in n or "glucose" in n or "insulin" in n or "sugar" in n:
         return "diabetes"
-    if any(k in n for k in ("mental", "depress", "anxiety", "psych", "stress")):
+    if any(k in n for k in ("mental", "depress", "anxiety", "psych", "stress", "insomni", "sleep", "ptsd", "trauma")):
         return "mental illness"
     if any(k in n for k in ("cardio", "heart", "cardiac", "blood pressure")):
         return "cardiology"
@@ -536,7 +546,7 @@ def detect_agent(message: str, preferred: str | None = None) -> dict[str, Any]:
         boosts = {
             "cancer care": ["cancer", "tumor", "tumour", "oncology", "chemo", "breast", "lump"],
             "diabetes": ["diabetes", "sugar", "insulin", "glucose", "a1c"],
-            "mental illness": ["mental", "anxiety", "depression", "stress", "panic"],
+            "mental illness": ["mental", "anxiety", "depression", "stress", "panic", "insomni", "sleep", "ptsd", "trauma", "bipolar"],
             "cardiology": ["heart", "cardio", "pressure", "chest", "bp"],
             "respiratory": ["breath", "asthma", "lung", "cough", "respir", "wheeze"],
         }
@@ -552,38 +562,61 @@ def detect_agent(message: str, preferred: str | None = None) -> dict[str, Any]:
 
 
 def retrieve_snippets(domain: str, message: str, limit: int = 2, intent: str | None = None) -> list[dict[str, str]]:
+    """Rank specialty KB docs by query terms first; intent is only a soft tie-breaker."""
     pack = specialty_rag_pack()
     key = _normalize_domain(domain)
     docs = list(pack.get(key) or pack["general care"])
     text = (message or "").lower()
     intent = intent or detect_intent(text)
-    words = set(re.findall(r"[a-z]{4,}", text))
+    stop = {
+        "what", "when", "where", "which", "that", "this", "with", "from", "have", "does",
+        "about", "your", "into", "than", "then", "them", "they", "were", "been", "will",
+        "would", "could", "should", "please", "help", "tell", "give", "some", "more",
+        "also", "just", "like", "know", "mean", "means", "explain", "define", "definition",
+        "there", "their", "here", "need", "want", "question", "asking",
+    }
+    words = set(re.findall(r"[a-z]{3,}", text)) - stop
+    # Prefer content terms (condition / symptom words) over short function leftovers
+    intent_words = {
+        "medication": ["medic", "drug", "therapy", "insulin", "inhaler", "chemo", "dose"],
+        "treatment": ["treat", "surgery", "therapy", "radiation", "plan"],
+        "screening": ["screen", "detect", "mammogram", "biopsy", "imaging"],
+        "prevention": ["prevent", "risk", "cessation", "vaccine"],
+        "diet": ["nutrition", "diet", "food", "eat"],
+        "symptoms": ["symptom", "pain", "fever", "side"],
+        "support": ["support", "mental", "caregiver", "follow-up"],
+        "emergency": ["urgent", "emergency", "crisis"],
+    }.get(intent, [])
     ranked = []
     for d in docs:
-        blob = (d.get("title", "") + " " + d.get("text", "") + " " + " ".join(d.get("topics") or [])).lower()
-        score = sum(1 for w in words if w in blob)
+        title = str(d.get("title") or "").lower()
+        body = str(d.get("text") or "").lower()
         topics = [t.lower() for t in (d.get("topics") or [])]
+        blob = f"{title} {body} {' '.join(topics)}"
+        lexical = 0
+        for w in words:
+            if w in title or any(w == t or w in t for t in topics):
+                lexical += 8
+            elif w in body:
+                lexical += 5
+            elif w in blob:
+                lexical += 2
+        score = lexical
+        # Intent boost only when the doc already matches the query, or when no lexical signal exists at all
         if intent in topics:
-            score += 5
-        # soft synonym boosts by intent
-        intent_words = {
-            "medication": ["medic", "drug", "therapy", "insulin", "inhaler", "chemo", "dose"],
-            "treatment": ["treat", "surgery", "therapy", "radiation", "plan"],
-            "screening": ["screen", "detect", "mammogram", "biopsy", "imaging"],
-            "prevention": ["prevent", "risk", "cessation", "vaccine"],
-            "diet": ["nutrition", "diet", "food", "eat"],
-            "symptoms": ["symptom", "pain", "fever", "side"],
-            "support": ["support", "mental", "caregiver", "follow-up"],
-            "emergency": ["urgent", "emergency", "crisis"],
-        }.get(intent, [])
-        score += sum(2 for w in intent_words if w in blob)
-        ranked.append((score, d))
-    ranked.sort(key=lambda x: x[0], reverse=True)
-    # Prefer intent-matched docs; if scores tie at zero, still diversify by intent order in pack
-    positive = [d for sc, d in ranked if sc > 0]
+            score += 3 if lexical > 0 else 1
+        score += sum(1 for w in intent_words if w in blob)
+        # Strong demotion for intent-only hits that ignore the user's topic words
+        if words and lexical == 0:
+            score -= 6
+        ranked.append((score, lexical, d))
+    ranked.sort(key=lambda x: (x[0], x[1]), reverse=True)
+    topical = [d for sc, lex, d in ranked if lex > 0]
+    if topical:
+        return topical[:limit]
+    positive = [d for sc, lex, d in ranked if sc > 0]
     if positive:
         return positive[:limit]
-    # fallback: first doc whose topics include intent, else pack head
     tagged = [d for d in docs if intent in [t.lower() for t in (d.get("topics") or [])]]
     return (tagged or docs)[:limit]
 
