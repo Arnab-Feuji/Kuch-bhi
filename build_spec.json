@@ -5,7 +5,7 @@
   "app_type": "Conversational AI Chatbot with Clinical Decision Support",
   "app_kind": "chatbot",
   "summary": "MediAssist \u2014 Patient Symptom Triage Chatbot \u2014 conversational ai chatbot with clinical decision support.",
-  "requirement_text": "Organisation: Apollo Hospitals\nSegment: Healthcare \u2014 Patient Engagement\n\nAI SUGGESTED & EDITED PARAMETERS:\nTOOLS AND TECH STACKS: Python, Node.js, TensorFlow, React, MongoDB, AWS for cloud infrastructure\nKNOWLEDGE BASE SOURCES: Clinical guidelines, Patient FAQs, Internal knowledge base, Latest medical research articles\nSUPPORTED LANGUAGES: English, Hindi, Tamil, Telugu\nPERSONA AND TONE: Empathetic, informative, patient-centric, and supportive\nFALLBACK MECHANISMS: Human escalation, emergency service call option, alternative communication methods for non-responsive interactions\nLLM FOUNDATION MODEL: GPT-4, Dialogflow, custom-trained medical AI models\nEXPECTED OUTCOME: 40% reduction in call center volume, patient satisfaction above 4.2/5, zero clinical safety incidents, improved response time for non-emergency inquiries\nREGULATORY CONSTRAINTS: HIPAA compliance, no diagnostic claims, logging for clinical audit, adherence to local telehealth regulations\nINTEGRATION WITH EXISTING SYSTEMS: Seamless integration with the existing hospital appointment system for real-time slot booking and patient record access\n",
+  "requirement_text": "Organisation: Apollo Hospitals\nSegment: Healthcare \u2014 Patient Engagement\n\nAI SUGGESTED & EDITED PARAMETERS:\nTOOLS AND TECH STACKS: Python, Dialogflow, Node.js, MongoDB\nKNOWLEDGE BASE SOURCES: Clinical guidelines, Internal Confluence documentation, Patient FAQs, Medical literature\nSUPPORTED LANGUAGES: English, Hindi, Tamil, Telugu\nPERSONA AND TONE: Empathetic, informative, professional, and culturally sensitive\nFALLBACK MECHANISMS: Escalation to a human clinician for complex cases, Emergency service dial-out for critical symptoms\nEXPECTED OUTCOME: Achieve a 40% reduction in call center volume within six months, Maintain a patient satisfaction score above 4.2 out of 5\nREGULATORY CONSTRAINTS: No diagnostic claims allowed, Immediate emergency routing for life-threatening symptoms, Comprehensive clinical audit logging required\nUSER ACCESS POINTS: Accessible through the Apollo mobile app and website, ensuring multi-channel availability\n",
   "requestor": "ad_isi03@hotmail.com",
   "deploy_port": 8095,
   "api": {
@@ -106,8 +106,8 @@
       "context"
     ],
     "services": [],
-    "render_url": "https://mermaid.ink/img/pako:eNp1kl9PwjAUxb_KTZ80gpE_TzyYjAkTgbCMLZKID5UVaLK1S9cJhPDdvXebkUx9aXJOf-e2vbdnttGxYAO2TfRhs-fGwixYKwDHDR9u3tbM51YKZdfs_ba2O2S7iVRyI7n63vBe0XX8CXjcigM_oU_2InDRn_vL0IWF2exFbg232tTbdAq0248Yr4qUAkOkls54hOEl3wp7Aq_gJjZcJvlP6ZImrKzldcqLcZnm4OyqS1-DCJAMHA85XCEQ1kjxKUwDxD2S0yFyU6UPiYh3YgAv0vAWeNI-Fx8tWGRCORNow2w2b-SnQ1LoYx5XPCfPtMoFuDrNdP7rPKqAMlrR_ffcgq-N5QlEkwYYrSqueg72juRo5WNudMwwNIAyfwfBsRFFqoJD6hI95Rq4L4mwUyNdRKp3_gF1a6iH0H9NqNFejfYRDYXKtRnjN_sD7JcDjJ4mIf2iIpYWQpp1c4JEsBZLhUm5jNngzOxepPR_Y7HlRWLZ5fIFQn3UAA==",
-    "excerpt": "%% Forge Solution Architecture \u2014 MPSTC / MediAssist \u2014 Patient Symptom Triage Chatbot\n%% Derived from SOW + BRD + Backlog + Brief (chatbot)\n%% Domains: Claims\n%% Stories: S1, S3, S5\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Patient\"])\n  ACT1([\"Clinician\"])\n  GW[\"API Gateway\"]\n  ORC[\"MPSTC Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  SAFE[\"Safety Guardrails\"]\n  ORC --> SAFE\n  AG1[\"Claims Agent\"]\n  ORC --> AG1\n  RAG[\"RAG Retriever\"]\n  ORC --> RAG\n  KB[\"Knowledge: Jira, GitHub, OpenAI - LLM\"]\n  ORC --> KB\n  LLM[\"LLM Response Composer\"]\n  ORC --> LLM\n  UX[\"Chat Portal UI\"]\n  ORC --> UX\n  UX --> ACT0\n  EXP[\"Export: Chat + Rx\"]\n  ORC --> EXP\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"GitHub\"]\n  ORC -.-> EXT2\n  EXT3[\"OpenAI - LLM\"]\n  ORC -.-> EXT3\n  EXT4[\"TensorFlow\"]\n  ORC -.-> EXT4\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant Patient\n  participant Portal as \"Chat Portal\"\n  participant ORC as \"Orchestrator\"\n  participant SAFE as \"Guardrails\"\n  participant AG as \"Claims Agent\"\n  participant RAG as \"RAG Retriever\"\n  participant KB as \"Knowledge Base\"\n  participant LLM as \"LLM Composer\"\n  Patient->>Portal: General Care specialty agent + RAG citatio\u2026\n  Portal->>ORC: chat message + language\n  ORC->>SAFE: safety / escalation check\n  ORC->>AG: route by specialty/domain\n  AG->>RAG: retrieve context\n  RAG->>KB: query Jira, GitHub\n  KB-->>RAG: passages + citations\n  RAG-->>AG: grounded snippets\n  AG->>LLM: compose answer\n  LLM-->>Portal: answer + citations\n  Portal-"
+    "render_url": "https://mermaid.ink/img/pako:eNptkk9vgkAQxb_KZE9tqk3VG4cmSC21aiQIqUntYQuLbAKLWZaqMX73zgBtDfayyXvzezuzf04sKmLBLJZkxT5KuTYw9zcKwHaCh5v3DfO4kUKZDfu4be0B2U4mlYwkVz8F9w1d25uCy43Y8yP6ZC99B_2FtwocWOooFaXR3BS6LVMX6PcfMd5sUgsMkVrZzxMMr3gizBHciutYc5mVf1vXNGH1Xu6gHozLvAR72wx9CSJA0rdd5HAFXxgtxZfQHRBrJGdj5Gaq2Gci3goLXqXmPXAKlWSVUJHogSvNS_XZSc_GpObzBaZxxS7lrlClwGS-K8qrbsiQDNc0fcoNeIU2PINw2gHDdcM1h8GbIzlZe5ibHHYYsqDO34F_6ESRauCA7ogOcgnc10QwaJEhDfJ7yn_AYQuOELy-ghYa1W8SPk0D-hhVLA0E9HzdRyGC9VgudM5lzKwTM6nI6UvGIuFVZtj5_A1xlskZ",
+    "excerpt": "%% Forge Solution Architecture \u2014 MPSTC / MediAssist \u2014 Patient Symptom Triage Chatbot\n%% Derived from SOW + BRD + Backlog + Brief (chatbot)\n%% Domains: Claims\n%% Stories: S1, S3, S5\n\n%% C4 Context\nflowchart LR\n  ACT0([\"Patient\"])\n  ACT1([\"Clinician\"])\n  GW[\"API Gateway\"]\n  ORC[\"MPSTC Orchestrator\"]\n  ACT0 --> GW\n  GW --> ORC\n  SAFE[\"Safety Guardrails\"]\n  ORC --> SAFE\n  AG1[\"Claims Agent\"]\n  ORC --> AG1\n  RAG[\"RAG Retriever\"]\n  ORC --> RAG\n  KB[\"Knowledge: Jira, Confluence, GitHub\"]\n  ORC --> KB\n  LLM[\"LLM Response Composer\"]\n  ORC --> LLM\n  UX[\"Chat Portal UI\"]\n  ORC --> UX\n  UX --> ACT0\n  EXP[\"Export: Chat + Rx\"]\n  ORC --> EXP\n  EXT1[\"Jira\"]\n  ORC -.-> EXT1\n  EXT2[\"Confluence\"]\n  ORC -.-> EXT2\n  EXT3[\"GitHub\"]\n  ORC -.-> EXT3\n  AUDIT[\"Audit Trail\"]\n  ORC --> AUDIT\n\n%% Sequence\nsequenceDiagram\n  participant Patient\n  participant Portal as \"Chat Portal\"\n  participant ORC as \"Orchestrator\"\n  participant SAFE as \"Guardrails\"\n  participant AG as \"Claims Agent\"\n  participant RAG as \"RAG Retriever\"\n  participant KB as \"Knowledge Base\"\n  participant LLM as \"LLM Composer\"\n  Patient->>Portal: General Care specialty agent + RAG citatio\u2026\n  Portal->>ORC: chat message + language\n  ORC->>SAFE: safety / escalation check\n  ORC->>AG: route by specialty/domain\n  AG->>RAG: retrieve context\n  RAG->>KB: query Jira, Confluence\n  KB-->>RAG: passages + citations\n  RAG-->>AG: grounded snippets\n  AG->>LLM: compose answer\n  LLM-->>Portal: answer + citations\n  Portal-->>Patient: response\n\n%% ER\nerDiagram"
   },
   "modules": [
     "api",
@@ -124,17 +124,12 @@
       "description": ""
     },
     {
+      "name": "Dialogflow",
+      "dtype": "float",
+      "description": ""
+    },
+    {
       "name": "Node_js",
-      "dtype": "float",
-      "description": ""
-    },
-    {
-      "name": "TensorFlow",
-      "dtype": "float",
-      "description": ""
-    },
-    {
-      "name": "React",
       "dtype": "float",
       "description": ""
     },
@@ -142,20 +137,13 @@
       "name": "MongoDB",
       "dtype": "float",
       "description": ""
-    },
-    {
-      "name": "AWS_for_cloud_infrastructure",
-      "dtype": "float",
-      "description": ""
     }
   ],
   "sample_input": {
     "TOOLS_AND_TECH_STACKS_Python": 1.0,
+    "Dialogflow": 1.0,
     "Node_js": 1.0,
-    "TensorFlow": 1.0,
-    "React": 1.0,
-    "MongoDB": 1.0,
-    "AWS_for_cloud_infrastructure": 1.0
+    "MongoDB": 1.0
   },
   "output_fields": [],
   "rag_sources": [
@@ -202,8 +190,7 @@
   "escalation_phrases": [
     "emergency",
     "chest pain",
-    "suicid",
-    "fraud"
+    "suicid"
   ],
   "model": {
     "family": "sklearn",
@@ -211,11 +198,9 @@
     "dependent_variable": "Fraud_flag",
     "independent_variables": [
       "TOOLS_AND_TECH_STACKS_Python",
+      "Dialogflow",
       "Node_js",
-      "TensorFlow",
-      "React",
-      "MongoDB",
-      "AWS_for_cloud_infrastructure"
+      "MongoDB"
     ],
     "metric": "roc_auc",
     "metric_threshold": 0.75
