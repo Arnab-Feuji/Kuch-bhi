@@ -9,7 +9,7 @@ PROJECT_KEY = 'MPSTC'
 STORY_IDS = ['S1', 'S3', 'S5']
 AC_IDS = ['AC-1', 'AC-2', 'AC-3', 'AC-4']
 RULE_IDS = ['BR-1', 'BR-2', 'BR-3', 'BR-4']
-SAMPLE = {'TOOLS_AND_TECH_STACKS_Python': 1.0, 'FastAPI': 1.0, 'TensorFlow': 1.0, 'React': 1.0, 'PostgreSQL': 1.0}
+SAMPLE = {'TOOLS_AND_TECH_STACKS_Python': 1.0, 'Node_js': 1.0, 'TensorFlow': 1.0, 'React': 1.0, 'MongoDB': 1.0, 'AWS_for_cloud_infrastructure': 1.0}
 
 def test_health():
     r = client.get('/health')
